@@ -8,11 +8,10 @@ using System.Collections.Generic;
 
 namespace UserUITest.Pages
 {
-    public class UserPage
+    public class UserPage:BasePage
     {
 
-        protected readonly IWebDriver _driver;
-        private  readonly DataContext _context;
+       
 
         [FindsBy(How = How.ClassName, Using = "table")]
         private IWebElement _userTable;
@@ -30,16 +29,14 @@ namespace UserUITest.Pages
         [FindsBy(How = How.XPath, Using = "//td[@id='id_column' and contains(.,'182809')]")]
         private IWebElement _firstNameUserCell;
 
-        [FindsBy(How = How.Id, Using ="//td[@id='id_column'][contains(.,'182809')]/following-sibling::*[@id='action_column']//button")]
+        [FindsBy(How = How.XPath, Using ="//td[@id='id_column'][contains(.,'182809')]/following-sibling::*[@id='action_column']//button")]
         private IWebElement _buttonDetails;
 
   
 
-        public UserPage(IWebDriver driver, DataContext context)
+        public UserPage(IWebDriver driver, DataContext context):base(driver,context)
         {
-            _driver = driver;
-            _context = context;
-            PageFactory.InitElements(driver, this);
+            
         }
 
         public void LoadUserTable(){
@@ -51,7 +48,7 @@ namespace UserUITest.Pages
 
         public void SearchUser(string firstName, string secondName)
         {
-            //_firstNameInput.SendKeys(firstName);
+            _firstNameInput.SendKeys(firstName);
             _lastNameInput.SendKeys(secondName);    
             _searchButton.Click();
 

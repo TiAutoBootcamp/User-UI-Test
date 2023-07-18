@@ -22,13 +22,13 @@ namespace UserServiceAPI.Client
 
             HttpResponseMessage response = await _httpClient.SendAsync(httpRequestMessage);
 
-            var finalResponse = await response.ToCommonResponse<int>();
+           // var finalResponse = await response.ToCommonResponse<int>();
 
-         //  if (response.IsSuccessStatusCode)
-         //      TestDataStorage.Add(finalResponse.Body);
-         //      Console.WriteLine(finalResponse.Body);
-          
-            return finalResponse;
+            //  if (response.IsSuccessStatusCode)
+            //      TestDataStorage.Add(finalResponse.Body);
+            //      Console.WriteLine(finalResponse.Body);
+
+            return await response.ToCommonResponse<int>();
 
         }
 

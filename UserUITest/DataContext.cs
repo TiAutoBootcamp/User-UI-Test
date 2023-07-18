@@ -1,5 +1,8 @@
 ﻿
 
+using UserServiceAPI.Models.Requests;
+using UserServiceAPI.Models.Responses;
+
 namespace UserUITest
 {
     public  class DataContext
@@ -7,7 +10,9 @@ namespace UserUITest
      
         public int UserId;
         public int SecondUserId;
-
+        public RegisterUserRequest CreateUserRequest;
+        public CommonResponse<int> CreateUserStatusResponse;
+        
         public Guid UserIdTransaction;
 
     }

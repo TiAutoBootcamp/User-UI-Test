@@ -14,7 +14,12 @@ namespace UserUITest.StepDefinitions
         [ThreadStatic]
         private static UserPage _userPage;
 
+        [ThreadStatic]
+        private static CreateUserRequest _createUserRequest;
+
         private readonly DataContext _context;
+        //public CreateUserRequest _createUserRequest = new CreateUserRequest();
+
 
         public UserSteps(DataContext context)
         {
@@ -27,6 +32,7 @@ namespace UserUITest.StepDefinitions
             var chromeOptions = new ChromeOptions();
            // chromeOptions.AddArgument("headless");
 
+           _createUserRequest = new CreateUserRequest();
             _driver = new ChromeDriver(chromeOptions);
 
             _driver.Manage().Window.Maximize();
@@ -36,7 +42,9 @@ namespace UserUITest.StepDefinitions
             _driver.Navigate().GoToUrl("https://estore-uat.azurewebsites.net/users");
             
             _userPage = new UserPage(_driver, _context);
+            Thread.Sleep(20000);
             _userPage.LoadUserTable();
+           
 
             //_mainPage = new MainPage(_driver);
         }
@@ -62,6 +70,20 @@ namespace UserUITest.StepDefinitions
         {
             
         }
+
+        ///NEW methods 
+        [Given(@"a user created")]
+        public static async Task GivenAUserCreated()
+        {
+            _createUserRequest.CreateGUIDUser();
+        }
+
+        [When(@"I write a Guid name to first name field")]
+        public void WhenIWriteAGuidNameToFirstNameField()
+        {
+           // _userPage.SearchUser(_context.CreateUserRequest.FirstName, _context.CreateUserRequest.LastName);
+        }
+
 
 
         [AfterTestRun]
