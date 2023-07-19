@@ -41,36 +41,14 @@ namespace UserUITest.StepDefinitions
             _driver.Navigate().GoToUrl("https://estore-uat.azurewebsites.net/users");
             
             _userPage = new UserPage(_driver, _context);
-            Thread.Sleep(20000);
+            Thread.Sleep(15000);
             _userPage.LoadUserTable();
            
 
-            //_mainPage = new MainPage(_driver);
-        }
-
-       
-
-        [Given(@"the users page and opened")]
-        public void GivenTheUsersPageAndOpened()
-        {
-            //throw new PendingStepException();
-        }
-
-
-        [Given(@"the name I search a user '([^']*)' with last name '([^']*)'")]
-        public void GivenTheNameISearchAUserWithLastName(string firstName, string lastName)
-        {
-            _userPage.SearchUser(firstName, lastName);
-            _userPage.ClickDeatilsButton();
-        }
-
-        [When(@"I click to the details button")]
-        public void WhenIClickToTheDetailsButton()
-        {
             
         }
 
-        ///NEW methods 
+
         [Given(@"a user created")]
         public static async Task GivenAUserCreated()
         {
@@ -94,12 +72,20 @@ namespace UserUITest.StepDefinitions
         {
             _userPage.ClickDeatilsButton();
             _userPage.DetailsModalDisplayed();
+            _userPage.GetAllTheModalInformatio();
         }
 
-        [Then(@"the information on the modal match with the user")]
-        public void ThenTheInformationOnTheModalMatchWithTheUser()
+
+        [When(@"click on the primary close button")]
+        public void WhenClickOnThePrimaryCloseButton()
         {
-            throw new PendingStepException();
+            _userPage.ClickOnPrimaryCloseButton();
+        }
+
+        [When(@"click on the secondary close button")]
+        public void WhenClickOnTheSecondaryCloseButton()
+        {
+            _userPage.ClickOnSecondaryCloseButton();
         }
 
 
