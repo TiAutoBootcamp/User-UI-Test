@@ -12,7 +12,8 @@ namespace UserUITest.Pages
     {
 
         protected readonly IWebDriver _driver;
-        private readonly DataContext _context;
+        protected readonly DataContext _context;
+
         public BasePage(IWebDriver driver, DataContext context)
         {
             _driver = driver;

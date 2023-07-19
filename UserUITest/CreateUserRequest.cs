@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UserServiceAPI.Client;
+using UserServiceAPI.Models.Requests;
 using UserServiceAPI.Utils;
 
 namespace UserUITest
@@ -12,15 +13,19 @@ namespace UserUITest
     {
         private readonly UserServiceClient _registerUser = new UserServiceClient();
         private readonly UserGenerator _userGenerator = new UserGenerator();
-        private readonly DataContext _context = new DataContext();
+        private readonly DataContext _context;
+
+
+       public  CreateUserRequest(DataContext  context) {
+            _context = context;
+        }
         public async Task CreateGUIDUser()
         {
+           _context.CreateUserRequest = _userGenerator.GenerateCreateUserRequest();
+           _context.CreateUserStatusResponse = await _registerUser.CreateUser(_context.CreateUserRequest);
 
-            _context.CreateUserRequest = _userGenerator.GenerateCreateUserRequest();
-            _context.CreateUserStatusResponse = await _registerUser.CreateUser(_context.CreateUserRequest);
-
-            
         }
-       
+
+
     }
 }

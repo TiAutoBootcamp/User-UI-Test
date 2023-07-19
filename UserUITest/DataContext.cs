@@ -12,7 +12,7 @@ namespace UserUITest
         public int SecondUserId;
         public RegisterUserRequest CreateUserRequest;
         public CommonResponse<int> CreateUserStatusResponse;
-        
+        public bool ModalDisplayed;
         public Guid UserIdTransaction;
 
     }

@@ -13,10 +13,9 @@ namespace UserUITest.StepDefinitions
         private static IWebDriver _driver;
         [ThreadStatic]
         private static UserPage _userPage;
-
         [ThreadStatic]
         private static CreateUserRequest _createUserRequest;
-
+      
         private readonly DataContext _context;
         //public CreateUserRequest _createUserRequest = new CreateUserRequest();
 
@@ -32,7 +31,7 @@ namespace UserUITest.StepDefinitions
             var chromeOptions = new ChromeOptions();
            // chromeOptions.AddArgument("headless");
 
-           _createUserRequest = new CreateUserRequest();
+           _createUserRequest = new CreateUserRequest( _context);
             _driver = new ChromeDriver(chromeOptions);
 
             _driver.Manage().Window.Maximize();
@@ -75,13 +74,32 @@ namespace UserUITest.StepDefinitions
         [Given(@"a user created")]
         public static async Task GivenAUserCreated()
         {
-            _createUserRequest.CreateGUIDUser();
+           await _createUserRequest.CreateGUIDUser();
         }
 
         [When(@"I write a Guid name to first name field")]
         public void WhenIWriteAGuidNameToFirstNameField()
         {
-           // _userPage.SearchUser(_context.CreateUserRequest.FirstName, _context.CreateUserRequest.LastName);
+            _userPage.SearchUser(_context.CreateUserRequest.FirstName, _context.CreateUserRequest.LastName);
+        }
+
+        [When(@"click on the search button")]
+        public void WhenClickOnTheSearchButton()
+        {
+            _userPage.ClickSearchButton(); ;
+        }
+
+        [When(@"click on the details button")]
+        public void WhenClickOnTheDetailsButton()
+        {
+            _userPage.ClickDeatilsButton();
+            _userPage.DetailsModalDisplayed();
+        }
+
+        [Then(@"the information on the modal match with the user")]
+        public void ThenTheInformationOnTheModalMatchWithTheUser()
+        {
+            throw new PendingStepException();
         }
 
 
