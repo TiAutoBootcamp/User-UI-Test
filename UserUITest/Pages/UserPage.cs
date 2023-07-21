@@ -1,12 +1,10 @@
 ﻿using FluentAssertions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Interactions.Internal;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
-using System;
-using System.Collections.Generic;
-using static TechTalk.SpecFlow.Configuration.AppConfig.GeneratorConfigElement;
-
+using System.Text.RegularExpressions;
 
 namespace UserUITest.Pages
 {
@@ -33,6 +31,9 @@ namespace UserUITest.Pages
         [FindsBy(How = How.ClassName, Using = "blazored-modal")]
         private IWebElement _detailsModal;
 
+        [FindsBy(How = How.ClassName, Using = "bm-title")]
+        private IWebElement _idField;
+
         [FindsBy(How = How.XPath, Using = "//span[contains(text(), 'First name:')]/following-sibling::*")]
         private IWebElement _firstNameField;
 
@@ -50,16 +51,18 @@ namespace UserUITest.Pages
 
         [FindsBy(How = How.ClassName, Using = "btn-secondary")]
         private IWebElement _secondaryCloseButton;
+
+
+
+
         public UserPage(IWebDriver driver, DataContext context) : base(driver, context)
         {
-
         }
 
         public void LoadUserTable() {
 
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
             wait.Until((_) => _userTable.Displayed);
-
         }
 
         public void SearchUser(string firstName, string secondName)
@@ -82,17 +85,21 @@ namespace UserUITest.Pages
             actions.MoveToElement(_detailsModal);
             actions.Perform();
             _context.ModalDisplayed = _detailsModal.Displayed;
-            //return _context.ModalDisplayed;
         }
 
+        public int GetId() { 
+            var tittle = _idField.Text;
+            Match match = Regex.Match(tittle, @"\d+");
+            return Int32.Parse(match.Value);
+        }
         public string GetFirtsName()
         {
-            return _firstNameField.Text;
+            return _firstNameField.Text ?? string.Empty;
         }
 
         public string GetLastName()
         {
-            return _lastNameField.Text;
+            return _lastNameField.Text ?? string.Empty;
         }
 
         public bool GetStatusUser()
@@ -103,15 +110,16 @@ namespace UserUITest.Pages
 
         public string GetBirthDate()
         {
-            return _birthDateField.Text;
+           string _birthDate = _birthDateField.Text ?? string.Empty;
+            return _birthDate;
         }
-        public void GetAllTheModalInformatio() {
-           // _context.UserModalInformation.BirthDate = GetBirthDate();
-            _context.BirthDayUser = GetBirthDate();
-          // _context.UserModalInformation.FirstName = GetFirtsName();
-          // _context.UserModalInformation.LastName = GetLastName();
-          // _context.UserModalInformation.Status = GetStatusUser();
-            
+        public void  GetAllTheModalInformatio() {  
+           _context.IdModal = GetId();
+           _context.FirstNameModal = GetFirtsName();
+           _context.LastNameModal = GetLastName();
+           _context.StatusModal = GetStatusUser();
+           _context.BirthDateModal = GetBirthDate();
+
         }
 
         public void ClickOnPrimaryCloseButton() {
@@ -121,7 +129,37 @@ namespace UserUITest.Pages
         public void ClickOnSecondaryCloseButton()
         {
             _secondaryCloseButton.Click();
-            _context.ModalDisplayed = _detailsModal.Enabled;
+        }
+
+        public void PressEscKey() {
+            Actions actions = new Actions(_driver);
+            actions.SendKeys(Keys.Escape);
+            actions.Perform();
+        }
+
+        public void ClickOnSpecificPosition()
+        {
+            Actions actions = new Actions(_driver);
+            actions.MoveByOffset(10, 10);
+            actions.Click();
+            actions.Perform();
+        }
+
+        public void CheckModalIsDisplayed()
+        {
+            try
+            {
+                Actions actions = new Actions(_driver);
+                actions.MoveToElement(_detailsModal);
+                actions.Perform();
+                _context.ModalDisplayed = _detailsModal.Displayed;
+      
+            }
+            catch (Exception e)
+            {
+                _context.ModalDisplayed = false;
+            }
+
         }
     }
 

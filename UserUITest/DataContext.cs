@@ -2,7 +2,7 @@
 
 using UserServiceAPI.Models.Requests;
 using UserServiceAPI.Models.Responses;
-using UserUITest.Support;
+
 
 namespace UserUITest
 {
@@ -11,13 +11,19 @@ namespace UserUITest
      
         public int UserId;
         public int SecondUserId;
+
         public RegisterUserRequest CreateUserRequest;
-        public CommonResponse<int> CreateUserStatusResponse;
+        public CommonResponse<int> CreateUserResponse;
+        public CommonResponse<object> SetUserStatusResponse;
         public bool ModalDisplayed;
         public bool UserStatus;
-        public string BirthDayUser;
         public Guid UserIdTransaction;
-        public UserModalInformation UserModalInformation;
+        public int IdModal;
+        public string FirstNameModal;
+        public string LastNameModal;
+        public bool StatusModal;
+        public string BirthDateModal;
+
 
     }
 }

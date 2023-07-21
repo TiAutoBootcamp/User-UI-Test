@@ -14,5 +14,8 @@ namespace UserServiceAPI.Models.Requests
 
         [JsonProperty("lastName")]
         public string LastName;
+
+        [JsonProperty("birthDate")]
+        public string BirthDate;
     }
 }
