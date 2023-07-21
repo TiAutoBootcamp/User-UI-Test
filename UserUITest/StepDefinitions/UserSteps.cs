@@ -1,8 +1,5 @@
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using UserServiceAPI.Client;
 using UserServiceAPI.Utils;
-using UserUITest.Pages;
 
 namespace UserUITest.StepDefinitions
 {
@@ -23,7 +20,7 @@ namespace UserUITest.StepDefinitions
         {
             _context.CreateUserRequest = _createUser.GenerateUserRequest();
             _context.CreateUserResponse = await _userServiceClient.CreateUser(_context.CreateUserRequest);
-            _context.UserId = _context.CreateUserResponse.Body;
+            _context.InitialUserId = _context.CreateUserResponse.Body;
         }
 
         [Given(@"a user created wih birth date ([^']*)")]
@@ -31,7 +28,7 @@ namespace UserUITest.StepDefinitions
         {
             _context.CreateUserRequest = _createUser.GenerateCreateUserRequestWithBirthDate(birthDate);
             _context.CreateUserResponse = await _userServiceClient.CreateUser(_context.CreateUserRequest);
-            _context.UserId = _context.CreateUserResponse.Body;
+            _context.InitialUserId = _context.CreateUserResponse.Body;
         }
 
         [Given(@"a user first name created with (.*) characters and GUID last name with birth date ([^']*)")]
@@ -39,7 +36,7 @@ namespace UserUITest.StepDefinitions
         {
             _context.CreateUserRequest = _createUser.GenerateRandomFirstNameWithGuidLastNameRequest(length,birthDate);
             _context.CreateUserResponse = await _userServiceClient.CreateUser(_context.CreateUserRequest);
-            _context.UserId = _context.CreateUserResponse.Body;
+            _context.InitialUserId = _context.CreateUserResponse.Body;
         }
 
         [Given(@"a user with GUID first name and last name (.*) characters and birth date ([^']*)")]
@@ -47,7 +44,7 @@ namespace UserUITest.StepDefinitions
         {
             _context.CreateUserRequest = _createUser.GenerateRandomLastNameWithGuidLastNameRequest(length, birthDate);
             _context.CreateUserResponse = await _userServiceClient.CreateUser(_context.CreateUserRequest);
-            _context.UserId = _context.CreateUserResponse.Body;
+            _context.InitialUserId = _context.CreateUserResponse.Body;
         }
 
         [Given(@"a user first name and last name created with (.*) characters with birth date ([^']*)")]
@@ -55,7 +52,7 @@ namespace UserUITest.StepDefinitions
         {
             _context.CreateUserRequest = _createUser.GenerateRandomUserRequest(length, birthDate);
             _context.CreateUserResponse = await _userServiceClient.CreateUser(_context.CreateUserRequest);
-            _context.UserId = _context.CreateUserResponse.Body;
+            _context.InitialUserId = _context.CreateUserResponse.Body;
         }
 
         [When(@"I write a name on the filter")]
@@ -74,17 +71,15 @@ namespace UserUITest.StepDefinitions
         public void WhenClickOnTheDetailsButton()
         {
             Thread.Sleep(500);
-            _context.UserPage.ClickDeatilsButton();
+            _context.UserPage.ClickDetailsButton();
             
         }
-
 
         [When(@"get all the information from the modal")]
         public void WhenGetAllTheInformationFromTheModal()
         {
-            _context.UserPage.GetAllTheModalInformatio();
+            _context.UserInfo = _context.UserPage.GetAllTheModalInformatio();
         }
-
 
         [When(@"click on the primary close button")]
         public void WhenClickOnThePrimaryCloseButton()
@@ -98,31 +93,25 @@ namespace UserUITest.StepDefinitions
             _context.UserPage.ClickOnSecondaryCloseButton();
         }
 
-        [When(@"check the state of the modal")]
-        public void WhenCheckTheStateOfTheModal()
-        {
-            Thread.Sleep(500);
-            _context.UserPage.CheckModalIsDisplayed();
-        }
-
         [Given(@"change the user status to ([^']*)")]
         [Given(@"change second time the user status to ([^']*)")]
         [Given(@"change third time the user status to ([^']*)")]
         public async Task  GivenChangeTheUserStatusToActive(bool status)
         {
-            await _userServiceClient.SetUserStatus(_context.UserId, status);
-        }
-
-        [When(@"press the Esc key")]
-        public void WhenPressTheEscKey()
-        {
-            _context.UserPage.PressEscKey();
+            await _userServiceClient.SetUserStatus(_context.InitialUserId, status);
         }
 
         [When(@"click out side the modal")]
         public void WhenClickOutSideTheModal()
         {
             _context.UserPage.ClickOnSpecificPosition();
+        }
+
+        [Then(@"the modal is closed")]
+        [When(@"wait for user details modal closed")]
+        public void WhenUserDetailsIsClosed()
+        {
+            _context.UserPage.WaitForUserDetailsModalClosed();
         }
     }
 }

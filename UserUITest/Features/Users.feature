@@ -13,7 +13,6 @@ Scenario: UMS08_DetailsModal_CreateAUserAndOpenTheDetails_AModalIsOpened
 	When I write a name on the filter
 	And click on the search button
 	And click on the details button
-	And  check the state of the modal
 	Then a modal with details is opened
 	
 Scenario: UMS09_DetailsModal_CreateAUserOpenTheDetailsModal_TheFieldAreCorrectAndInOrder
@@ -91,7 +90,6 @@ Scenario: UMS14_DetailsModal_CreateAUserAndOpenTheDetailsAndCloseWithX_TheModalC
 	And click on the search button
 	And click on the details button
 	And click on the primary close button
-	And  check the state of the modal
 	Then the modal is closed
 
 Scenario:UMS15_DetailsModal_CreateAUserAndOpenTheDetailsAndClickTheCloseButton_TheModalClose
@@ -100,7 +98,6 @@ Scenario:UMS15_DetailsModal_CreateAUserAndOpenTheDetailsAndClickTheCloseButton_T
 	And click on the search button
 	And click on the details button
 	And click on the secondary close button
-	And  check the state of the modal
 	Then the modal is closed
 	#28-23
 Scenario Outline:UMS23_DetailsModal_CreateAFirstNameAndLastNameWithSpecificCharactersAndOpenTheDetailModal_TheInformationMatchWithTheUser
@@ -146,7 +143,6 @@ Scenario:UMS29_DetailsModal_CreateAUserAndOpenTheDetailsAndPressEscKey_TheModalC
 	And click on the search button
 	And click on the details button
 	And press the Esc key
-	And  check the state of the modal
 	Then the modal is closed
 
 Scenario:UMS30_DetailsModal_CreateAUserAndOpenClickOutsideTheModal_TheModalClose
@@ -155,5 +151,4 @@ Scenario:UMS30_DetailsModal_CreateAUserAndOpenClickOutsideTheModal_TheModalClose
 	And click on the search button
 	And click on the details button
 	And click out side the modal
-	And  check the state of the modal
 	Then the modal is closed

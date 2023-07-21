@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Core;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
@@ -47,11 +48,11 @@ namespace UserUITest.Pages
         [FindsBy(How = How.ClassName, Using = "btn-secondary")]
         private IWebElement _secondaryCloseButton;
 
-        public UserPage(IWebDriver driver, DataContext context) : base(driver, context)
+        public UserPage(IWebDriver driver) : base(driver)
         {
         }
 
-        public void LoadUserTable() 
+        public void LoadUserTable()
         {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
             wait.Until((_) => _userTable.Displayed);
@@ -64,22 +65,21 @@ namespace UserUITest.Pages
 
         }
 
-        public void ClickSearchButton() {
+        public void ClickSearchButton()
+        {
             _searchButton.Click();
         }
 
-        public void ClickDeatilsButton() {
+        public void ClickDetailsButton()
+        {
             _buttonDetails.Click();
+
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
+            wait.Until((_) => _detailsModal.Displayed);
         }
 
-        public void DetailsModalDisplayed() {
-            Actions actions = new Actions(_driver);
-            actions.MoveToElement(_detailsModal);
-            actions.Perform();
-            _context.ModalDisplayed = _detailsModal.Displayed;
-        }
-
-        public int GetId() { 
+        public int GetId()
+        {
             var tittle = _idField.Text;
             Match match = Regex.Match(tittle, @"\d+");
             return Int32.Parse(match.Value);
@@ -102,19 +102,26 @@ namespace UserUITest.Pages
 
         public string GetBirthDate()
         {
-           string _birthDate = _birthDateField.Text ?? string.Empty;
+            string _birthDate = _birthDateField.Text ?? string.Empty;
             return _birthDate;
         }
-        public void  GetAllTheModalInformatio() {  
-           _context.IdModal = GetId();
-           _context.FirstNameModal = GetFirtsName();
-           _context.LastNameModal = GetLastName();
-           _context.StatusModal = GetStatusUser();
-           _context.BirthDateModal = GetBirthDate();
 
+        public UserInfo GetAllTheModalInformatio()
+        {
+            var birthDate = GetBirthDate();
+
+            return new UserInfo
+            {
+                Id = GetId(),
+                FirstName = GetFirtsName(),
+                LastName = GetLastName(),
+                IsActive = GetStatusUser(),
+                BirthDate = birthDate == "empty" ? null : DateTime.ParseExact(GetBirthDate(), "dd.MM.yyyy", null)
+            };
         }
 
-        public void ClickOnPrimaryCloseButton() {
+        public void ClickOnPrimaryCloseButton()
+        {
             _primaryCloseButton.Click();
         }
 
@@ -123,35 +130,32 @@ namespace UserUITest.Pages
             _secondaryCloseButton.Click();
         }
 
-        public void PressEscKey() {
-            Actions actions = new Actions(_driver);
-            actions.SendKeys(Keys.Escape);
-            actions.Perform();
-        }
-
         public void ClickOnSpecificPosition()
         {
             Actions actions = new Actions(_driver);
             actions.MoveByOffset(10, 10);
             actions.Click();
             actions.Perform();
+
+            WaitForUserDetailsModalClosed();
         }
 
-        public void CheckModalIsDisplayed()
+        public void WaitForUserDetailsModalClosed()
+        {
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            wait.Until((_) => !IsModalDisplayed());
+        }
+
+        public bool IsModalDisplayed()
         {
             try
             {
-                Actions actions = new Actions(_driver);
-                actions.MoveToElement(_detailsModal);
-                actions.Perform();
-                _context.ModalDisplayed = _detailsModal.Displayed;
-      
+                return _detailsModal.Displayed;
             }
-            catch (Exception e)
+            catch(NoSuchElementException)
             {
-                _context.ModalDisplayed = false;
+                return false;
             }
-
         }
     }
 

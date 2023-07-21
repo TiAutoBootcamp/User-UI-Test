@@ -17,7 +17,7 @@ namespace UserUITest.StepDefinitions
         {
             _context.Driver.Navigate().GoToUrl("https://estore-uat.azurewebsites.net/users");
 
-            _context.UserPage = new UserPage(_context.Driver, _context);
+            _context.UserPage = new UserPage(_context.Driver);
             _context.CurrentPage = _context.UserPage;
 
             _context.UserPage.LoadUserTable();
