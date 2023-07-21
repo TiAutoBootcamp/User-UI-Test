@@ -1,8 +1,10 @@
 ﻿
 
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using UserServiceAPI.Models.Requests;
 using UserServiceAPI.Models.Responses;
-
+using UserUITest.Pages;
 
 namespace UserUITest
 {
@@ -24,6 +26,9 @@ namespace UserUITest
         public bool StatusModal;
         public string BirthDateModal;
 
+        public IWebDriver Driver { get; set; }
+        public UserPage UserPage { get; set; }
 
+        public BasePage CurrentPage { get; set; }
     }
 }

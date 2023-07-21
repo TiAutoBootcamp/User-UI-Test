@@ -1,16 +1,10 @@
 ﻿using NUnit.Framework;
-using OpenQA.Selenium;
-using TechTalk.SpecFlow;
-using UserUITest.Pages;
 
 namespace UserUITest.StepDefinitions
 {
     [Binding]
     public sealed class UserStepsAssertions
     {
-
-     
-
         private readonly DataContext _context;
     
         public UserStepsAssertions(DataContext context)
@@ -44,6 +38,5 @@ namespace UserUITest.StepDefinitions
         {
             Assert.IsFalse(_context.ModalDisplayed);
         }
-
     }
 }

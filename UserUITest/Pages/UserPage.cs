@@ -1,7 +1,5 @@
-﻿using FluentAssertions;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Interactions.Internal;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
 using System.Text.RegularExpressions;
@@ -10,9 +8,6 @@ namespace UserUITest.Pages
 {
     public class UserPage : BasePage
     {
-
-
-
         [FindsBy(How = How.ClassName, Using = "table")]
         private IWebElement _userTable;
 
@@ -52,15 +47,12 @@ namespace UserUITest.Pages
         [FindsBy(How = How.ClassName, Using = "btn-secondary")]
         private IWebElement _secondaryCloseButton;
 
-
-
-
         public UserPage(IWebDriver driver, DataContext context) : base(driver, context)
         {
         }
 
-        public void LoadUserTable() {
-
+        public void LoadUserTable() 
+        {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
             wait.Until((_) => _userTable.Displayed);
         }
