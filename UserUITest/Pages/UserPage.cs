@@ -48,6 +48,12 @@ namespace UserUITest.Pages
         [FindsBy(How = How.ClassName, Using = "btn-secondary")]
         private IWebElement _secondaryCloseButton;
 
+        public void WaitForTableToLoad()
+        {
+            // TODO:
+            Thread.Sleep(1000);
+        }
+
         public UserPage(IWebDriver driver) : base(driver)
         {
         }
@@ -68,6 +74,8 @@ namespace UserUITest.Pages
         public void ClickSearchButton()
         {
             _searchButton.Click();
+
+            WaitForTableToLoad();
         }
 
         public void ClickDetailsButton()

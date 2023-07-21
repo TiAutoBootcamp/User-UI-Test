@@ -1,3 +1,4 @@
+using System.Net;
 using UserServiceAPI.Client;
 using UserServiceAPI.Utils;
 
@@ -98,7 +99,9 @@ namespace UserUITest.StepDefinitions
         [Given(@"change third time the user status to ([^']*)")]
         public async Task  GivenChangeTheUserStatusToActive(bool status)
         {
-            await _userServiceClient.SetUserStatus(_context.InitialUserId, status);
+            var response = await _userServiceClient.SetUserStatus(_context.InitialUserId, status);
+            if (response.StatusCode == HttpStatusCode.OK)
+                _context.UserStatus = status;
         }
 
         [When(@"click out side the modal")]
