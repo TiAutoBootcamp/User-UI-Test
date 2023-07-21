@@ -11,19 +11,15 @@ namespace UserUITest
 {
     public  class DataContext
     {
+        private const bool DEFAULT_USER_STATUS = false;
         public int InitialUserId;
         public int SecondUserId;
 
         public RegisterUserRequest CreateUserRequest;
         public CommonResponse<int> CreateUserResponse;
         public CommonResponse<object> SetUserStatusResponse;
-        public bool UserStatus;
+        public bool UserStatus = DEFAULT_USER_STATUS;
         public Guid UserIdTransaction;
-        //public int IdModal;
-        //public string FirstNameModal;
-        //public string LastNameModal;
-        //public bool StatusModal;
-        //public string BirthDateModal;
 
         public IWebDriver Driver { get; set; }
         public UserPage UserPage { get; set; }

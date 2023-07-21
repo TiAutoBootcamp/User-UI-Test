@@ -12,11 +12,9 @@ namespace UserUITest.StepDefinitions
             _context = context;
         }
 
-        [Then(@"the information on the modal match with the complete user name, ([^']*) and ([^']*)")]
-        public void ThenTheInformationOnTheModalMatchWithTheUser(bool expectedStatus , string expectedBirthDate)
-        {
-            _context.UserStatus = expectedStatus;
-          
+        [Then(@"the information on the modal match with the set data")]
+        public void ThenTheInformationOnTheModalMatchWithTheUser()
+        {      
             Assert.Multiple(()=>{
                 Assert.That(_context.UserInfo.Id, Is.EqualTo(_context.InitialUserId));
                 Assert.That(_context.UserInfo.FirstName, Is.EqualTo(_context.CreateUserRequest.FirstName));
