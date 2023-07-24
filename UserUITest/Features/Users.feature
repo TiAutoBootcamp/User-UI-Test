@@ -21,17 +21,7 @@ Scenario: UMS09_DetailsModal_CreateAUserOpenTheDetailsModal_TheFieldAreCorrectAn
 	And click on the search button
 	And click on the details button
 	Then the fields are correct and ordered 
-# Add to the testing
-Scenario: UMS31_DetailsModal_CreateAUserOpenTheDetailsModal_TheInformationMatchWithTheUser
-	Given a user created
-	When I write a name on the filter
-	And click on the search button
-	And click on the details button
-	And get all the information from the modal
-	Then the information on the modal match with the set data
-	Examples: 
-		| expectedStatus | expectedBirthDate |
-		| false          | empty             |
+
 
 Scenario: UMS10_DetailsModal_CreateAUserOpenTheDetailsModal_TheInformationMatchWithTheUser
 	Given a user created wih birth date <expectedBirthDate>
@@ -100,7 +90,7 @@ Scenario:UMS15_DetailsModal_CreateAUserAndOpenTheDetailsAndClickTheCloseButton_T
 	And click on the secondary close button
 	Then the modal is closed
 	#28-23
-Scenario Outline:UMS23_DetailsModal_CreateAFirstNameAndLastNameWithSpecificCharactersAndOpenTheDetailModal_TheInformationMatchWithTheUser
+Scenario Outline:UMS28-23_DetailsModal_CreateAFirstNameWithSpecificCharactersAndGUIDLastNameAndOpenTheDetailModal_TheInformationMatchWithTheUser
 	Given a user first name created with <length> characters and GUID last name with birth date <expectedBirthDate>
 	When I write a name on the filter
 	And click on the search button
@@ -113,7 +103,7 @@ Scenario Outline:UMS23_DetailsModal_CreateAFirstNameAndLastNameWithSpecificChara
 		 | 1      | false          | 12.07.2023        |
 
 	#24-27
-Scenario Outline:UMS23_DetailsModal_CreateAFirstNameWithSpecificCharactersAndOpenTheDetailModal_TheInformationMatchWithTheUser
+Scenario Outline:UMS24-27_DetailsModal_CreateAFirstNameAndLastNameWithSpecificCharactersAndOpenTheDetailModal_TheInformationMatchWithTheUser
 	Given a user first name and last name created with <length> characters with birth date <expectedBirthDate>
 	When I write a name on the filter
 	And click on the search button
@@ -125,7 +115,7 @@ Scenario Outline:UMS23_DetailsModal_CreateAFirstNameWithSpecificCharactersAndOpe
 		 | 200    | false          | 12.07.2023        |
 		 | 1      | false          | 12.07.2023        |
 		 #25-26
-Scenario Outline:UMS25-26_DetailsModal_CreateALastNameWithSpecificCharactersAndOpenTheDetailModal_TheInformationMatchWithTheUser
+Scenario Outline:UMS25-26_DetailsModal_CreateGUIDFirstNameAndLastNameWithSpecificCharactersAndOpenTheDetailModal_TheInformationMatchWithTheUser
 	Given a user with GUID first name and last name <length> characters and birth date <expectedBirthDate>
 	When I write a name on the filter
 	And click on the search button
@@ -152,3 +142,14 @@ Scenario:UMS30_DetailsModal_CreateAUserAndOpenClickOutsideTheModal_TheModalClose
 	And click on the details button
 	And click out side the modal
 	Then the modal is closed
+
+Scenario: UMS31_DetailsModal_CreateAUserOpenTheDetailsModal_TheInformationMatchWithTheUser
+	Given a user created
+	When I write a name on the filter
+	And click on the search button
+	And click on the details button
+	And get all the information from the modal
+	Then the information on the modal match with the set data
+	Examples: 
+		| expectedStatus | expectedBirthDate |
+		| false          | empty             |
