@@ -34,7 +34,7 @@ namespace UserServiceAPI.Utils
             {
                 FirstName = firstName ?? "",
                 LastName = lastName ?? "",
-                BirthDate = birthDate ?? "",
+                //BirthDate = birthDate ?? "",
             };
         }
 
@@ -44,7 +44,7 @@ namespace UserServiceAPI.Utils
             {
                 FirstName = firstName ?? "",
                 LastName = lastName ?? "",
-                BirthDate = birthDate ?? "",
+                //BirthDate = birthDate ?? "",
             };
         }
 

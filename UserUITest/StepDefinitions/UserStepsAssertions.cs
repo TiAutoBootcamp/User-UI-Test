@@ -1,16 +1,10 @@
 ﻿using NUnit.Framework;
-using OpenQA.Selenium;
-using TechTalk.SpecFlow;
-using UserUITest.Pages;
 
 namespace UserUITest.StepDefinitions
 {
     [Binding]
     public sealed class UserStepsAssertions
     {
-
-     
-
         private readonly DataContext _context;
     
         public UserStepsAssertions(DataContext context)
@@ -18,32 +12,22 @@ namespace UserUITest.StepDefinitions
             _context = context;
         }
 
-        [Then(@"a modal with details is opened")]
-        public void ThenAModalWithDetailsIsOpened()
-        {
-            Assert.IsTrue(_context.ModalDisplayed);
-        }
-
-        [Then(@"the information on the modal match with the complete user name, ([^']*) and ([^']*)")]
-        public void ThenTheInformationOnTheModalMatchWithTheUser(bool expectedStatus , string expectedBirthDate)
-        {
-            if (expectedBirthDate == "empty") { _context.CreateUserRequest.BirthDate = string.Empty; }
-            _context.UserStatus = expectedStatus;
-          
+        [Then(@"the information on the modal match with the set data")]
+        public void ThenTheInformationOnTheModalMatchWithTheUser()
+        {      
             Assert.Multiple(()=>{
-                Assert.That(_context.IdModal, Is.EqualTo(_context.UserId));
-                Assert.That(_context.FirstNameModal, Is.EqualTo(_context.CreateUserRequest.FirstName));
-                Assert.That(_context.LastNameModal, Is.EqualTo(_context.CreateUserRequest.LastName));
-                Assert.That(_context.StatusModal, Is.EqualTo(_context.UserStatus));
-                Assert.That(_context.BirthDateModal, Is.EqualTo(_context.CreateUserRequest.BirthDate));
+                Assert.That(_context.UserInfo.Id, Is.EqualTo(_context.InitialUserId));
+                Assert.That(_context.UserInfo.FirstName, Is.EqualTo(_context.CreateUserRequest.FirstName));
+                Assert.That(_context.UserInfo.LastName, Is.EqualTo(_context.CreateUserRequest.LastName));
+                Assert.That(_context.UserInfo.IsActive, Is.EqualTo(_context.UserStatus));
+                Assert.That(_context.UserInfo.BirthDate, Is.EqualTo(_context.CreateUserRequest.BirthDate));
             });
         }
 
-        [Then(@"the modal is closed")]
-        public void ThenTheModalIsClosed()
+        [Then(@"a modal with details is opened")]
+        public void ThenAModalWithDetailsIsOpened()
         {
-            Assert.IsFalse(_context.ModalDisplayed);
+            Assert.IsTrue(_context.UserPage.IsModalDisplayed());
         }
-
     }
 }

@@ -1,18 +1,18 @@
 ﻿Feature: Users
 
+Background: 
+	Given open users page
 
 #Scenario: Open page
 #	Given the users page and opened
 #	And the name I search a user 'Jhon' with last name 'Smith'
 #	#When I click to the details button
 
-
 Scenario: UMS08_DetailsModal_CreateAUserAndOpenTheDetails_AModalIsOpened
 	Given a user created
 	When I write a name on the filter
 	And click on the search button
 	And click on the details button
-	And  check the state of the modal
 	Then a modal with details is opened
 	
 Scenario: UMS09_DetailsModal_CreateAUserOpenTheDetailsModal_TheFieldAreCorrectAndInOrder
@@ -28,7 +28,7 @@ Scenario: UMS31_DetailsModal_CreateAUserOpenTheDetailsModal_TheInformationMatchW
 	And click on the search button
 	And click on the details button
 	And get all the information from the modal
-	Then the information on the modal match with the complete user name, <expectedStatus> and <expectedBirthDate>
+	Then the information on the modal match with the set data
 	Examples: 
 		| expectedStatus | expectedBirthDate |
 		| false          | empty             |
@@ -39,7 +39,7 @@ Scenario: UMS10_DetailsModal_CreateAUserOpenTheDetailsModal_TheInformationMatchW
 	And click on the search button
 	And click on the details button
 	And get all the information from the modal
-	Then the information on the modal match with the complete user name, <expectedStatus> and <expectedBirthDate>
+	Then the information on the modal match with the set data
 	Examples: 
 		| expectedStatus | expectedBirthDate |
 		| false          | 12.07.2023        |
@@ -52,7 +52,7 @@ Scenario Outline: UMS11_DetailsModal_CreateUserAndChangeStatusToActiveOpenTheDet
 	And click on the search button
 	And click on the details button
 	And get all the information from the modal
-	Then the information on the modal match with the complete user name, <expectedStatus> and <expectedBirthDate>
+	Then the information on the modal match with the set data
 	Examples: 
 		| status | expectedStatus | expectedBirthDate |
 		| true   | true           | 12.07.2023        |
@@ -65,7 +65,7 @@ Scenario Outline: UMS12_DetailsModal_CreateUserAndChangeStatusTwiceToActiveOpenT
 	And click on the search button
 	And click on the details button
 	And get all the information from the modal
-	Then the information on the modal match with the complete user name, <expectedStatus> and <expectedBirthDate>
+	Then the information on the modal match with the set data
 	Examples: 
 		| FirstStatus | SecondStatus | expectedStatus | expectedBirthDate |
 		| true        | false        | false          | 12.07.2023        |
@@ -79,7 +79,7 @@ Scenario Outline: UMS13_DetailsModal_CreateUserAndChangeStatusThriceToActiveOpen
 	And click on the search button
 	And click on the details button
 	And get all the information from the modal
-	Then the information on the modal match with the complete user name, <expectedStatus> and <expectedBirthDate>
+	Then the information on the modal match with the set data
 	Examples: 
 		| FirstStatus | SecondStatus | ThirdStatus | expectedStatus | expectedBirthDate |
 		| true        | false        | true        | true           | 12.07.2023        |
@@ -90,7 +90,6 @@ Scenario: UMS14_DetailsModal_CreateAUserAndOpenTheDetailsAndCloseWithX_TheModalC
 	And click on the search button
 	And click on the details button
 	And click on the primary close button
-	And  check the state of the modal
 	Then the modal is closed
 
 Scenario:UMS15_DetailsModal_CreateAUserAndOpenTheDetailsAndClickTheCloseButton_TheModalClose
@@ -99,7 +98,6 @@ Scenario:UMS15_DetailsModal_CreateAUserAndOpenTheDetailsAndClickTheCloseButton_T
 	And click on the search button
 	And click on the details button
 	And click on the secondary close button
-	And  check the state of the modal
 	Then the modal is closed
 	#28-23
 Scenario Outline:UMS23_DetailsModal_CreateAFirstNameAndLastNameWithSpecificCharactersAndOpenTheDetailModal_TheInformationMatchWithTheUser
@@ -108,7 +106,7 @@ Scenario Outline:UMS23_DetailsModal_CreateAFirstNameAndLastNameWithSpecificChara
 	And click on the search button
 	And click on the details button
 	And get all the information from the modal
-	Then the information on the modal match with the complete user name, <expectedStatus> and <expectedBirthDate>
+	Then the information on the modal match with the set data
 	Examples: 
 		 | length | expectedStatus | expectedBirthDate |
 		 | 200    | false          | 12.07.2023        |
@@ -121,7 +119,7 @@ Scenario Outline:UMS23_DetailsModal_CreateAFirstNameWithSpecificCharactersAndOpe
 	And click on the search button
 	And click on the details button
 	And get all the information from the modal
-	Then the information on the modal match with the complete user name, <expectedStatus> and <expectedBirthDate>
+	Then the information on the modal match with the set data
 	Examples: 
 		 | length | expectedStatus | expectedBirthDate |
 		 | 200    | false          | 12.07.2023        |
@@ -133,7 +131,7 @@ Scenario Outline:UMS25-26_DetailsModal_CreateALastNameWithSpecificCharactersAndO
 	And click on the search button
 	And click on the details button
 	And get all the information from the modal
-	Then the information on the modal match with the complete user name, <expectedStatus> and <expectedBirthDate>
+	Then the information on the modal match with the set data
 	Examples: 
 		 | length | expectedStatus | expectedBirthDate |
 		 | 200    | false          | 12.07.2023        |
@@ -145,7 +143,6 @@ Scenario:UMS29_DetailsModal_CreateAUserAndOpenTheDetailsAndPressEscKey_TheModalC
 	And click on the search button
 	And click on the details button
 	And press the Esc key
-	And  check the state of the modal
 	Then the modal is closed
 
 Scenario:UMS30_DetailsModal_CreateAUserAndOpenClickOutsideTheModal_TheModalClose
@@ -154,5 +151,4 @@ Scenario:UMS30_DetailsModal_CreateAUserAndOpenClickOutsideTheModal_TheModalClose
 	And click on the search button
 	And click on the details button
 	And click out side the modal
-	And  check the state of the modal
 	Then the modal is closed
