@@ -48,6 +48,9 @@ namespace UserUITest.Pages
         [FindsBy(How = How.ClassName, Using = "btn-secondary")]
         private IWebElement _secondaryCloseButton;
 
+        [FindsBy(How = How.CssSelector, Using = "span[id$='_title']")]
+        private IList<IWebElement> _tittleModalFields;
+
         public void WaitForTableToLoad()
         {
             // TODO:
@@ -152,6 +155,16 @@ namespace UserUITest.Pages
         {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
             wait.Until((_) => !IsModalDisplayed());
+        }
+
+        public List<string> GetFieldsTittle() {
+
+            List<string> fields = new List<string>();
+            foreach(var tittle in _tittleModalFields)
+            {
+                fields.Add(tittle.Text.ToString());
+            }
+           return fields;
         }
 
         public bool IsModalDisplayed()

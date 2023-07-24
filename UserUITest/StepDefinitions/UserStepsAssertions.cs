@@ -29,5 +29,23 @@ namespace UserUITest.StepDefinitions
         {
             Assert.IsTrue(_context.UserPage.IsModalDisplayed());
         }
+
+        [Then(@"the fields are correct and ordered")]
+        public void ThenTheFieldsAreCorrectAndOrdered()
+        {
+
+            List<string> expectedFields = new List<string>
+            {
+                "First name:",
+                "Last name:",
+                "Status:",
+                "Birth date:"
+            };
+
+            CollectionAssert.AreEqual(expectedFields, _context.TittleModalFields);
+        }
+
+
+       
     }
 }

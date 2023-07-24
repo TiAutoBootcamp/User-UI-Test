@@ -20,6 +20,7 @@ Scenario: UMS09_DetailsModal_CreateAUserOpenTheDetailsModal_TheFieldAreCorrectAn
 	When I write a name on the filter
 	And click on the search button
 	And click on the details button
+	And get all the tiitle fields on the modal
 	Then the fields are correct and ordered 
 
 

@@ -26,5 +26,6 @@ namespace UserUITest
 
         public BasePage CurrentPage { get; set; }
         public UserInfo UserInfo { get; internal set; }
+        public List<string> TittleModalFields;
     }
 }

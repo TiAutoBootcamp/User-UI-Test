@@ -110,6 +110,13 @@ namespace UserUITest.StepDefinitions
             _context.UserPage.ClickOnSpecificPosition();
         }
 
+        [When(@"get all the tiitle fields on the modal")]
+        public void WhenGetAllTheTiitleFieldsOnTheModal()
+        {
+            // _tittleModalFields.
+            _context.TittleModalFields = _context.UserPage.GetFieldsTittle();
+        }
+
         [Then(@"the modal is closed")]
         [When(@"wait for user details modal closed")]
         public void WhenUserDetailsIsClosed()
