@@ -1,4 +1,4 @@
-﻿Feature: UsersDetailsModalWindowTests
+﻿Feature: UserDetailsModalWindowTests
 
 Background: 
 	Given open users page

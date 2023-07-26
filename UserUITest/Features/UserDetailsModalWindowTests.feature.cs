@@ -20,22 +20,22 @@ namespace UserUITest.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Users")]
-    public partial class UsersFeature
+    [NUnit.Framework.DescriptionAttribute("UserDetailsModalWindowTests")]
+    public partial class UserDetailsModalWindowTestsFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private static string[] featureTags = ((string[])(null));
         
-#line 1 "Users.feature"
+#line 1 "UserDetailsModalWindowTests.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Users", null, ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "UserDetailsModalWindowTests", null, ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -83,13 +83,13 @@ namespace UserUITest.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("UMS08_DetailsModal_CreateAUserAndOpenTheDetails_AModalIsOpened")]
-        public void UMS08_DetailsModal_CreateAUserAndOpenTheDetails_AModalIsOpened()
+        [NUnit.Framework.DescriptionAttribute("UMS08_DetailsModal_CreateUserAndOpenDetailsModal_ModalOpens")]
+        public void UMS08_DetailsModal_CreateUserAndOpenDetailsModal_ModalOpens()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS08_DetailsModal_CreateAUserAndOpenTheDetails_AModalIsOpened", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 11
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS08_DetailsModal_CreateUserAndOpenDetailsModal_ModalOpens", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -102,19 +102,19 @@ this.ScenarioInitialize(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line hidden
-#line 12
+#line 8
  testRunner.Given("a user created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 13
+#line 9
  testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 14
+#line 10
  testRunner.And("click on the search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 15
+#line 11
  testRunner.And("click on the details button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 16
+#line 12
  testRunner.Then("a modal with details is opened", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -122,13 +122,13 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("UMS09_DetailsModal_CreateAUserOpenTheDetailsModal_TheFieldAreCorrectAndInOrder")]
-        public void UMS09_DetailsModal_CreateAUserOpenTheDetailsModal_TheFieldAreCorrectAndInOrder()
+        [NUnit.Framework.DescriptionAttribute("UMS09_DetailsModal_CreateUserAndOpenDetailsModal_FieldsAreCorrectAndInOrder")]
+        public void UMS09_DetailsModal_CreateUserAndOpenDetailsModal_FieldsAreCorrectAndInOrder()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS09_DetailsModal_CreateAUserOpenTheDetailsModal_TheFieldAreCorrectAndInOrder", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 18
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS09_DetailsModal_CreateUserAndOpenDetailsModal_FieldsAreCorrectAndInOrder", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 14
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -141,22 +141,22 @@ this.ScenarioInitialize(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line hidden
-#line 19
+#line 15
  testRunner.Given("a user created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 20
+#line 16
  testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 21
+#line 17
  testRunner.And("click on the search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 22
+#line 18
  testRunner.And("click on the details button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 23
+#line 19
  testRunner.And("get all the tiitle fields on the modal", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 24
+#line 20
  testRunner.Then("the fields are correct and ordered", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -164,17 +164,17 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("UMS10_DetailsModal_CreateAUserOpenTheDetailsModal_TheInformationMatchWithTheUser")]
+        [NUnit.Framework.DescriptionAttribute("UMS10_DetailsModal_CreateUserAndOpenDetailsModal_DisplayedDataMatchesWithUser")]
         [NUnit.Framework.TestCaseAttribute("false", "12.07.2023", null)]
         [NUnit.Framework.TestCaseAttribute("false", "07/01/2023", null)]
-        public void UMS10_DetailsModal_CreateAUserOpenTheDetailsModal_TheInformationMatchWithTheUser(string expectedStatus, string expectedBirthDate, string[] exampleTags)
+        public void UMS10_DetailsModal_CreateUserAndOpenDetailsModal_DisplayedDataMatchesWithUser(string expectedStatus, string expectedBirthDate, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("expectedStatus", expectedStatus);
             argumentsOfScenario.Add("expectedBirthDate", expectedBirthDate);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS10_DetailsModal_CreateAUserOpenTheDetailsModal_TheInformationMatchWithTheUser", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 27
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS10_DetailsModal_CreateUserAndOpenDetailsModal_DisplayedDataMatchesWithUser", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 23
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -187,22 +187,22 @@ this.ScenarioInitialize(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line hidden
-#line 28
+#line 24
  testRunner.Given(string.Format("a user created wih birth date {0}", expectedBirthDate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 29
+#line 25
  testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 30
+#line 26
  testRunner.And("click on the search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 31
+#line 27
  testRunner.And("click on the details button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 32
+#line 28
  testRunner.And("get all the information from the modal", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 33
+#line 29
  testRunner.Then("the information on the modal match with the set data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -210,19 +210,19 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("UMS11_DetailsModal_CreateUserAndChangeStatusToActiveOpenTheDetailsModal_TheInform" +
-            "ationMatchWithTheUser")]
+        [NUnit.Framework.DescriptionAttribute("UMS11_DetailsModal_CreateUserAndChangeStatusToActiveOpenTheDetailsModal_Displayed" +
+            "DataMatchesWithUser")]
         [NUnit.Framework.TestCaseAttribute("true", "true", "12.07.2023", null)]
-        public void UMS11_DetailsModal_CreateUserAndChangeStatusToActiveOpenTheDetailsModal_TheInformationMatchWithTheUser(string status, string expectedStatus, string expectedBirthDate, string[] exampleTags)
+        public void UMS11_DetailsModal_CreateUserAndChangeStatusToActiveOpenTheDetailsModal_DisplayedDataMatchesWithUser(string status, string expectedStatus, string expectedBirthDate, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("status", status);
             argumentsOfScenario.Add("expectedStatus", expectedStatus);
             argumentsOfScenario.Add("expectedBirthDate", expectedBirthDate);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS11_DetailsModal_CreateUserAndChangeStatusToActiveOpenTheDetailsModal_TheInform" +
-                    "ationMatchWithTheUser", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 39
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS11_DetailsModal_CreateUserAndChangeStatusToActiveOpenTheDetailsModal_Displayed" +
+                    "DataMatchesWithUser", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 35
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -235,25 +235,25 @@ this.ScenarioInitialize(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line hidden
-#line 40
+#line 36
  testRunner.Given(string.Format("a user created wih birth date {0}", expectedBirthDate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 41
+#line 37
  testRunner.And(string.Format("change the user status to {0}", status), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 42
+#line 38
  testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 43
+#line 39
  testRunner.And("click on the search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 44
+#line 40
  testRunner.And("click on the details button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 45
+#line 41
  testRunner.And("get all the information from the modal", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 46
+#line 42
  testRunner.Then("the information on the modal match with the set data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -261,10 +261,10 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("UMS12_DetailsModal_CreateUserAndChangeStatusTwiceToActiveOpenTheDetailsModal_TheI" +
-            "nformationMatchWithTheUser")]
+        [NUnit.Framework.DescriptionAttribute("UMS12_DetailsModal_CreateUserAndChangeStatusTwiceToActiveOpenTheDetailsModal_Disp" +
+            "layedDataMatchesWithUser")]
         [NUnit.Framework.TestCaseAttribute("true", "false", "false", "12.07.2023", null)]
-        public void UMS12_DetailsModal_CreateUserAndChangeStatusTwiceToActiveOpenTheDetailsModal_TheInformationMatchWithTheUser(string firstStatus, string secondStatus, string expectedStatus, string expectedBirthDate, string[] exampleTags)
+        public void UMS12_DetailsModal_CreateUserAndChangeStatusTwiceToActiveOpenTheDetailsModal_DisplayedDataMatchesWithUser(string firstStatus, string secondStatus, string expectedStatus, string expectedBirthDate, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
@@ -272,9 +272,9 @@ this.FeatureBackground();
             argumentsOfScenario.Add("SecondStatus", secondStatus);
             argumentsOfScenario.Add("expectedStatus", expectedStatus);
             argumentsOfScenario.Add("expectedBirthDate", expectedBirthDate);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS12_DetailsModal_CreateUserAndChangeStatusTwiceToActiveOpenTheDetailsModal_TheI" +
-                    "nformationMatchWithTheUser", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 51
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS12_DetailsModal_CreateUserAndChangeStatusTwiceToActiveOpenTheDetailsModal_Disp" +
+                    "layedDataMatchesWithUser", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 47
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -287,28 +287,28 @@ this.ScenarioInitialize(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line hidden
-#line 52
+#line 48
  testRunner.Given(string.Format("a user created wih birth date {0}", expectedBirthDate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 53
+#line 49
  testRunner.And(string.Format("change the user status to {0}", firstStatus), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 54
+#line 50
  testRunner.And(string.Format("change second time the user status to {0}", secondStatus), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 55
+#line 51
  testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 56
+#line 52
  testRunner.And("click on the search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 57
+#line 53
  testRunner.And("click on the details button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 58
+#line 54
  testRunner.And("get all the information from the modal", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 59
+#line 55
  testRunner.Then("the information on the modal match with the set data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -316,10 +316,10 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("UMS13_DetailsModal_CreateUserAndChangeStatusThriceToActiveOpenTheDetailsModal_The" +
-            "InformationMatchWithTheUser")]
+        [NUnit.Framework.DescriptionAttribute("UMS13_DetailsModal_CreateUserAndChangeStatusThriceToActiveOpenTheDetailsModal_Dis" +
+            "playedDataMatchesWithUser")]
         [NUnit.Framework.TestCaseAttribute("true", "false", "true", "true", "12.07.2023", null)]
-        public void UMS13_DetailsModal_CreateUserAndChangeStatusThriceToActiveOpenTheDetailsModal_TheInformationMatchWithTheUser(string firstStatus, string secondStatus, string thirdStatus, string expectedStatus, string expectedBirthDate, string[] exampleTags)
+        public void UMS13_DetailsModal_CreateUserAndChangeStatusThriceToActiveOpenTheDetailsModal_DisplayedDataMatchesWithUser(string firstStatus, string secondStatus, string thirdStatus, string expectedStatus, string expectedBirthDate, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
@@ -328,9 +328,9 @@ this.FeatureBackground();
             argumentsOfScenario.Add("ThirdStatus", thirdStatus);
             argumentsOfScenario.Add("expectedStatus", expectedStatus);
             argumentsOfScenario.Add("expectedBirthDate", expectedBirthDate);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS13_DetailsModal_CreateUserAndChangeStatusThriceToActiveOpenTheDetailsModal_The" +
-                    "InformationMatchWithTheUser", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 64
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS13_DetailsModal_CreateUserAndChangeStatusThriceToActiveOpenTheDetailsModal_Dis" +
+                    "playedDataMatchesWithUser", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 60
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -343,31 +343,31 @@ this.ScenarioInitialize(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line hidden
-#line 65
+#line 61
  testRunner.Given(string.Format("a user created wih birth date like {0}", expectedBirthDate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 66
+#line 62
  testRunner.And(string.Format("change the user status to {0}", firstStatus), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 67
+#line 63
  testRunner.And(string.Format("change second time the user status to {0}", secondStatus), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 68
+#line 64
  testRunner.And(string.Format("change third time the user status to {0}", thirdStatus), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 69
+#line 65
  testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 70
+#line 66
  testRunner.And("click on the search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 71
+#line 67
  testRunner.And("click on the details button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 72
+#line 68
  testRunner.And("get all the information from the modal", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 73
+#line 69
  testRunner.Then("the information on the modal match with the set data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -375,13 +375,13 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("UMS14_DetailsModal_CreateAUserAndOpenTheDetailsAndCloseWithX_TheModalClose")]
-        public void UMS14_DetailsModal_CreateAUserAndOpenTheDetailsAndCloseWithX_TheModalClose()
+        [NUnit.Framework.DescriptionAttribute("UMS14_DetailsModal_CreateUserAndOpenDetailsModalAndClickXButton_ModalCloses")]
+        public void UMS14_DetailsModal_CreateUserAndOpenDetailsModalAndClickXButton_ModalCloses()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS14_DetailsModal_CreateAUserAndOpenTheDetailsAndCloseWithX_TheModalClose", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 78
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS14_DetailsModal_CreateUserAndOpenDetailsModalAndClickXButton_ModalCloses", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 74
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -394,22 +394,22 @@ this.ScenarioInitialize(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line hidden
-#line 79
+#line 75
  testRunner.Given("a user created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 80
+#line 76
  testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 81
+#line 77
  testRunner.And("click on the search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 82
+#line 78
  testRunner.And("click on the details button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 83
+#line 79
  testRunner.And("click on the primary close button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 84
+#line 80
  testRunner.Then("the modal is closed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -417,15 +417,13 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("UMS15_DetailsModal_CreateAUserAndOpenTheDetailsAndClickTheCloseButton_TheModalClo" +
-            "se")]
-        public void UMS15_DetailsModal_CreateAUserAndOpenTheDetailsAndClickTheCloseButton_TheModalClose()
+        [NUnit.Framework.DescriptionAttribute("UMS15_DetailsModal_CreateUserAndOpenDetailsModalAndClickCloseButton_ModalCloses")]
+        public void UMS15_DetailsModal_CreateUserAndOpenDetailsModalAndClickCloseButton_ModalCloses()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS15_DetailsModal_CreateAUserAndOpenTheDetailsAndClickTheCloseButton_TheModalClo" +
-                    "se", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 86
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS15_DetailsModal_CreateUserAndOpenDetailsModalAndClickCloseButton_ModalCloses", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 82
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -438,22 +436,22 @@ this.ScenarioInitialize(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line hidden
-#line 87
+#line 83
  testRunner.Given("a user created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 88
+#line 84
  testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 89
+#line 85
  testRunner.And("click on the search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 90
+#line 86
  testRunner.And("click on the details button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 91
+#line 87
  testRunner.And("click on the secondary close button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 92
+#line 88
  testRunner.Then("the modal is closed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -462,10 +460,10 @@ this.FeatureBackground();
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("UMS28-23_DetailsModal_CreateAFirstNameWithSpecificCharactersAndGUIDLastNameAndOpe" +
-            "nTheDetailModal_TheInformationMatchWithTheUser")]
+            "nDetailsModal_DisplayedDataMatchesWithUser")]
         [NUnit.Framework.TestCaseAttribute("200", "false", "12.07.2023", null)]
         [NUnit.Framework.TestCaseAttribute("1", "false", "12.07.2023", null)]
-        public void UMS28_23_DetailsModal_CreateAFirstNameWithSpecificCharactersAndGUIDLastNameAndOpenTheDetailModal_TheInformationMatchWithTheUser(string length, string expectedStatus, string expectedBirthDate, string[] exampleTags)
+        public void UMS28_23_DetailsModal_CreateAFirstNameWithSpecificCharactersAndGUIDLastNameAndOpenDetailsModal_DisplayedDataMatchesWithUser(string length, string expectedStatus, string expectedBirthDate, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
@@ -473,8 +471,8 @@ this.FeatureBackground();
             argumentsOfScenario.Add("expectedStatus", expectedStatus);
             argumentsOfScenario.Add("expectedBirthDate", expectedBirthDate);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS28-23_DetailsModal_CreateAFirstNameWithSpecificCharactersAndGUIDLastNameAndOpe" +
-                    "nTheDetailModal_TheInformationMatchWithTheUser", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 94
+                    "nDetailsModal_DisplayedDataMatchesWithUser", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 90
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -487,23 +485,23 @@ this.ScenarioInitialize(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line hidden
-#line 95
+#line 91
  testRunner.Given(string.Format("a user first name created with {0} characters and GUID last name with birth date " +
                             "{1}", length, expectedBirthDate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 96
+#line 92
  testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 97
+#line 93
  testRunner.And("click on the search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 98
+#line 94
  testRunner.And("click on the details button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 99
+#line 95
  testRunner.And("get all the information from the modal", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 100
+#line 96
  testRunner.Then("the information on the modal match with the set data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -511,20 +509,20 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("UMS24-27_DetailsModal_CreateAFirstNameAndLastNameWithSpecificCharactersAndOpenThe" +
-            "DetailModal_TheInformationMatchWithTheUser")]
+        [NUnit.Framework.DescriptionAttribute("UMS24-27_DetailsModal_CreateAFirstNameAndLastNameWithSpecificCharactersAndOpenDet" +
+            "ailsModal_DisplayedDataMatchesWithUser")]
         [NUnit.Framework.TestCaseAttribute("200", "false", "12.07.2023", null)]
         [NUnit.Framework.TestCaseAttribute("1", "false", "12.07.2023", null)]
-        public void UMS24_27_DetailsModal_CreateAFirstNameAndLastNameWithSpecificCharactersAndOpenTheDetailModal_TheInformationMatchWithTheUser(string length, string expectedStatus, string expectedBirthDate, string[] exampleTags)
+        public void UMS24_27_DetailsModal_CreateAFirstNameAndLastNameWithSpecificCharactersAndOpenDetailsModal_DisplayedDataMatchesWithUser(string length, string expectedStatus, string expectedBirthDate, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("length", length);
             argumentsOfScenario.Add("expectedStatus", expectedStatus);
             argumentsOfScenario.Add("expectedBirthDate", expectedBirthDate);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS24-27_DetailsModal_CreateAFirstNameAndLastNameWithSpecificCharactersAndOpenThe" +
-                    "DetailModal_TheInformationMatchWithTheUser", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 107
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS24-27_DetailsModal_CreateAFirstNameAndLastNameWithSpecificCharactersAndOpenDet" +
+                    "ailsModal_DisplayedDataMatchesWithUser", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 103
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -537,22 +535,22 @@ this.ScenarioInitialize(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line hidden
-#line 108
+#line 104
  testRunner.Given(string.Format("a user first name and last name created with {0} characters with birth date {1}", length, expectedBirthDate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 109
+#line 105
  testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 110
+#line 106
  testRunner.And("click on the search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 111
+#line 107
  testRunner.And("click on the details button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 112
+#line 108
  testRunner.And("get all the information from the modal", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 113
+#line 109
  testRunner.Then("the information on the modal match with the set data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -561,10 +559,10 @@ this.FeatureBackground();
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("UMS25-26_DetailsModal_CreateGUIDFirstNameAndLastNameWithSpecificCharactersAndOpen" +
-            "TheDetailModal_TheInformationMatchWithTheUser")]
+            "DetailsModal_DisplayedDataMatchesWithUser")]
         [NUnit.Framework.TestCaseAttribute("200", "false", "12.07.2023", null)]
         [NUnit.Framework.TestCaseAttribute("1", "false", "12.07.2023", null)]
-        public void UMS25_26_DetailsModal_CreateGUIDFirstNameAndLastNameWithSpecificCharactersAndOpenTheDetailModal_TheInformationMatchWithTheUser(string length, string expectedStatus, string expectedBirthDate, string[] exampleTags)
+        public void UMS25_26_DetailsModal_CreateGUIDFirstNameAndLastNameWithSpecificCharactersAndOpenDetailsModal_DisplayedDataMatchesWithUser(string length, string expectedStatus, string expectedBirthDate, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
@@ -572,8 +570,8 @@ this.FeatureBackground();
             argumentsOfScenario.Add("expectedStatus", expectedStatus);
             argumentsOfScenario.Add("expectedBirthDate", expectedBirthDate);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS25-26_DetailsModal_CreateGUIDFirstNameAndLastNameWithSpecificCharactersAndOpen" +
-                    "TheDetailModal_TheInformationMatchWithTheUser", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 119
+                    "DetailsModal_DisplayedDataMatchesWithUser", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 115
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -586,22 +584,22 @@ this.ScenarioInitialize(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line hidden
-#line 120
+#line 116
  testRunner.Given(string.Format("a user with GUID first name and last name {0} characters and birth date {1}", length, expectedBirthDate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 121
+#line 117
  testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 122
+#line 118
  testRunner.And("click on the search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 123
+#line 119
  testRunner.And("click on the details button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 124
+#line 120
  testRunner.And("get all the information from the modal", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 125
+#line 121
  testRunner.Then("the information on the modal match with the set data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -609,13 +607,13 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("UMS29_DetailsModal_CreateAUserAndOpenTheDetailsAndPressEscKey_TheModalClose")]
-        public void UMS29_DetailsModal_CreateAUserAndOpenTheDetailsAndPressEscKey_TheModalClose()
+        [NUnit.Framework.DescriptionAttribute("UMS29_DetailsModal_CreateUserAndOpenDetailsModalAndPressEscKey_ModalCloses")]
+        public void UMS29_DetailsModal_CreateUserAndOpenDetailsModalAndPressEscKey_ModalCloses()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS29_DetailsModal_CreateAUserAndOpenTheDetailsAndPressEscKey_TheModalClose", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 131
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS29_DetailsModal_CreateUserAndOpenDetailsModalAndPressEscKey_ModalCloses", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 127
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -627,23 +625,23 @@ this.ScenarioInitialize(scenarioInfo);
                 this.ScenarioStart();
 #line 3
 this.FeatureBackground();
+#line hidden
+#line 128
+ testRunner.Given("a user created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 129
+ testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 130
+ testRunner.And("click on the search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 131
+ testRunner.And("click on the details button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 132
- testRunner.Given("a user created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 133
- testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 134
- testRunner.And("click on the search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 135
- testRunner.And("click on the details button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 136
  testRunner.And("press the Esc key", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 137
+#line 133
  testRunner.Then("the modal is closed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -651,13 +649,15 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("UMS30_DetailsModal_CreateAUserAndOpenClickOutsideTheModal_TheModalClose")]
-        public void UMS30_DetailsModal_CreateAUserAndOpenClickOutsideTheModal_TheModalClose()
+        [NUnit.Framework.DescriptionAttribute("UMS30_DetailsModal_CreateUserAndOpenDetailsModalThenClickOutsideTheModal_ModalClo" +
+            "ses")]
+        public void UMS30_DetailsModal_CreateUserAndOpenDetailsModalThenClickOutsideTheModal_ModalCloses()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS30_DetailsModal_CreateAUserAndOpenClickOutsideTheModal_TheModalClose", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 139
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS30_DetailsModal_CreateUserAndOpenDetailsModalThenClickOutsideTheModal_ModalClo" +
+                    "ses", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 135
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -670,22 +670,22 @@ this.ScenarioInitialize(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line hidden
-#line 140
+#line 136
  testRunner.Given("a user created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 141
+#line 137
  testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 142
+#line 138
  testRunner.And("click on the search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 143
+#line 139
  testRunner.And("click on the details button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 144
+#line 140
  testRunner.And("click out side the modal", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 145
+#line 141
  testRunner.Then("the modal is closed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -693,16 +693,18 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("UMS31_DetailsModal_CreateAUserOpenTheDetailsModal_TheInformationMatchWithTheUser")]
+        [NUnit.Framework.DescriptionAttribute("UMS31_DetailsModal_CreateUserWithNoDOBAndOpenDetailsModal_DisplayedDataMatchesWit" +
+            "hUser")]
         [NUnit.Framework.TestCaseAttribute("false", "empty", null)]
-        public void UMS31_DetailsModal_CreateAUserOpenTheDetailsModal_TheInformationMatchWithTheUser(string expectedStatus, string expectedBirthDate, string[] exampleTags)
+        public void UMS31_DetailsModal_CreateUserWithNoDOBAndOpenDetailsModal_DisplayedDataMatchesWithUser(string expectedStatus, string expectedBirthDate, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("expectedStatus", expectedStatus);
             argumentsOfScenario.Add("expectedBirthDate", expectedBirthDate);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS31_DetailsModal_CreateAUserOpenTheDetailsModal_TheInformationMatchWithTheUser", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 147
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS31_DetailsModal_CreateUserWithNoDOBAndOpenDetailsModal_DisplayedDataMatchesWit" +
+                    "hUser", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 143
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -715,22 +717,22 @@ this.ScenarioInitialize(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line hidden
-#line 148
+#line 144
  testRunner.Given("a user created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 149
+#line 145
  testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 150
+#line 146
  testRunner.And("click on the search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 151
+#line 147
  testRunner.And("click on the details button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 152
+#line 148
  testRunner.And("get all the information from the modal", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 153
+#line 149
  testRunner.Then("the information on the modal match with the set data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

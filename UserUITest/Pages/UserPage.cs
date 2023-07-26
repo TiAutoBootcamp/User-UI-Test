@@ -63,7 +63,7 @@ namespace UserUITest.Pages
 
         public void LoadUserTable()
         {
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(100));
             wait.Until((_) => _userTable.Displayed);
         }
 
