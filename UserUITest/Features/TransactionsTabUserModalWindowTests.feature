@@ -25,11 +25,29 @@ Scenario: UMS41_02_TransactionsTabUserDetailsModal_UserWithNoTransactions_TabIsC
 	Then transactions tab is clickable
 	And no transactions message is displayed
 
-Scenario: UMS42_TransactionsTabUserDetailsModal_UserWithTransactions_TransactionsDisplayedInDescOrderByCreationTime
+Scenario: UMS42_TransactionsTabUserDetailsModal_UserWithMultipleTransactions_TransactionsDisplayedInDescOrderByCreationTime
 	Given a user with multipleTransactions is created
 	When I write a name on the filter
 	And click on the search button
 	And click on the details button
+	And click on transactions tab	
+	Then transactions are displayed in descendant order by creation time
+
+Scenario: UMS43_TransactionsTabUserDetailsModal_UserWithTransactionsAddNewTransaction_CreatedTransactionIsDisplayedFirst
+	Given a user with multipleTransactions is created
+	And  user is charged with <amount>
+	When I write a name on the filter
+	And click on the search button
+	And click on the details button
 	And click on transactions tab
-	Then transactions tab is clickable
-	And transactions are displayed in descendant order by creation time
+	Then first transaction displayed is <expectedAmount> and <TransactionId>
+
+Scenario: UMS45_TransactionsTabUserDetailsModal_UserWithRevertedTransactions_TransactionStatusIsRevertedAndAmountIsNegative
+	Given a user with multipleTransactions is created
+	And  user has reverted transactions
+	When I write a name on the filter
+	And click on the search button
+	And click on the details button
+	And click on transactions tab
+	Then first transaction displayed is <expectedAmount> and <TransactionId>
+	
