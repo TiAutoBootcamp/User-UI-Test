@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserUITest", "UserUITest\UserUITest.csproj", "{F4A968A1-4A53-422C-BE7E-8D77244D3954}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagementServiceUITests", "UserUITest\UserManagementServiceUITests.csproj", "{F4A968A1-4A53-422C-BE7E-8D77244D3954}"
 	ProjectSection(ProjectDependencies) = postProject
 		{364DADD4-7FE2-4A91-9D31-A6FE58BDD17D} = {364DADD4-7FE2-4A91-9D31-A6FE58BDD17D}
 	EndProjectSection

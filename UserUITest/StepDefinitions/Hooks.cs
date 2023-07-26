@@ -15,7 +15,7 @@ namespace UserUITest.StepDefinitions
         {
 
             var chromeOptions = new ChromeOptions();
-            // chromeOptions.AddArgument("headless");
+            chromeOptions.AddArgument("headless");
             context.Driver = new ChromeDriver(chromeOptions);
             context.Driver.Manage().Window.Maximize();
             context.Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
