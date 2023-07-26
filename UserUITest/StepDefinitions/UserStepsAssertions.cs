@@ -40,6 +40,7 @@ namespace UserUITest.StepDefinitions
                 "Last name:",
                 "Status:",
                 "Birth date:"
+
             };
 
             CollectionAssert.AreEqual(expectedFields, _context.TittleModalFields);

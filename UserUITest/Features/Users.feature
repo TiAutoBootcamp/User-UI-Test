@@ -1,21 +1,17 @@
-﻿Feature: Users
+﻿Feature: UsersDetailsModalWindowTests
 
 Background: 
 	Given open users page
 
-#Scenario: Open page
-#	Given the users page and opened
-#	And the name I search a user 'Jhon' with last name 'Smith'
-#	#When I click to the details button
 
-Scenario: UMS08_DetailsModal_CreateAUserAndOpenTheDetails_AModalIsOpened
+Scenario: UMS08_DetailsModal_CreateUserAndOpenDetailsModal_ModalOpens
 	Given a user created
 	When I write a name on the filter
 	And click on the search button
 	And click on the details button
 	Then a modal with details is opened
 	
-Scenario: UMS09_DetailsModal_CreateAUserOpenTheDetailsModal_TheFieldAreCorrectAndInOrder
+Scenario: UMS09_DetailsModal_CreateUserAndOpenDetailsModal_FieldsAreCorrectAndInOrder
 	Given a user created
 	When I write a name on the filter
 	And click on the search button
@@ -24,7 +20,7 @@ Scenario: UMS09_DetailsModal_CreateAUserOpenTheDetailsModal_TheFieldAreCorrectAn
 	Then the fields are correct and ordered 
 
 
-Scenario: UMS10_DetailsModal_CreateAUserOpenTheDetailsModal_TheInformationMatchWithTheUser
+Scenario: UMS10_DetailsModal_CreateUserAndOpenDetailsModal_DisplayedDataMatchesWithUser
 	Given a user created wih birth date <expectedBirthDate>
 	When I write a name on the filter
 	And click on the search button
@@ -36,7 +32,7 @@ Scenario: UMS10_DetailsModal_CreateAUserOpenTheDetailsModal_TheInformationMatchW
 		| false          | 12.07.2023        |
 		| false          | 07/01/2023        |
 
-Scenario Outline: UMS11_DetailsModal_CreateUserAndChangeStatusToActiveOpenTheDetailsModal_TheInformationMatchWithTheUser
+Scenario Outline: UMS11_DetailsModal_CreateUserAndChangeStatusToActiveOpenTheDetailsModal_DisplayedDataMatchesWithUser
 	Given a user created wih birth date <expectedBirthDate>
 	And change the user status to <status>
 	When I write a name on the filter
@@ -48,7 +44,7 @@ Scenario Outline: UMS11_DetailsModal_CreateUserAndChangeStatusToActiveOpenTheDet
 		| status | expectedStatus | expectedBirthDate |
 		| true   | true           | 12.07.2023        |
 
-Scenario Outline: UMS12_DetailsModal_CreateUserAndChangeStatusTwiceToActiveOpenTheDetailsModal_TheInformationMatchWithTheUser
+Scenario Outline: UMS12_DetailsModal_CreateUserAndChangeStatusTwiceToActiveOpenTheDetailsModal_DisplayedDataMatchesWithUser
 	Given a user created wih birth date <expectedBirthDate>
 	And change the user status to <FirstStatus>
 	And change second time the user status to <SecondStatus>
@@ -61,7 +57,7 @@ Scenario Outline: UMS12_DetailsModal_CreateUserAndChangeStatusTwiceToActiveOpenT
 		| FirstStatus | SecondStatus | expectedStatus | expectedBirthDate |
 		| true        | false        | false          | 12.07.2023        |
 
-Scenario Outline: UMS13_DetailsModal_CreateUserAndChangeStatusThriceToActiveOpenTheDetailsModal_TheInformationMatchWithTheUser
+Scenario Outline: UMS13_DetailsModal_CreateUserAndChangeStatusThriceToActiveOpenTheDetailsModal_DisplayedDataMatchesWithUser
 	Given a user created wih birth date like <expectedBirthDate>
 	And change the user status to <FirstStatus>
 	And change second time the user status to <SecondStatus>
@@ -75,7 +71,7 @@ Scenario Outline: UMS13_DetailsModal_CreateUserAndChangeStatusThriceToActiveOpen
 		| FirstStatus | SecondStatus | ThirdStatus | expectedStatus | expectedBirthDate |
 		| true        | false        | true        | true           | 12.07.2023        |
 
-Scenario: UMS14_DetailsModal_CreateAUserAndOpenTheDetailsAndCloseWithX_TheModalClose
+Scenario: UMS14_DetailsModal_CreateUserAndOpenDetailsModalAndClickXButton_ModalCloses
 	Given a user created
 	When I write a name on the filter
 	And click on the search button
@@ -83,7 +79,7 @@ Scenario: UMS14_DetailsModal_CreateAUserAndOpenTheDetailsAndCloseWithX_TheModalC
 	And click on the primary close button
 	Then the modal is closed
 
-Scenario:UMS15_DetailsModal_CreateAUserAndOpenTheDetailsAndClickTheCloseButton_TheModalClose
+Scenario:UMS15_DetailsModal_CreateUserAndOpenDetailsModalAndClickCloseButton_ModalCloses
 	Given a user created
 	When I write a name on the filter
 	And click on the search button
@@ -91,7 +87,7 @@ Scenario:UMS15_DetailsModal_CreateAUserAndOpenTheDetailsAndClickTheCloseButton_T
 	And click on the secondary close button
 	Then the modal is closed
 	#28-23
-Scenario Outline:UMS28-23_DetailsModal_CreateAFirstNameWithSpecificCharactersAndGUIDLastNameAndOpenTheDetailModal_TheInformationMatchWithTheUser
+Scenario Outline:UMS28-23_DetailsModal_CreateAFirstNameWithSpecificCharactersAndGUIDLastNameAndOpenDetailsModal_DisplayedDataMatchesWithUser
 	Given a user first name created with <length> characters and GUID last name with birth date <expectedBirthDate>
 	When I write a name on the filter
 	And click on the search button
@@ -104,7 +100,7 @@ Scenario Outline:UMS28-23_DetailsModal_CreateAFirstNameWithSpecificCharactersAnd
 		 | 1      | false          | 12.07.2023        |
 
 	#24-27
-Scenario Outline:UMS24-27_DetailsModal_CreateAFirstNameAndLastNameWithSpecificCharactersAndOpenTheDetailModal_TheInformationMatchWithTheUser
+Scenario Outline:UMS24-27_DetailsModal_CreateAFirstNameAndLastNameWithSpecificCharactersAndOpenDetailsModal_DisplayedDataMatchesWithUser
 	Given a user first name and last name created with <length> characters with birth date <expectedBirthDate>
 	When I write a name on the filter
 	And click on the search button
@@ -116,7 +112,7 @@ Scenario Outline:UMS24-27_DetailsModal_CreateAFirstNameAndLastNameWithSpecificCh
 		 | 200    | false          | 12.07.2023        |
 		 | 1      | false          | 12.07.2023        |
 		 #25-26
-Scenario Outline:UMS25-26_DetailsModal_CreateGUIDFirstNameAndLastNameWithSpecificCharactersAndOpenTheDetailModal_TheInformationMatchWithTheUser
+Scenario Outline:UMS25-26_DetailsModal_CreateGUIDFirstNameAndLastNameWithSpecificCharactersAndOpenDetailsModal_DisplayedDataMatchesWithUser
 	Given a user with GUID first name and last name <length> characters and birth date <expectedBirthDate>
 	When I write a name on the filter
 	And click on the search button
@@ -128,7 +124,7 @@ Scenario Outline:UMS25-26_DetailsModal_CreateGUIDFirstNameAndLastNameWithSpecifi
 		 | 200    | false          | 12.07.2023        |
 		 | 1      | false          | 12.07.2023        |
 
-Scenario:UMS29_DetailsModal_CreateAUserAndOpenTheDetailsAndPressEscKey_TheModalClose
+Scenario:UMS29_DetailsModal_CreateUserAndOpenDetailsModalAndPressEscKey_ModalCloses
 	Given a user created
 	When I write a name on the filter
 	And click on the search button
@@ -136,7 +132,7 @@ Scenario:UMS29_DetailsModal_CreateAUserAndOpenTheDetailsAndPressEscKey_TheModalC
 	And press the Esc key
 	Then the modal is closed
 
-Scenario:UMS30_DetailsModal_CreateAUserAndOpenClickOutsideTheModal_TheModalClose
+Scenario:UMS30_DetailsModal_CreateUserAndOpenDetailsModalThenClickOutsideTheModal_ModalCloses
 	Given a user created
 	When I write a name on the filter
 	And click on the search button
@@ -144,7 +140,7 @@ Scenario:UMS30_DetailsModal_CreateAUserAndOpenClickOutsideTheModal_TheModalClose
 	And click out side the modal
 	Then the modal is closed
 
-Scenario: UMS31_DetailsModal_CreateAUserOpenTheDetailsModal_TheInformationMatchWithTheUser
+Scenario: UMS31_DetailsModal_CreateUserWithNoDOBAndOpenDetailsModal_DisplayedDataMatchesWithUser
 	Given a user created
 	When I write a name on the filter
 	And click on the search button
