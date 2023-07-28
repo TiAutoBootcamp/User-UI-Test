@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace UserUITest.Pages
@@ -117,7 +118,7 @@ namespace UserUITest.Pages
             return _birthDate;
         }
 
-        public UserInfo GetAllTheModalInformatio()
+        public UserInfo GetAllTheModalInformation()
         {
             var birthDate = GetBirthDate();
 
@@ -127,9 +128,10 @@ namespace UserUITest.Pages
                 FirstName = GetFirtsName(),
                 LastName = GetLastName(),
                 IsActive = GetStatusUser(),
-                BirthDate = birthDate == "empty" ? null : DateTime.ParseExact(GetBirthDate(), "dd.MM.yyyy", null)
+                BirthDate = birthDate == "empty" ? null : birthDate
             };
         }
+
 
         public void ClickOnPrimaryCloseButton()
         {
