@@ -1,6 +1,8 @@
 using System.Net;
 using UserServiceAPI.Client;
 using UserServiceAPI.Utils;
+using WalletServiceAPI.Client;
+using WalletServiceAPI.Utils;
 
 namespace UserUITest.StepDefinitions
 {
@@ -8,6 +10,8 @@ namespace UserUITest.StepDefinitions
     public sealed class UserSteps
     {  
         private readonly UserServiceClient _userServiceClient = new UserServiceClient();
+        private readonly WalletServiceClient _walletServiceClient = new WalletServiceClient();
+        private readonly BalanceChargeGenerator _balanceChargeGenerator = new BalanceChargeGenerator();
         private readonly UserGenerator _createUser = new UserGenerator();
         private readonly DataContext _context;
         
@@ -123,5 +127,19 @@ namespace UserUITest.StepDefinitions
         {
             _context.UserPage.WaitForUserDetailsModalClosed();
         }
+
+        [Given(@"a user with transactions is created")]
+        public async Task GivenAUserWithTransactionsIsCreated()
+        {
+            _context.CreateUserRequest = _createUser.GenerateRandomFirstNameWithGuidLastNameRequest(7, "12.07.2023");
+            _context.CreateUserResponse = await _userServiceClient.CreateUser(_context.CreateUserRequest);
+            _context.InitialUserId = _context.CreateUserResponse.Body;
+            _context.SetUserStatusResponse = await _userServiceClient.SetUserStatus(_context.InitialUserId, true);
+
+            //Write logic to create transactions
+            var request = _balanceChargeGenerator.GenerateBalanceChargeRequest(_context.InitialUserId, 10);
+            _context.ChargeResponse = await _walletServiceClient.BalanceCharge(request);
+        }
+
     }
 }
