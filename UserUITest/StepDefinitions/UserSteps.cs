@@ -83,7 +83,7 @@ namespace UserUITest.StepDefinitions
         [When(@"get all the information from the modal")]
         public void WhenGetAllTheInformationFromTheModal()
         {
-            _context.UserInfo = _context.UserPage.GetAllTheModalInformatio();
+            _context.UserInfo = _context.UserPage.GetAllTheModalInformation();
         }
 
         [When(@"click on the primary close button")]
