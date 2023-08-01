@@ -49,5 +49,4 @@ Scenario: UMS45_TransactionsTabUserDetailsModal_UserWithRevertedTransactions_Tra
 	And click on the search button
 	And click on the details button
 	And click on transactions tab
-	Then first transaction displayed is <expectedAmount> and <TransactionId>
-	
+	Then first transaction displayed is <expectedAmount> and <TransactionId>	
