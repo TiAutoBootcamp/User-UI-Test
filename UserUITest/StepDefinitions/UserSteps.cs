@@ -1,3 +1,4 @@
+using Core;
 using System.Net;
 using UserServiceAPI.Client;
 using UserServiceAPI.Utils;
@@ -140,6 +141,57 @@ namespace UserUITest.StepDefinitions
             var request = _balanceChargeGenerator.GenerateBalanceChargeRequest(_context.InitialUserId, 10);
             _context.ChargeResponse = await _walletServiceClient.BalanceCharge(request);
         }
+
+        [Given(@"user is charged with (.*)")]
+        public async Task GivenUserIsChargedWithAmount(int amount)
+        {
+            _context.ChargeAmount = amount;
+            var request = _balanceChargeGenerator.GenerateBalanceChargeRequest(_context.InitialUserId, amount);
+            _context.ChargeResponse = await _walletServiceClient.BalanceCharge(request);
+
+        }
+
+
+        [When(@"click on transactions tab")]
+        public void WhenClickOnTransactionsTab()
+        {
+            _context.UserPage.ClickOnTransactionsTab();
+
+        }
+
+        [Given(@"made multipleTransactions (.*)")]
+        public async Task GivenMadeMultipleTransactions(string values)
+        {
+            int[] array = values.Split(',').Select(int.Parse).ToArray();
+            foreach (int i in array)
+            {
+                var request = _balanceChargeGenerator.GenerateBalanceChargeRequest(_context.InitialUserId,i);
+                _context.ChargeResponse = await _walletServiceClient.BalanceCharge(request);
+            }
+        
+        }
+
+        [When(@"get the information of the first transaction")]
+        public void WhenGetTheInformationOfTheFirstTransaction()
+        {
+            new TransactionInfo
+            {
+                IdTransaction = _context.UserPage.transactionsIds().First(),
+                amount = _context.UserPage.transactionsAmounts().First(),
+                Status = _context.UserPage.transactionStatus().First()
+            };
+
+        }
+
+        [Given(@"user has reverted the last transaction")]
+        public async Task GivenUserHasRevertedTheLastTransaction()
+        {
+             _context.ReverseTransactionStatusResponse = await _walletServiceClient.RevertTransaction(_context.ChargeResponse.Body);
+            _context.SecondUserIdTransaction = _context.ReverseTransactionStatusResponse.Body;
+        }
+
+        
+      
 
     }
 }

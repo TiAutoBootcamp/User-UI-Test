@@ -52,6 +52,23 @@ namespace UserUITest.Pages
         [FindsBy(How = How.CssSelector, Using = "span[id$='_title']")]
         private IList<IWebElement> _tittleModalFields;
 
+        [FindsBy(How = How.LinkText, Using = "Transactions")]
+        private IWebElement _transactionsTab;
+
+        [FindsBy(How = How.Id, Using = "create_time_column")]
+        private IList<IWebElement> _transactionsCreateTime;
+
+        [FindsBy(How = How.CssSelector, Using = ".bm-content p em")]
+        private IWebElement _messageTransaction;
+
+        [FindsBy(How = How.Id, Using = "transaction_id_column")]
+        private IList<IWebElement> _transactionsIds;
+
+        [FindsBy(How = How.Id, Using = "amount_column")]
+        private IList<IWebElement> _transactionsAmounts;
+
+        [FindsBy(How = How.Id, Using = "status_column")]
+        private IList<IWebElement> _transactionStatus;
         public void WaitForTableToLoad()
         {
             // TODO:
@@ -143,6 +160,13 @@ namespace UserUITest.Pages
             _secondaryCloseButton.Click();
         }
 
+        public void ClickOnTransactionsTab()
+        {
+            _transactionsTab.Click();
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
+            wait.Until((_) => _transactionsTab.Displayed);
+        }
+
         public void ClickOnSpecificPosition()
         {
             Actions actions = new Actions(_driver);
@@ -180,6 +204,37 @@ namespace UserUITest.Pages
                 return false;
             }
         }
+
+        public bool IsTransactionsTabClickable() {
+
+            return _transactionsTab.Enabled;
+        }
+
+        public List<DateTime> transactionsCreateTime() {
+
+      
+            return (List<DateTime>)_transactionsCreateTime;
+
+        }
+
+        public List<Guid> transactionsIds()
+        {
+            return (List<Guid>)_transactionsIds;
+        }
+
+        public List<double> transactionsAmounts()
+        {
+            return (List<double>)_transactionsAmounts;
+        }
+        public List<string> transactionStatus()
+        {
+            return (List<string>)_transactionStatus;
+        }
+        public string messageTransactions() {
+           string message =  _messageTransaction.Text ?? string.Empty;
+            return message;
+        }
+
     }
 
 }

@@ -17,6 +17,11 @@ namespace UserUITest
         private const bool DEFAULT_USER_STATUS = false;
         public int InitialUserId;
         public int SecondUserId;
+        public double ChargeAmount;
+
+
+        public WalletCommonResponse<Guid> ReverseTransactionStatusResponse;
+        public Guid SecondUserIdTransaction;
 
         public RegisterUserRequest CreateUserRequest;
         public CommonResponse<int> CreateUserResponse;
@@ -32,5 +37,6 @@ namespace UserUITest
         public BasePage CurrentPage { get; set; }
         public UserInfo UserInfo { get; internal set; }
         public List<string> TittleModalFields;
+        public TransactionInfo TransactionInfo { get; internal set; }
     }
 }
