@@ -213,25 +213,30 @@ namespace UserUITest.Pages
         public List<DateTime> transactionsCreateTime() {
 
       
-            return (List<DateTime>)_transactionsCreateTime;
+          // return (List<DateTime>)_transactionsCreateTime;
+            return _transactionsCreateTime.Select(element => DateTime.Parse(element.Text)).ToList();
 
         }
 
-        public List<Guid> transactionsIds()
+        public List<Guid> TransactionsIds()
         {
-            return (List<Guid>)_transactionsIds;
+            return _transactionsIds.Select(element => Guid.Parse(element.Text)).ToList();
         }
+
 
         public List<double> transactionsAmounts()
         {
-            return (List<double>)_transactionsAmounts;
+            
+            return _transactionsAmounts.Select(element => double.Parse(element.Text)).ToList();
         }
         public List<string> transactionStatus()
         {
-            return (List<string>)_transactionStatus;
+            return _transactionStatus.Select(element => element.Text).ToList();
         }
         public string messageTransactions() {
-           string message =  _messageTransaction.Text ?? string.Empty;
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            wait.Until((_) => _messageTransaction.Enabled);
+            string message =  _messageTransaction.Text ?? string.Empty;
             return message;
         }
 

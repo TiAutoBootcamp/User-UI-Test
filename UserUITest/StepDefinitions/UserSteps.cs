@@ -109,6 +109,18 @@ namespace UserUITest.StepDefinitions
                 _context.UserStatus = status;
         }
 
+        [Given(@"a user created and active")]
+        public async Task GivenAUserCreatedAndActive()
+        {
+            _context.CreateUserRequest = _createUser.GenerateUserRequest();
+            _context.CreateUserResponse = await _userServiceClient.CreateUser(_context.CreateUserRequest);
+            _context.InitialUserId = _context.CreateUserResponse.Body;
+            var response = await _userServiceClient.SetUserStatus(_context.InitialUserId, true);
+            if (response.StatusCode == HttpStatusCode.OK)
+                _context.UserStatus = true;
+        }
+
+
         [When(@"click out side the modal")]
         public void WhenClickOutSideTheModal()
         {
@@ -143,7 +155,7 @@ namespace UserUITest.StepDefinitions
         }
 
         [Given(@"user is charged with (.*)")]
-        public async Task GivenUserIsChargedWithAmount(int amount)
+        public async Task GivenUserIsChargedWithAmount(double amount)
         {
             _context.ChargeAmount = amount;
             var request = _balanceChargeGenerator.GenerateBalanceChargeRequest(_context.InitialUserId, amount);
@@ -167,6 +179,8 @@ namespace UserUITest.StepDefinitions
             {
                 var request = _balanceChargeGenerator.GenerateBalanceChargeRequest(_context.InitialUserId,i);
                 _context.ChargeResponse = await _walletServiceClient.BalanceCharge(request);
+                _context.ChargeAmountRevert = -i;
+                _context.ChargeAmount = i;
             }
         
         }
@@ -174,9 +188,9 @@ namespace UserUITest.StepDefinitions
         [When(@"get the information of the first transaction")]
         public void WhenGetTheInformationOfTheFirstTransaction()
         {
-            new TransactionInfo
+            _context.TransactionInfo = new TransactionInfo
             {
-                IdTransaction = _context.UserPage.transactionsIds().First(),
+                IdTransaction = _context.UserPage.TransactionsIds().First(),
                 amount = _context.UserPage.transactionsAmounts().First(),
                 Status = _context.UserPage.transactionStatus().First()
             };
@@ -187,11 +201,22 @@ namespace UserUITest.StepDefinitions
         public async Task GivenUserHasRevertedTheLastTransaction()
         {
              _context.ReverseTransactionStatusResponse = await _walletServiceClient.RevertTransaction(_context.ChargeResponse.Body);
-            _context.SecondUserIdTransaction = _context.ReverseTransactionStatusResponse.Body;
+            _context.RevertUserIdTransaction = _context.ReverseTransactionStatusResponse.Body;
         }
 
-        
-      
+        [When(@"get the information of the second transaction")]
+        public void WhenGetTheInformationOfTheSecondTransaction()
+        {
+            _context.RevertTransactionInfo = new TransactionInfo
+            {
+                IdTransaction = _context.UserPage.TransactionsIds().Skip(1).First(),
+                amount = _context.UserPage.transactionsAmounts().Skip(1).First(),
+                Status = _context.UserPage.transactionStatus().Skip(1).First()
+            };
+        }
+
+
+
 
     }
 }

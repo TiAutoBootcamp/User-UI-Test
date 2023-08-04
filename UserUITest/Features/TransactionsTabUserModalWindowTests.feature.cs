@@ -202,7 +202,7 @@ this.ScenarioInitialize(scenarioInfo);
 this.FeatureBackground();
 #line hidden
 #line 29
- testRunner.Given("a user created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("a user created and active", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 30
  testRunner.And(string.Format("made multipleTransactions {0}", amountValues), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -252,7 +252,7 @@ this.ScenarioInitialize(scenarioInfo);
 this.FeatureBackground();
 #line hidden
 #line 41
- testRunner.Given("a user created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("a user created and active", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 42
  testRunner.And(string.Format("made multipleTransactions {0}", amountValues), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -308,7 +308,7 @@ this.ScenarioInitialize(scenarioInfo);
 this.FeatureBackground();
 #line hidden
 #line 55
- testRunner.Given("a user created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("a user created and active", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 56
  testRunner.And(string.Format("made multipleTransactions {0}", amountValues), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -332,7 +332,13 @@ this.FeatureBackground();
  testRunner.And("get the information of the first transaction", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 63
- testRunner.Then(string.Format("first transaction has the {0} and expected information", state), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("get the information of the second transaction", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 64
+ testRunner.Then(string.Format("second transaction has the {0} and expected information", state), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 65
+ testRunner.And("the first transaction has the revert amount", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();

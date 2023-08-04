@@ -26,7 +26,7 @@ Scenario: UMS41_02_TransactionsTabUserDetailsModal_UserWithNoTransactions_TabIsC
 	And no transactions message is displayed
 
 Scenario Outline: UMS42_TransactionsTabUserDetailsModal_UserWithMultipleTransactions_TransactionsDisplayedInDescOrderByCreationTime
-	Given a user created
+	Given a user created and active
 	And made multipleTransactions <amountValues>
 	When I write a name on the filter
 	And click on the search button
@@ -38,7 +38,7 @@ Scenario Outline: UMS42_TransactionsTabUserDetailsModal_UserWithMultipleTransact
 		|10,20,30	    |
 
 Scenario Outline: UMS43_TransactionsTabUserDetailsModal_UserWithTransactionsAddNewTransaction_CreatedTransactionIsDisplayedFirst
-	Given a user created
+	Given a user created and active
 	And made multipleTransactions <amountValues>
 	And  user is charged with <amount>
 	When I write a name on the filter
@@ -52,7 +52,7 @@ Scenario Outline: UMS43_TransactionsTabUserDetailsModal_UserWithTransactionsAddN
 		|5,20,30	    | 10	    |
 
 Scenario Outline: UMS45_TransactionsTabUserDetailsModal_UserWithRevertedTransactions_TransactionStatusIsRevertedAndAmountIsNegative
-	Given a user created
+	Given a user created and active
 	And made multipleTransactions <amountValues>
 	And  user has reverted the last transaction
 	When I write a name on the filter
@@ -60,7 +60,9 @@ Scenario Outline: UMS45_TransactionsTabUserDetailsModal_UserWithRevertedTransact
 	And click on the details button
 	And click on transactions tab
 	And get the information of the first transaction
-	Then first transaction has the <state> and expected information  
+	And get the information of the second transaction
+	Then second transaction has the <state> and expected information  
+	And the first transaction has the revert amount
 
 	Examples: 
 		|amountValues	| state 	  |
