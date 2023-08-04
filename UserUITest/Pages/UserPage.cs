@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
+using SeleniumExtras.WaitHelpers;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
@@ -67,7 +68,7 @@ namespace UserUITest.Pages
         [FindsBy(How = How.Id, Using = "amount_column")]
         private IList<IWebElement> _transactionsAmounts;
 
-        [FindsBy(How = How.Id, Using = "status_column")]
+        [FindsBy(How = How.CssSelector, Using = ".bm-content #status_column")]
         private IList<IWebElement> _transactionStatus;
         public void WaitForTableToLoad()
         {
@@ -231,13 +232,17 @@ namespace UserUITest.Pages
         }
         public List<string> transactionStatus()
         {
+            foreach (string i in _transactionStatus.Select(element => element.Text).ToList()) {
+                Console.WriteLine(i);
+            }
             return _transactionStatus.Select(element => element.Text).ToList();
+
         }
         public string messageTransactions() {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            wait.Until((_) => _messageTransaction.Enabled);
-            string message =  _messageTransaction.Text ?? string.Empty;
-            return message;
+            wait.Until(ExpectedConditions.TextToBePresentInElement(_messageTransaction, "User does not have transactions"));
+          //  wait.Until(ExpectedConditions.Not(ExpectedConditions.TextToBePresentInElement(_messageTransaction, "loading")));
+            return _messageTransaction.Text ?? string.Empty;
         }
 
     }

@@ -1,4 +1,5 @@
 using Core;
+using System;
 using System.Net;
 using UserServiceAPI.Client;
 using UserServiceAPI.Utils;
@@ -181,6 +182,7 @@ namespace UserUITest.StepDefinitions
                 _context.ChargeResponse = await _walletServiceClient.BalanceCharge(request);
                 _context.ChargeAmountRevert = -i;
                 _context.ChargeAmount = i;
+                _context.UserIdTransaction = _context.ChargeResponse.Body;
             }
         
         }
@@ -200,7 +202,7 @@ namespace UserUITest.StepDefinitions
         [Given(@"user has reverted the last transaction")]
         public async Task GivenUserHasRevertedTheLastTransaction()
         {
-             _context.ReverseTransactionStatusResponse = await _walletServiceClient.RevertTransaction(_context.ChargeResponse.Body);
+             _context.ReverseTransactionStatusResponse = await _walletServiceClient.RevertTransaction(_context.UserIdTransaction);
             _context.RevertUserIdTransaction = _context.ReverseTransactionStatusResponse.Body;
         }
 
@@ -213,9 +215,18 @@ namespace UserUITest.StepDefinitions
                 amount = _context.UserPage.transactionsAmounts().Skip(1).First(),
                 Status = _context.UserPage.transactionStatus().Skip(1).First()
             };
+            Console.WriteLine(_context.RevertTransactionInfo.Status);
+            Console.WriteLine(_context.RevertTransactionInfo.amount);
+           
         }
 
 
+        [When(@"request the informartion of the last transaction")]
+        public async Task WhenRequestTheInformartionOfTheLastTransaction()
+        {
+            object apiData = await _walletServiceClient.GetTransactions(_context.InitialUserId);
+
+        }
 
 
     }

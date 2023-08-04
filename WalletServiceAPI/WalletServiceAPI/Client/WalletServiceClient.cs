@@ -50,5 +50,17 @@ namespace WalletServiceAPI.Client
 
             return await response.ToCommonResponse<Guid>();
         }
+
+        public async Task<WalletCommonResponse<object>> GetTransactions(int userId)
+        {
+            var getProductInfoRequest = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"{_baseUrl}/Balance/GetTransactions?userId={userId}")
+            };
+
+            HttpResponseMessage response = await _httpClient.SendAsync(getProductInfoRequest);
+            return await response.ToCommonResponse<object>();
+        }
     }
 }
