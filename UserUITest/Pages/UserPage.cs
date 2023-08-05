@@ -70,6 +70,10 @@ namespace UserUITest.Pages
 
         [FindsBy(How = How.CssSelector, Using = ".bm-content #status_column")]
         private IList<IWebElement> _transactionStatus;
+
+         [FindsBy(How = How.CssSelector, Using = ".bm-content .table")]
+        private IWebElement _transactionTable;
+       
         public void WaitForTableToLoad()
         {
             // TODO:
@@ -163,9 +167,10 @@ namespace UserUITest.Pages
 
         public void ClickOnTransactionsTab()
         {
-            _transactionsTab.Click();
+           
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
             wait.Until((_) => _transactionsTab.Displayed);
+            _transactionsTab.Click();
         }
 
         public void ClickOnSpecificPosition()
@@ -182,6 +187,14 @@ namespace UserUITest.Pages
         {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
             wait.Until((_) => !IsModalDisplayed());
+        }
+
+        
+
+        public void WaitForTableVisible()
+        {
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            wait.Until((_) => _transactionTable.Displayed);
         }
 
         public List<string> GetFieldsTittle() {
@@ -232,9 +245,6 @@ namespace UserUITest.Pages
         }
         public List<string> transactionStatus()
         {
-            foreach (string i in _transactionStatus.Select(element => element.Text).ToList()) {
-                Console.WriteLine(i);
-            }
             return _transactionStatus.Select(element => element.Text).ToList();
 
         }
@@ -242,6 +252,7 @@ namespace UserUITest.Pages
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
             wait.Until(ExpectedConditions.TextToBePresentInElement(_messageTransaction, "User does not have transactions"));
           //  wait.Until(ExpectedConditions.Not(ExpectedConditions.TextToBePresentInElement(_messageTransaction, "loading")));
+          
             return _messageTransaction.Text ?? string.Empty;
         }
 

@@ -42,5 +42,9 @@ namespace UserUITest
         public List<string> TittleModalFields;
         public TransactionInfo TransactionInfo { get; internal set; }
         public TransactionInfo RevertTransactionInfo { get; internal set; }
+
+        public List<DateTime> ExpectedTransactionTime { get; internal set; }
+        public List<DateTime> ActualTransactionTime { get; internal set; }
+        public List<TransactionInfo> transactionInfos { get; internal set; }    
     }
 }

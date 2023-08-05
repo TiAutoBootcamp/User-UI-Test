@@ -57,6 +57,7 @@ namespace UserUITest.StepDefinitions
         [Then(@"transactions table displays transactions")]
         public void ThenTransactionsTableDisplaysTransactions()
         {
+            _context.UserPage.WaitForTableVisible();
             int countIds = _context.UserPage.TransactionsIds().Count;
             Assert.IsTrue(countIds > 0);
         }
@@ -73,16 +74,19 @@ namespace UserUITest.StepDefinitions
         [Then(@"transactions are displayed in descendant order by creation time")]
         public void ThenTransactionsAreDisplayedInDescendantOrderByCreationTime()
         {
-            DateTime actualDateTime = (_context.UserPage.transactionsCreateTime()).Max();
-            //Assert.That(actualDateTime, Is.EqualTo(expectedMessage));
-        }
+            //DateTime actualDateTime = (_context.UserPage.transactionsCreateTime()).Max();
+            _context.ActualTransactionTime = _context.UserPage.transactionsCreateTime();
+             CollectionAssert.AreEqual(_context.ExpectedTransactionTime, _context.ActualTransactionTime);
+
+        
+    }
 
         [Then(@"the information displayed has the expected information for the transaction")]
         public void ThenTheInformationDisplayedHasTheExpectedInformationForTheTransaction()
         {
             Assert.Multiple(() =>
             {
-                Assert.That(_context.ChargeAmount, Is.EqualTo(_context.TransactionInfo.amount));
+                Assert.That(_context.ChargeAmount, Is.EqualTo(_context.TransactionInfo.Amount));
                 Assert.That(_context.ChargeResponse.Body, Is.EqualTo(_context.TransactionInfo.IdTransaction));
             });
          }
@@ -93,7 +97,7 @@ namespace UserUITest.StepDefinitions
         {
             Assert.Multiple(() =>
             {
-                Assert.That(_context.ChargeAmount, Is.EqualTo(_context.RevertTransactionInfo.amount));
+                Assert.That(_context.ChargeAmount, Is.EqualTo(_context.RevertTransactionInfo.Amount));
                 Assert.That(_context.UserIdTransaction, Is.EqualTo(_context.RevertTransactionInfo.IdTransaction));
                 Assert.That(state, Is.EqualTo(_context.RevertTransactionInfo.Status));
             });
@@ -104,7 +108,7 @@ namespace UserUITest.StepDefinitions
         {
             Assert.Multiple(() =>
             {
-                Assert.That(_context.ChargeAmountRevert, Is.EqualTo(_context.TransactionInfo.amount));
+                Assert.That(_context.ChargeAmountRevert, Is.EqualTo(_context.TransactionInfo.Amount));
                 Assert.That(_context.RevertUserIdTransaction, Is.EqualTo(_context.TransactionInfo.IdTransaction));
                 Assert.That("Active", Is.EqualTo(_context.TransactionInfo.Status));
             });

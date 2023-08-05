@@ -1,6 +1,10 @@
 using Core;
+using Newtonsoft.Json;
 using System;
+using System.Globalization;
 using System.Net;
+using System.Text.RegularExpressions;
+using System.Transactions;
 using UserServiceAPI.Client;
 using UserServiceAPI.Utils;
 using WalletServiceAPI.Client;
@@ -190,10 +194,11 @@ namespace UserUITest.StepDefinitions
         [When(@"get the information of the first transaction")]
         public void WhenGetTheInformationOfTheFirstTransaction()
         {
+            _context.UserPage.WaitForTableVisible();
             _context.TransactionInfo = new TransactionInfo
             {
                 IdTransaction = _context.UserPage.TransactionsIds().First(),
-                amount = _context.UserPage.transactionsAmounts().First(),
+                Amount = _context.UserPage.transactionsAmounts().First(),
                 Status = _context.UserPage.transactionStatus().First()
             };
 
@@ -209,14 +214,14 @@ namespace UserUITest.StepDefinitions
         [When(@"get the information of the second transaction")]
         public void WhenGetTheInformationOfTheSecondTransaction()
         {
+            _context.UserPage.WaitForTableVisible();
             _context.RevertTransactionInfo = new TransactionInfo
             {
                 IdTransaction = _context.UserPage.TransactionsIds().Skip(1).First(),
-                amount = _context.UserPage.transactionsAmounts().Skip(1).First(),
+                Amount = _context.UserPage.transactionsAmounts().Skip(1).First(),
                 Status = _context.UserPage.transactionStatus().Skip(1).First()
             };
-            Console.WriteLine(_context.RevertTransactionInfo.Status);
-            Console.WriteLine(_context.RevertTransactionInfo.amount);
+           
            
         }
 
@@ -224,10 +229,20 @@ namespace UserUITest.StepDefinitions
         [When(@"request the informartion of the last transaction")]
         public async Task WhenRequestTheInformartionOfTheLastTransaction()
         {
-            object apiData = await _walletServiceClient.GetTransactions(_context.InitialUserId);
+            _context.UserPage.WaitForTableVisible();
+            var responseData = await _walletServiceClient.GetTransactions(_context.InitialUserId);
+            string pattern = @"\d{4}-\d{2}-\w+:\d{2}:\d{2}";
 
+           string DateTimeFormat = "yyyy-MM-ddTHH:mm:ss";
+
+            var fieldValues = Regex.Matches(responseData.Content, pattern)
+                                 .Cast<Match>()
+                                 .Select(match => DateTime.ParseExact(match.Value, DateTimeFormat, CultureInfo.InvariantCulture));
+
+            _context.ExpectedTransactionTime = fieldValues.ToList();
+            
         }
 
 
-    }
+}
 }

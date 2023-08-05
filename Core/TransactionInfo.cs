@@ -10,10 +10,11 @@ namespace Core
     {
        
             public Guid IdTransaction { get; set; }
-            public double amount { get; set; }
+            public double Amount { get; set; }
             public DateTime CreateTime { get; set; }
             public string Status { get; set; }
             public int UserId { get; set; }
-       
+            public string BaseTransactionId { get; set; }
+
     }
 }

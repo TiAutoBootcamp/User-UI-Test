@@ -51,7 +51,7 @@ namespace WalletServiceAPI.Client
             return await response.ToCommonResponse<Guid>();
         }
 
-        public async Task<WalletCommonResponse<object>> GetTransactions(int userId)
+        public async Task<WalletCommonResponse<string>> GetTransactions(int userId)
         {
             var getProductInfoRequest = new HttpRequestMessage
             {
@@ -60,7 +60,7 @@ namespace WalletServiceAPI.Client
             };
 
             HttpResponseMessage response = await _httpClient.SendAsync(getProductInfoRequest);
-            return await response.ToCommonResponse<object>();
+            return await response.ToCommonResponse<string>();
         }
     }
 }
