@@ -32,7 +32,7 @@ Scenario Outline: UMS42_TransactionsTabUserDetailsModal_UserWithMultipleTransact
 	And click on the search button
 	And click on the details button
 	And click on transactions tab	
-	And request the informartion of the last transaction
+	And request to get the creation time for user transactions
 	Then transactions are displayed in descendant order by creation time
 	Examples: 
 		|amountValues	|

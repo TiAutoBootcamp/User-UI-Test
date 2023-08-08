@@ -226,7 +226,7 @@ namespace UserUITest.StepDefinitions
         }
 
 
-        [When(@"request the informartion of the last transaction")]
+        [When(@"request to get the creation time for user transactions")]
         public async Task WhenRequestTheInformartionOfTheLastTransaction()
         {
             _context.UserPage.WaitForTableVisible();

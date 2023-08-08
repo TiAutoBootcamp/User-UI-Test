@@ -74,7 +74,6 @@ namespace UserUITest.StepDefinitions
         [Then(@"transactions are displayed in descendant order by creation time")]
         public void ThenTransactionsAreDisplayedInDescendantOrderByCreationTime()
         {
-            //DateTime actualDateTime = (_context.UserPage.transactionsCreateTime()).Max();
             _context.ActualTransactionTime = _context.UserPage.transactionsCreateTime();
              CollectionAssert.AreEqual(_context.ExpectedTransactionTime, _context.ActualTransactionTime);
 

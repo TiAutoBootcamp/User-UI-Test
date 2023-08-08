@@ -220,7 +220,7 @@ this.FeatureBackground();
  testRunner.And("click on transactions tab", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 35
- testRunner.And("request the informartion of the last transaction", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("request to get the creation time for user transactions", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 36
  testRunner.Then("transactions are displayed in descendant order by creation time", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
