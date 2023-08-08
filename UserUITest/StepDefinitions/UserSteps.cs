@@ -187,6 +187,7 @@ namespace UserUITest.StepDefinitions
                 _context.ChargeAmountRevert = -i;
                 _context.ChargeAmount = i;
                 _context.UserIdTransaction = _context.ChargeResponse.Body;
+                _context.NumberTransactions = array.Length;
             }
         
         }
@@ -235,14 +236,46 @@ namespace UserUITest.StepDefinitions
 
            string DateTimeFormat = "yyyy-MM-ddTHH:mm:ss";
 
-            var fieldValues = Regex.Matches(responseData.Content, pattern)
+            var CreateTimeValues = Regex.Matches(responseData.Content, pattern)
                                  .Cast<Match>()
                                  .Select(match => DateTime.ParseExact(match.Value, DateTimeFormat, CultureInfo.InvariantCulture));
 
-            _context.ExpectedTransactionTime = fieldValues.ToList();
+            _context.ExpectedTransactionTime = CreateTimeValues.ToList();
             
         }
 
 
-}
+        [When(@"request to get all the information for all the transactions")]
+        public async Task WhenRequestToGetAllTheInformationForAllTheTransactions()
+        {
+            _context.UserPage.WaitForTableVisible();
+            var responseData = await _walletServiceClient.GetTransactions(_context.InitialUserId);
+            string patternDate = @"\d{4}-\d{2}-\w+:\d{2}:\d{2}";
+
+            string DateTimeFormat = "yyyy-MM-ddTHH:mm:ss";
+
+            _context.ExpectedTransactionTime = Regex.Matches(responseData.Content, patternDate)
+                                 .Cast<Match>()
+                                 .Select(match => DateTime.ParseExact(match.Value, DateTimeFormat, CultureInfo.InvariantCulture)).ToList();
+
+            string patternId = @"\w+-\w+-\w+-\w+-\w+";
+            _context.ExpectedIdsTransaction = Regex.Matches(responseData.Content, patternId)
+                            .Cast<Match>()
+                            .Select(match => Guid.Parse(match.Value))
+                            .ToList();
+            string patternAmount = @"\d+\.\d{2}(?=,)";
+            _context.ExpectedAmountTransaction = Regex.Matches(responseData.Content, patternAmount)
+                            .Cast<Match>()
+                            .Select(match => Double.Parse(match.Value))
+                            .ToList();
+            string patternStatus = @":\d{1},";
+          // _context.ExpectedStatusTransaction = Regex.Matches(responseData.Content, patternId)
+          //                 .Cast<Match>()
+          //                 .Select(match => UserStatus.Parse(match.Value))
+          //                 .ToList(); ;
+
+        }
+
+
+    }
 }

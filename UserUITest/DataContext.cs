@@ -34,6 +34,7 @@ namespace UserUITest
         public WalletCommonResponse<decimal> GetBalanceResponse;
         public WalletCommonResponse<Guid> ChargeResponse;
 
+        public int NumberTransactions;
         public IWebDriver Driver { get; set; }
         public UserPage UserPage { get; set; }
 
@@ -45,6 +46,10 @@ namespace UserUITest
 
         public List<DateTime> ExpectedTransactionTime { get; internal set; }
         public List<DateTime> ActualTransactionTime { get; internal set; }
+
+        public List<Guid> ExpectedIdsTransaction { get; internal set; }
+        public List<double> ExpectedAmountTransaction { get; internal set; }
+        public List<string> ExpectedStatusTransaction { get; internal set; }
         public List<TransactionInfo> transactionInfos { get; internal set; }    
     }
 }

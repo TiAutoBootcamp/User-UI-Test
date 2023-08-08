@@ -16,7 +16,16 @@ Scenario: UMS41_01_TransactionsTabUserDetailsModal_UserWithTransactions_TabIsCli
 	Then transactions tab is clickable
 	And transactions table displays transactions
 
-Scenario: UMS41_02_TransactionsTabUserDetailsModal_UserWithNoTransactions_TabIsClickableAndNoTransactionsMessageIsDisplayed
+Scenario: UMS41_02_TransactionsTabUserDetailsModal_ActiveUserWithNoTransactions_TabIsClickableAndNoTransactionsMessageIsDisplayed
+	Given a user created and active
+	When I write a name on the filter
+	And click on the search button
+	And click on the details button
+	And click on transactions tab
+	Then transactions tab is clickable
+	And no transactions message is displayed
+
+	Scenario: UMS41_03_TransactionsTabUserDetailsModal_NotActiveUserWithNoTransactions_TabIsClickableAndNoTransactionsMessageIsDisplayed
 	Given a user created
 	When I write a name on the filter
 	And click on the search button
@@ -68,3 +77,29 @@ Scenario Outline: UMS45_TransactionsTabUserDetailsModal_UserWithRevertedTransact
 	Examples: 
 		|amountValues	| state 	  |
 		|5,20,30	    | Reverted    |
+
+Scenario Outline: UMS46_TransactionsTabUserDetailsModal_UserWithFiveTransactions_AllIformtationTransactionsIsCorrect
+	Given a user created and active
+	And made multipleTransactions <amountValues>
+	When I write a name on the filter
+	And click on the search button
+	And click on the details button
+	And click on transactions tab	
+	And request to get all the information for all the transactions
+	Then transactions displayed are correct with the expected information
+	Examples: 
+		|amountValues	|
+		|10,20,30	    |
+
+Scenario Outline: UMS47_TransactionsTabUserDetailsModal_UserWithMultipleTransactions_CountOfTransactionsIsCorrect
+	Given a user created and active
+	And made multipleTransactions <amountValues>
+	When I write a name on the filter
+	And click on the search button
+	And click on the details button
+	And click on transactions tab	
+	And request to get the creation time for user transactions
+	Then count of transactions are correct
+	Examples: 
+		|amountValues	|
+		|10,20,30	    |

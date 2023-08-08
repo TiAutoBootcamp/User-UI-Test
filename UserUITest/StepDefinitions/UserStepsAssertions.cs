@@ -74,6 +74,7 @@ namespace UserUITest.StepDefinitions
         [Then(@"transactions are displayed in descendant order by creation time")]
         public void ThenTransactionsAreDisplayedInDescendantOrderByCreationTime()
         {
+            _context.UserPage.WaitForTableVisible();
             _context.ActualTransactionTime = _context.UserPage.transactionsCreateTime();
              CollectionAssert.AreEqual(_context.ExpectedTransactionTime, _context.ActualTransactionTime);
 
@@ -113,6 +114,26 @@ namespace UserUITest.StepDefinitions
             });
 
 
+        }
+
+        [Then(@"count of transactions are correct")]
+        public void ThenCountOfTransactionsAreCorrect()
+        {
+            _context.UserPage.WaitForTableVisible();
+            int countIds = _context.UserPage.TransactionsIds().Count;
+            Assert.IsTrue(countIds == _context.NumberTransactions);
+        }
+
+        [Then(@"transactions displayed are correct with the expected information")]
+        public void ThenTransactionsDisplayedAreCorrectWithTheExpectedInformation()
+        {
+            _context.UserPage.WaitForTableVisible();
+            Assert.Multiple(() =>
+            {
+                CollectionAssert.AreEqual(_context.ExpectedTransactionTime, _context.UserPage.transactionsCreateTime());
+                CollectionAssert.AreEqual(_context.ExpectedAmountTransaction, _context.UserPage.transactionsAmounts());
+                CollectionAssert.AreEqual(_context.ExpectedIdsTransaction, _context.UserPage.TransactionsIds());
+            });
         }
 
     }
