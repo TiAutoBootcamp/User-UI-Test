@@ -133,6 +133,7 @@ namespace UserUITest.StepDefinitions
                 CollectionAssert.AreEqual(_context.ExpectedTransactionTime, _context.UserPage.transactionsCreateTime());
                 CollectionAssert.AreEqual(_context.ExpectedAmountTransaction, _context.UserPage.transactionsAmounts());
                 CollectionAssert.AreEqual(_context.ExpectedIdsTransaction, _context.UserPage.TransactionsIds());
+                CollectionAssert.AreEqual(_context.ExpectedStatusTransaction, _context.UserPage.transactionStatus());
             });
         }
 
