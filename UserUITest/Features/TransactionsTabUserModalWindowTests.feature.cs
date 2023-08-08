@@ -397,7 +397,7 @@ this.FeatureBackground();
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("UMS46_TransactionsTabUserDetailsModal_UserWithFiveTransactions_AllIformtationTran" +
             "sactionsIsCorrect")]
-        [NUnit.Framework.TestCaseAttribute("10,20,30", null)]
+        [NUnit.Framework.TestCaseAttribute("10,20,30,15,5,50", null)]
         public void UMS46_TransactionsTabUserDetailsModal_UserWithFiveTransactions_AllIformtationTransactionsIsCorrect(string amountValues, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;

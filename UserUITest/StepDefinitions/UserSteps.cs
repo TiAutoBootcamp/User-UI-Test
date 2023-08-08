@@ -263,18 +263,14 @@ namespace UserUITest.StepDefinitions
                             .Cast<Match>()
                             .Select(match => Guid.Parse(match.Value))
                             .ToList();
-            //(?<=:)\d+\.\d{2}(?=,)
+          
             string patternAmount = @"\d+\.\d+(?=,)";
-
-            //  
             _context.ExpectedAmountTransaction = Regex.Matches(responseData.Content, patternAmount)
                            .Cast<Match>()
                            .Select(match => Double.Parse(match.Value))
                             .ToList();
 
             string patternStatus = @"(?<=:)\d{1}(?=,)";
-          
-
             _context.ExpectedStatusTransaction = Regex.Matches(responseData.Content, patternStatus)
                               .Cast<Match>()
                               .Select(match => int.Parse(match.Value))

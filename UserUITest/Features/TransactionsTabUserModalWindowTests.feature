@@ -88,8 +88,8 @@ Scenario Outline: UMS46_TransactionsTabUserDetailsModal_UserWithFiveTransactions
 	And request to get all the information for all the transactions
 	Then transactions displayed are correct with the expected information
 	Examples: 
-		|amountValues	|
-		|10,20,30	    |
+		|amountValues			|
+		|10,20,30,15,5,50	    |
 
 Scenario Outline: UMS47_TransactionsTabUserDetailsModal_UserWithMultipleTransactions_CountOfTransactionsIsCorrect
 	Given a user created and active
@@ -101,5 +101,5 @@ Scenario Outline: UMS47_TransactionsTabUserDetailsModal_UserWithMultipleTransact
 	And request to get the creation time for user transactions
 	Then count of transactions are correct
 	Examples: 
-		|amountValues	|
-		|10,20,30	    |
+		|amountValues|
+		|10,20,30    |
