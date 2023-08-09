@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
+using SeleniumExtras.WaitHelpers;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
@@ -52,6 +53,27 @@ namespace UserUITest.Pages
         [FindsBy(How = How.CssSelector, Using = "span[id$='_title']")]
         private IList<IWebElement> _tittleModalFields;
 
+        [FindsBy(How = How.LinkText, Using = "Transactions")]
+        private IWebElement _transactionsTab;
+
+        [FindsBy(How = How.Id, Using = "create_time_column")]
+        private IList<IWebElement> _transactionsCreateTime;
+
+        [FindsBy(How = How.CssSelector, Using = ".bm-content p em")]
+        private IWebElement _messageTransaction;
+
+        [FindsBy(How = How.Id, Using = "transaction_id_column")]
+        private IList<IWebElement> _transactionsIds;
+
+        [FindsBy(How = How.Id, Using = "amount_column")]
+        private IList<IWebElement> _transactionsAmounts;
+
+        [FindsBy(How = How.CssSelector, Using = ".bm-content #status_column")]
+        private IList<IWebElement> _transactionStatus;
+
+         [FindsBy(How = How.CssSelector, Using = ".bm-content .table")]
+        private IWebElement _transactionTable;
+       
         public void WaitForTableToLoad()
         {
             // TODO:
@@ -143,6 +165,14 @@ namespace UserUITest.Pages
             _secondaryCloseButton.Click();
         }
 
+        public void ClickOnTransactionsTab()
+        {
+           
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
+            wait.Until((_) => _transactionsTab.Displayed);
+            _transactionsTab.Click();
+        }
+
         public void ClickOnSpecificPosition()
         {
             Actions actions = new Actions(_driver);
@@ -157,6 +187,14 @@ namespace UserUITest.Pages
         {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
             wait.Until((_) => !IsModalDisplayed());
+        }
+
+        
+
+        public void WaitForTableVisible()
+        {
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            wait.Until((_) => _transactionTable.Displayed);
         }
 
         public List<string> GetFieldsTittle() {
@@ -180,6 +218,44 @@ namespace UserUITest.Pages
                 return false;
             }
         }
+
+        public bool IsTransactionsTabClickable() {
+
+            return _transactionsTab.Enabled;
+        }
+
+        public List<DateTime> transactionsCreateTime() {
+
+      
+          // return (List<DateTime>)_transactionsCreateTime;
+            return _transactionsCreateTime.Select(element => DateTime.Parse(element.Text)).ToList();
+
+        }
+
+        public List<Guid> TransactionsIds()
+        {
+            return _transactionsIds.Select(element => Guid.Parse(element.Text)).ToList();
+        }
+
+
+        public List<double> transactionsAmounts()
+        {
+            
+            return _transactionsAmounts.Select(element => double.Parse(element.Text)).ToList();
+        }
+        public List<string> transactionStatus()
+        {
+            return _transactionStatus.Select(element => element.Text).ToList();
+
+        }
+        public string messageTransactions() {
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            wait.Until(ExpectedConditions.TextToBePresentInElement(_messageTransaction, "User does not have transactions"));
+          //  wait.Until(ExpectedConditions.Not(ExpectedConditions.TextToBePresentInElement(_messageTransaction, "loading")));
+          
+            return _messageTransaction.Text ?? string.Empty;
+        }
+
     }
 
 }

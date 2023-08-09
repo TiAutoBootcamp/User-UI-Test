@@ -1,4 +1,10 @@
+using Core;
+using Newtonsoft.Json;
+using System;
+using System.Globalization;
 using System.Net;
+using System.Text.RegularExpressions;
+using System.Transactions;
 using UserServiceAPI.Client;
 using UserServiceAPI.Utils;
 using WalletServiceAPI.Client;
@@ -108,6 +114,18 @@ namespace UserUITest.StepDefinitions
                 _context.UserStatus = status;
         }
 
+        [Given(@"a user created and active")]
+        public async Task GivenAUserCreatedAndActive()
+        {
+            _context.CreateUserRequest = _createUser.GenerateUserRequest();
+            _context.CreateUserResponse = await _userServiceClient.CreateUser(_context.CreateUserRequest);
+            _context.InitialUserId = _context.CreateUserResponse.Body;
+            var response = await _userServiceClient.SetUserStatus(_context.InitialUserId, true);
+            if (response.StatusCode == HttpStatusCode.OK)
+                _context.UserStatus = true;
+        }
+
+
         [When(@"click out side the modal")]
         public void WhenClickOutSideTheModal()
         {
@@ -140,6 +158,129 @@ namespace UserUITest.StepDefinitions
             var request = _balanceChargeGenerator.GenerateBalanceChargeRequest(_context.InitialUserId, 10);
             _context.ChargeResponse = await _walletServiceClient.BalanceCharge(request);
         }
+
+        [Given(@"user is charged with (.*)")]
+        public async Task GivenUserIsChargedWithAmount(double amount)
+        {
+            _context.ChargeAmount = amount;
+            var request = _balanceChargeGenerator.GenerateBalanceChargeRequest(_context.InitialUserId, amount);
+            _context.ChargeResponse = await _walletServiceClient.BalanceCharge(request);
+
+        }
+
+
+        [When(@"click on transactions tab")]
+        public void WhenClickOnTransactionsTab()
+        {
+            _context.UserPage.ClickOnTransactionsTab();
+
+        }
+
+        [Given(@"made multipleTransactions (.*)")]
+        public async Task GivenMadeMultipleTransactions(string values)
+        {
+            int[] array = values.Split(',').Select(int.Parse).ToArray();
+            foreach (int i in array)
+            {
+                var request = _balanceChargeGenerator.GenerateBalanceChargeRequest(_context.InitialUserId,i);
+                _context.ChargeResponse = await _walletServiceClient.BalanceCharge(request);
+                _context.ChargeAmountRevert = -i;
+                _context.ChargeAmount = i;
+                _context.UserIdTransaction = _context.ChargeResponse.Body;
+                _context.NumberTransactions = array.Length;
+            }
+        
+        }
+
+        [When(@"get the information of the first transaction")]
+        public void WhenGetTheInformationOfTheFirstTransaction()
+        {
+            _context.UserPage.WaitForTableVisible();
+            _context.TransactionInfo = new TransactionInfo
+            {
+                IdTransaction = _context.UserPage.TransactionsIds().First(),
+                Amount = _context.UserPage.transactionsAmounts().First(),
+                Status = _context.UserPage.transactionStatus().First()
+            };
+
+        }
+
+        [Given(@"user has reverted the last transaction")]
+        public async Task GivenUserHasRevertedTheLastTransaction()
+        {
+             _context.ReverseTransactionStatusResponse = await _walletServiceClient.RevertTransaction(_context.UserIdTransaction);
+            _context.RevertUserIdTransaction = _context.ReverseTransactionStatusResponse.Body;
+        }
+
+        [When(@"get the information of the second transaction")]
+        public void WhenGetTheInformationOfTheSecondTransaction()
+        {
+            _context.UserPage.WaitForTableVisible();
+            _context.RevertTransactionInfo = new TransactionInfo
+            {
+                IdTransaction = _context.UserPage.TransactionsIds().Skip(1).First(),
+                Amount = _context.UserPage.transactionsAmounts().Skip(1).First(),
+                Status = _context.UserPage.transactionStatus().Skip(1).First()
+            };
+           
+           
+        }
+
+
+        [When(@"request to get the creation time for user transactions")]
+        public async Task WhenRequestTheInformartionOfTheLastTransaction()
+        {
+            _context.UserPage.WaitForTableVisible();
+            var responseData = await _walletServiceClient.GetTransactions(_context.InitialUserId);
+            string pattern = @"\d{4}-\d{2}-\w+:\d{2}:\d{2}";
+
+           string DateTimeFormat = "yyyy-MM-ddTHH:mm:ss";
+
+            var CreateTimeValues = Regex.Matches(responseData.Content, pattern)
+                                 .Cast<Match>()
+                                 .Select(match => DateTime.ParseExact(match.Value, DateTimeFormat, CultureInfo.InvariantCulture));
+
+            _context.ExpectedTransactionTime = CreateTimeValues.ToList();
+            
+        }
+
+
+        [When(@"request to get all the information for all the transactions")]
+        public async Task WhenRequestToGetAllTheInformationForAllTheTransactions()
+        {
+            _context.UserPage.WaitForTableVisible();
+            var responseData = await _walletServiceClient.GetTransactions(_context.InitialUserId);
+            string patternDate = @"\d{4}-\d{2}-\w+:\d{2}:\d{2}";
+
+            string DateTimeFormat = "yyyy-MM-ddTHH:mm:ss";
+
+            _context.ExpectedTransactionTime = Regex.Matches(responseData.Content, patternDate)
+                                 .Cast<Match>()
+                                 .Select(match => DateTime.ParseExact(match.Value, DateTimeFormat, CultureInfo.InvariantCulture)).ToList();
+
+            string patternId = @"\w+-\w+-\w+-\w+-\w+";
+            _context.ExpectedIdsTransaction = Regex.Matches(responseData.Content, patternId)
+                            .Cast<Match>()
+                            .Select(match => Guid.Parse(match.Value))
+                            .ToList();
+          
+            string patternAmount = @"\d+\.\d+(?=,)";
+            _context.ExpectedAmountTransaction = Regex.Matches(responseData.Content, patternAmount)
+                           .Cast<Match>()
+                           .Select(match => Double.Parse(match.Value))
+                            .ToList();
+
+            string patternStatus = @"(?<=:)\d{1}(?=,)";
+            _context.ExpectedStatusTransaction = Regex.Matches(responseData.Content, patternStatus)
+                              .Cast<Match>()
+                              .Select(match => int.Parse(match.Value))
+                              .Select(statusValue =>
+                                  Enum.IsDefined(typeof(UserStatus), statusValue)
+                                      ? ((UserStatus)statusValue).ToString()
+                                      : "Unknown")
+                              .ToList();
+        }
+
 
     }
 }

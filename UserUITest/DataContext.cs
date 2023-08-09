@@ -17,20 +17,39 @@ namespace UserUITest
         private const bool DEFAULT_USER_STATUS = false;
         public int InitialUserId;
         public int SecondUserId;
+        public double ChargeAmount;
+        public double ChargeAmountRevert;
+
+
+        public WalletCommonResponse<Guid> ReverseTransactionStatusResponse;
+        public Guid SecondUserIdTransaction;
 
         public RegisterUserRequest CreateUserRequest;
         public CommonResponse<int> CreateUserResponse;
         public CommonResponse<object> SetUserStatusResponse;
         public bool UserStatus = DEFAULT_USER_STATUS;
         public Guid UserIdTransaction;
+        public Guid RevertUserIdTransaction;
+        
         public WalletCommonResponse<decimal> GetBalanceResponse;
         public WalletCommonResponse<Guid> ChargeResponse;
 
+        public int NumberTransactions;
         public IWebDriver Driver { get; set; }
         public UserPage UserPage { get; set; }
 
         public BasePage CurrentPage { get; set; }
         public UserInfo UserInfo { get; internal set; }
         public List<string> TittleModalFields;
+        public TransactionInfo TransactionInfo { get; internal set; }
+        public TransactionInfo RevertTransactionInfo { get; internal set; }
+
+        public List<DateTime> ExpectedTransactionTime { get; internal set; }
+        public List<DateTime> ActualTransactionTime { get; internal set; }
+
+        public List<Guid> ExpectedIdsTransaction { get; internal set; }
+        public List<double> ExpectedAmountTransaction { get; internal set; }
+        public List<string> ExpectedStatusTransaction { get; internal set; }
+        public List<TransactionInfo> transactionInfos { get; internal set; }    
     }
 }

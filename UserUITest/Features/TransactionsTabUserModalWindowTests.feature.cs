@@ -131,14 +131,14 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("UMS41_02_TransactionsTabUserDetailsModal_UserWithNoTransactions_TabIsClickableAnd" +
-            "NoTransactionsMessageIsDisplayed")]
-        public void UMS41_02_TransactionsTabUserDetailsModal_UserWithNoTransactions_TabIsClickableAndNoTransactionsMessageIsDisplayed()
+        [NUnit.Framework.DescriptionAttribute("UMS41_02_TransactionsTabUserDetailsModal_ActiveUserWithNoTransactions_TabIsClicka" +
+            "bleAndNoTransactionsMessageIsDisplayed")]
+        public void UMS41_02_TransactionsTabUserDetailsModal_ActiveUserWithNoTransactions_TabIsClickableAndNoTransactionsMessageIsDisplayed()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS41_02_TransactionsTabUserDetailsModal_UserWithNoTransactions_TabIsClickableAnd" +
-                    "NoTransactionsMessageIsDisplayed", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS41_02_TransactionsTabUserDetailsModal_ActiveUserWithNoTransactions_TabIsClicka" +
+                    "bleAndNoTransactionsMessageIsDisplayed", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 19
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -153,7 +153,7 @@ this.ScenarioInitialize(scenarioInfo);
 this.FeatureBackground();
 #line hidden
 #line 20
- testRunner.Given("a user created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("a user created and active", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 21
  testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -178,16 +178,16 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("UMS42_TransactionsTabUserDetailsModal_UserWithMultipleTransactions_TransactionsDi" +
-            "splayedInDescOrderByCreationTime")]
-        public void UMS42_TransactionsTabUserDetailsModal_UserWithMultipleTransactions_TransactionsDisplayedInDescOrderByCreationTime()
+        [NUnit.Framework.DescriptionAttribute("UMS41_03_TransactionsTabUserDetailsModal_NotActiveUserWithNoTransactions_TabIsCli" +
+            "ckableAndNoTransactionsMessageIsDisplayed")]
+        public void UMS41_03_TransactionsTabUserDetailsModal_NotActiveUserWithNoTransactions_TabIsClickableAndNoTransactionsMessageIsDisplayed()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS42_TransactionsTabUserDetailsModal_UserWithMultipleTransactions_TransactionsDi" +
-                    "splayedInDescOrderByCreationTime", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS41_03_TransactionsTabUserDetailsModal_NotActiveUserWithNoTransactions_TabIsCli" +
+                    "ckableAndNoTransactionsMessageIsDisplayed", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 28
-this.ScenarioInitialize(scenarioInfo);
+ this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -200,7 +200,7 @@ this.ScenarioInitialize(scenarioInfo);
 this.FeatureBackground();
 #line hidden
 #line 29
- testRunner.Given("a user with multipleTransactions is created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("a user created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 30
  testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -215,6 +215,61 @@ this.FeatureBackground();
  testRunner.And("click on transactions tab", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 34
+ testRunner.Then("transactions tab is clickable", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 35
+ testRunner.And("no transactions message is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("UMS42_TransactionsTabUserDetailsModal_UserWithMultipleTransactions_TransactionsDi" +
+            "splayedInDescOrderByCreationTime")]
+        [NUnit.Framework.TestCaseAttribute("10,20,30", null)]
+        public void UMS42_TransactionsTabUserDetailsModal_UserWithMultipleTransactions_TransactionsDisplayedInDescOrderByCreationTime(string amountValues, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("amountValues", amountValues);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS42_TransactionsTabUserDetailsModal_UserWithMultipleTransactions_TransactionsDi" +
+                    "splayedInDescOrderByCreationTime", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 37
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 7
+this.FeatureBackground();
+#line hidden
+#line 38
+ testRunner.Given("a user created and active", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 39
+ testRunner.And(string.Format("made multipleTransactions {0}", amountValues), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 40
+ testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 41
+ testRunner.And("click on the search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 42
+ testRunner.And("click on the details button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 43
+ testRunner.And("click on transactions tab", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 44
+ testRunner.And("request to get the creation time for user transactions", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 45
  testRunner.Then("transactions are displayed in descendant order by creation time", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -224,13 +279,16 @@ this.FeatureBackground();
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("UMS43_TransactionsTabUserDetailsModal_UserWithTransactionsAddNewTransaction_Creat" +
             "edTransactionIsDisplayedFirst")]
-        public void UMS43_TransactionsTabUserDetailsModal_UserWithTransactionsAddNewTransaction_CreatedTransactionIsDisplayedFirst()
+        [NUnit.Framework.TestCaseAttribute("5,20,30", "10", null)]
+        public void UMS43_TransactionsTabUserDetailsModal_UserWithTransactionsAddNewTransaction_CreatedTransactionIsDisplayedFirst(string amountValues, string amount, string[] exampleTags)
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("amountValues", amountValues);
+            argumentsOfScenario.Add("amount", amount);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS43_TransactionsTabUserDetailsModal_UserWithTransactionsAddNewTransaction_Creat" +
                     "edTransactionIsDisplayedFirst", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 36
+#line 50
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -243,26 +301,32 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 37
- testRunner.Given("a user with multipleTransactions is created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 51
+ testRunner.Given("a user created and active", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 38
- testRunner.And("user is charged with <amount>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 52
+ testRunner.And(string.Format("made multipleTransactions {0}", amountValues), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 39
+#line 53
+ testRunner.And(string.Format("user is charged with {0}", amount), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 54
  testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 40
+#line 55
  testRunner.And("click on the search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 41
+#line 56
  testRunner.And("click on the details button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 42
+#line 57
  testRunner.And("click on transactions tab", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 43
- testRunner.Then("first transaction displayed is <expectedAmount> and <TransactionId>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 58
+ testRunner.And("get the information of the first transaction", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 59
+ testRunner.Then("the information displayed has the expected information for the transaction", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -271,13 +335,16 @@ this.FeatureBackground();
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("UMS45_TransactionsTabUserDetailsModal_UserWithRevertedTransactions_TransactionSta" +
             "tusIsRevertedAndAmountIsNegative")]
-        public void UMS45_TransactionsTabUserDetailsModal_UserWithRevertedTransactions_TransactionStatusIsRevertedAndAmountIsNegative()
+        [NUnit.Framework.TestCaseAttribute("5,20,30", "Reverted", null)]
+        public void UMS45_TransactionsTabUserDetailsModal_UserWithRevertedTransactions_TransactionStatusIsRevertedAndAmountIsNegative(string amountValues, string state, string[] exampleTags)
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("amountValues", amountValues);
+            argumentsOfScenario.Add("state", state);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS45_TransactionsTabUserDetailsModal_UserWithRevertedTransactions_TransactionSta" +
                     "tusIsRevertedAndAmountIsNegative", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 45
+#line 64
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -290,26 +357,142 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 46
- testRunner.Given("a user with multipleTransactions is created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 65
+ testRunner.Given("a user created and active", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 47
- testRunner.And("user has reverted transactions", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 66
+ testRunner.And(string.Format("made multipleTransactions {0}", amountValues), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 48
+#line 67
+ testRunner.And("user has reverted the last transaction", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 68
  testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 49
+#line 69
  testRunner.And("click on the search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 50
+#line 70
  testRunner.And("click on the details button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 51
+#line 71
  testRunner.And("click on transactions tab", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 52
- testRunner.Then("first transaction displayed is <expectedAmount> and <TransactionId>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 72
+ testRunner.And("get the information of the first transaction", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 73
+ testRunner.And("get the information of the second transaction", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 74
+ testRunner.Then(string.Format("second transaction has the {0} and expected information", state), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 75
+ testRunner.And("the first transaction has the revert amount", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("UMS46_TransactionsTabUserDetailsModal_UserWithFiveTransactions_AllIformtationTran" +
+            "sactionsIsCorrect")]
+        [NUnit.Framework.TestCaseAttribute("10,20,30,15,5,50", null)]
+        public void UMS46_TransactionsTabUserDetailsModal_UserWithFiveTransactions_AllIformtationTransactionsIsCorrect(string amountValues, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("amountValues", amountValues);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS46_TransactionsTabUserDetailsModal_UserWithFiveTransactions_AllIformtationTran" +
+                    "sactionsIsCorrect", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 81
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 7
+this.FeatureBackground();
+#line hidden
+#line 82
+ testRunner.Given("a user created and active", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 83
+ testRunner.And(string.Format("made multipleTransactions {0}", amountValues), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 84
+ testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 85
+ testRunner.And("click on the search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 86
+ testRunner.And("click on the details button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 87
+ testRunner.And("click on transactions tab", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 88
+ testRunner.And("request to get all the information for all the transactions", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 89
+ testRunner.Then("transactions displayed are correct with the expected information", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("UMS47_TransactionsTabUserDetailsModal_UserWithMultipleTransactions_CountOfTransac" +
+            "tionsIsCorrect")]
+        [NUnit.Framework.TestCaseAttribute("10,20,30", null)]
+        public void UMS47_TransactionsTabUserDetailsModal_UserWithMultipleTransactions_CountOfTransactionsIsCorrect(string amountValues, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("amountValues", amountValues);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS47_TransactionsTabUserDetailsModal_UserWithMultipleTransactions_CountOfTransac" +
+                    "tionsIsCorrect", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 94
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 7
+this.FeatureBackground();
+#line hidden
+#line 95
+ testRunner.Given("a user created and active", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 96
+ testRunner.And(string.Format("made multipleTransactions {0}", amountValues), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 97
+ testRunner.When("I write a name on the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 98
+ testRunner.And("click on the search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 99
+ testRunner.And("click on the details button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 100
+ testRunner.And("click on transactions tab", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 101
+ testRunner.And("request to get the creation time for user transactions", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 102
+ testRunner.Then("count of transactions are correct", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
