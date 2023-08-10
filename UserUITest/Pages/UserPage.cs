@@ -106,6 +106,7 @@ namespace UserUITest.Pages
 
         public void ClickDetailsButton()
         {
+            //Thread.Sleep(1000);
             _buttonDetails.Click();
 
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
@@ -136,7 +137,10 @@ namespace UserUITest.Pages
 
         public string GetBirthDate()
         {
+            Thread.Sleep(500);
+
             string _birthDate = _birthDateField.Text ?? string.Empty;
+
             return _birthDate;
         }
 
