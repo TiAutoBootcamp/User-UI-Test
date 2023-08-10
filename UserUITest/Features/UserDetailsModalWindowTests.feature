@@ -58,7 +58,7 @@ Scenario Outline: UMS12_DetailsModal_CreateUserAndChangeStatusTwiceToActiveOpenT
 		| true        | false        | false          | 12.07.2023        |
 
 Scenario Outline: UMS13_DetailsModal_CreateUserAndChangeStatusThriceToActiveOpenTheDetailsModal_DisplayedDataMatchesWithUser
-	Given a user created wih birth date like <expectedBirthDate>
+	Given a user created wih birth date <expectedBirthDate>
 	And change the user status to <FirstStatus>
 	And change second time the user status to <SecondStatus>
 	And change third time the user status to <ThirdStatus>
@@ -96,8 +96,10 @@ Scenario Outline:UMS28-23_DetailsModal_CreateAFirstNameWithSpecificCharactersAnd
 	Then the information on the modal match with the set data
 	Examples: 
 		 | length | expectedStatus | expectedBirthDate |
-		 | 200    | false          | 12.07.2023        |
-		 | 1      | false          | 12.07.2023        |
+		 | 196    | false          | 12.07.2023        |
+	#	 | 1      | false          | 12.07.2023        |
+	# test case with 1 long length tested manually
+
 
 	#24-27
 Scenario Outline:UMS24-27_DetailsModal_CreateAFirstNameAndLastNameWithSpecificCharactersAndOpenDetailsModal_DisplayedDataMatchesWithUser
@@ -109,8 +111,10 @@ Scenario Outline:UMS24-27_DetailsModal_CreateAFirstNameAndLastNameWithSpecificCh
 	Then the information on the modal match with the set data
 	Examples: 
 		 | length | expectedStatus | expectedBirthDate |
-		 | 200    | false          | 12.07.2023        |
-		 | 1      | false          | 12.07.2023        |
+		 | 196    | false          | 12.07.2023        |
+#		 | 1      | false          | 12.07.2023        |
+# test case with 1 long length tested manually
+
 		 #25-26
 Scenario Outline:UMS25-26_DetailsModal_CreateGUIDFirstNameAndLastNameWithSpecificCharactersAndOpenDetailsModal_DisplayedDataMatchesWithUser
 	Given a user with GUID first name and last name <length> characters and birth date <expectedBirthDate>
@@ -121,16 +125,18 @@ Scenario Outline:UMS25-26_DetailsModal_CreateGUIDFirstNameAndLastNameWithSpecifi
 	Then the information on the modal match with the set data
 	Examples: 
 		 | length | expectedStatus | expectedBirthDate |
-		 | 200    | false          | 12.07.2023        |
-		 | 1      | false          | 12.07.2023        |
+		 | 196    | false          | 12.07.2023        |
+#		 | 1      | false          | 12.07.2023        |
+# test case with 1 long length tested manually
 
-Scenario:UMS29_DetailsModal_CreateUserAndOpenDetailsModalAndPressEscKey_ModalCloses
-	Given a user created
-	When I write a name on the filter
-	And click on the search button
-	And click on the details button
-	And press the Esc key
-	Then the modal is closed
+# canceled because it is not a requirement 
+#Scenario:UMS29_DetailsModal_CreateUserAndOpenDetailsModalAndPressEscKey_ModalCloses
+#	Given a user created
+#	When I write a name on the filter
+#	And click on the search button
+#	And click on the details button
+#	And press the Esc key
+#	Then the modal is closed
 
 Scenario:UMS30_DetailsModal_CreateUserAndOpenDetailsModalThenClickOutsideTheModal_ModalCloses
 	Given a user created

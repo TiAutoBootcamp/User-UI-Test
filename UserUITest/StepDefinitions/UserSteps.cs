@@ -31,6 +31,19 @@ namespace UserUITest.StepDefinitions
         [Given(@"a user created wih birth date ([^']*)")]
         public async Task WhenIWriteAGuidNameToFirstNameFieldWihBirthDateLikeEmpty(string birthDate)
         {
+            if (birthDate[2] == '/')
+            {
+                char temp1 = birthDate[0];
+                char temp2 = birthDate[1];
+                char temp3 = birthDate[3];
+                char temp4 = birthDate[4];
+
+                birthDate = birthDate.Remove(0, 6);
+                birthDate = birthDate.Insert(0, temp3.ToString() + temp4.ToString());
+                birthDate = birthDate.Insert(2, temp1.ToString() + temp2.ToString());
+                birthDate = birthDate.Insert(2, ".");
+                birthDate = birthDate.Insert(5, ".");
+            }
             _context.CreateUserRequest = _createUser.GenerateCreateUserRequestWithBirthDate(birthDate);
             _context.CreateUserResponse = await _userServiceClient.CreateUser(_context.CreateUserRequest);
             _context.InitialUserId = _context.CreateUserResponse.Body;
@@ -69,7 +82,7 @@ namespace UserUITest.StepDefinitions
         [When(@"click on the search button")]
         public void WhenClickOnTheSearchButton()
         {
-            _context.UserPage.ClickSearchButton(); ;
+            _context.UserPage.ClickSearchButton();
         }
 
         [When(@"click on the details button")]
