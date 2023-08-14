@@ -10,7 +10,12 @@ namespace Core
 
         public bool IsActive { get; set; }
 
-        public string BirthDate { get; set; }
+        private string _birthDate;
+        public string BirthDate
+        {
+            get => _birthDate;
+            set => _birthDate = value == "empty" ? null : value;
+        }
     }
 
     }

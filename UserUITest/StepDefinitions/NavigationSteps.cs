@@ -1,3 +1,4 @@
+using UserManagementServiceUITests.Pages;
 using UserUITest.Pages;
 
 namespace UserUITest.StepDefinitions
@@ -21,6 +22,8 @@ namespace UserUITest.StepDefinitions
             _context.CurrentPage = _context.UserPage;
 
             _context.UserPage.LoadUserTable();
+
+            _context.CreateUser = new CreateUser(_context.Driver);
         }
     }
 }

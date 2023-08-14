@@ -1,4 +1,5 @@
 ﻿using Core;
+using NUnit.Framework.Internal.Execution;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
@@ -6,6 +7,8 @@ using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
+using TechTalk.SpecFlow;
 
 namespace UserUITest.Pages
 {
@@ -71,9 +74,15 @@ namespace UserUITest.Pages
         [FindsBy(How = How.CssSelector, Using = ".bm-content #status_column")]
         private IList<IWebElement> _transactionStatus;
 
-         [FindsBy(How = How.CssSelector, Using = ".bm-content .table")]
-        private IWebElement _transactionTable;
-       
+        [FindsBy(How = How.CssSelector, Using = ".bm-content .table")]
+        private  IList<IWebElement> _transactionTable;
+
+        [FindsBy(How = How.Id, Using = "add_user_button")]
+        private IWebElement _addUserButton;
+
+
+
+
         public void WaitForTableToLoad()
         {
             // TODO:
@@ -168,7 +177,10 @@ namespace UserUITest.Pages
         {
             _secondaryCloseButton.Click();
         }
-
+        public void ClickAddUserButton()
+        {
+            _addUserButton.Click();
+        }
         public void ClickOnTransactionsTab()
         {
            
@@ -198,7 +210,38 @@ namespace UserUITest.Pages
         public void WaitForTableVisible()
         {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            wait.Until((_) => _transactionTable.Displayed);
+            wait.Until((_) => _transactionTable.Where(rowElement => rowElement.Displayed).ToList());
+           
+        }
+
+        // public List<TransactionInfo> GetTableInformation()
+        // {
+        //List<Guid>_IdTransaction = TransactionsIds();
+
+        //  List < TransactionInfo > tableInformation = _transactionTable
+        // .Select(rowElement => new TransactionInfo
+        // {
+        //     IdTransaction = _IdTransaction[index],
+        //     Amount = GetCellValue(rowElement, AmountColumnIndex),
+        //     CreateTime = GetCellValue(rowElement, CreateTimeColumnIndex),
+        //     Status = double.Parse(GetCellValue(rowElement, CreateTimeColumnIndex)),
+        //    
+        // }) 
+        // .ToList();
+
+        //     return tableInformation;
+        // }
+
+        private object GetCellValue(IWebElement rowElement, int columnIndex)
+        {
+            var cellElements = rowElement.FindElements(By.TagName("td"));
+
+            if (cellElements.Count > columnIndex)
+            {
+                return cellElements[columnIndex].Text;
+            }
+
+            return string.Empty;
         }
 
         public List<string> GetFieldsTittle() {
@@ -255,11 +298,13 @@ namespace UserUITest.Pages
         public string messageTransactions() {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
             wait.Until(ExpectedConditions.TextToBePresentInElement(_messageTransaction, "User does not have transactions"));
-          //  wait.Until(ExpectedConditions.Not(ExpectedConditions.TextToBePresentInElement(_messageTransaction, "loading")));
-          
+            //  wait.Until(ExpectedConditions.Not(ExpectedConditions.TextToBePresentInElement(_messageTransaction, "loading")));
             return _messageTransaction.Text ?? string.Empty;
+            
         }
 
+        
+        
     }
 
 }

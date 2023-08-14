@@ -9,6 +9,7 @@ using WalletServiceAPI.Models.Requests;
 using WalletServiceAPI.Models.Responses;
 using UserUITest.Pages;
 using WalletServiceAPI.Models.Responses.Base;
+using UserManagementServiceUITests.Pages;
 
 namespace UserUITest
 {
@@ -37,9 +38,11 @@ namespace UserUITest
         public int NumberTransactions;
         public IWebDriver Driver { get; set; }
         public UserPage UserPage { get; set; }
+        public CreateUser CreateUser { get; set; }
 
         public BasePage CurrentPage { get; set; }
         public UserInfo UserInfo { get; internal set; }
+
         public List<string> TittleModalFields;
         public TransactionInfo TransactionInfo { get; internal set; }
         public TransactionInfo RevertTransactionInfo { get; internal set; }
@@ -50,6 +53,6 @@ namespace UserUITest
         public List<Guid> ExpectedIdsTransaction { get; internal set; }
         public List<double> ExpectedAmountTransaction { get; internal set; }
         public List<string> ExpectedStatusTransaction { get; internal set; }
-        public List<TransactionInfo> transactionInfos { get; internal set; }    
+        public List<TransactionInfo> TransactionInfos { get; internal set; }    
     }
 }
