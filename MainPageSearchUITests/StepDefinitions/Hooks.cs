@@ -2,10 +2,9 @@
 using OpenQA.Selenium.Chrome;
 using System.Collections.Concurrent;
 using TechTalk.SpecFlow;
-using UserServiceAPI.Client;
-using UserUITest.Pages;
 
-namespace UserManagementServiceUITests.StepDefinitions
+
+namespace MainPageSearchUITests.StepDefinitions
 {
     [Binding]
     public sealed class Hooks
@@ -19,7 +18,6 @@ namespace UserManagementServiceUITests.StepDefinitions
             context.Driver = new ChromeDriver(chromeOptions);
             context.Driver.Manage().Window.Maximize();
             context.Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
-
         }
 
         [AfterScenario]

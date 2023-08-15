@@ -10,17 +10,17 @@ using UserServiceAPI.Utils;
 using WalletServiceAPI.Client;
 using WalletServiceAPI.Utils;
 
-namespace UserUITest.StepDefinitions
+namespace UserManagementServiceUITests.StepDefinitions
 {
     [Binding]
     public sealed class UserSteps
-    {  
+    {
         private readonly UserServiceClient _userServiceClient = new UserServiceClient();
         private readonly WalletServiceClient _walletServiceClient = new WalletServiceClient();
         private readonly BalanceChargeGenerator _balanceChargeGenerator = new BalanceChargeGenerator();
         private readonly UserGenerator _createUser = new UserGenerator();
         private readonly DataContext _context;
-        
+
         public UserSteps(DataContext context)
         {
             _context = context;
@@ -58,7 +58,7 @@ namespace UserUITest.StepDefinitions
         [Given(@"a user first name created with (.*) characters and GUID last name with birth date ([^']*)")]
         public async Task GivenAUserFirstNameCreatedWithCharactersAndGUIDLastNameWithBirthDate_(int length, string birthDate)
         {
-            _context.CreateUserRequest = _createUser.GenerateRandomFirstNameWithGuidLastNameRequest(length,birthDate);
+            _context.CreateUserRequest = _createUser.GenerateRandomFirstNameWithGuidLastNameRequest(length, birthDate);
             _context.CreateUserResponse = await _userServiceClient.CreateUser(_context.CreateUserRequest);
             _context.InitialUserId = _context.CreateUserResponse.Body;
         }
@@ -83,7 +83,7 @@ namespace UserUITest.StepDefinitions
         public void WhenIWriteAGuidNameToFirstNameField()
         {
             _context.UserPage.SearchUser(_context.CreateUserRequest.FirstName, _context.CreateUserRequest.LastName);
-        }    
+        }
 
         [When(@"click on the search button")]
         public void WhenClickOnTheSearchButton()
@@ -96,7 +96,7 @@ namespace UserUITest.StepDefinitions
         {
             Thread.Sleep(500);
             _context.UserPage.ClickDetailsButton();
-            
+
         }
 
         [When(@"get all the information from the modal")]
@@ -120,7 +120,7 @@ namespace UserUITest.StepDefinitions
         [Given(@"change the user status to ([^']*)")]
         [Given(@"change second time the user status to ([^']*)")]
         [Given(@"change third time the user status to ([^']*)")]
-        public async Task  GivenChangeTheUserStatusToActive(bool status)
+        public async Task GivenChangeTheUserStatusToActive(bool status)
         {
             var response = await _userServiceClient.SetUserStatus(_context.InitialUserId, status);
             if (response.StatusCode == HttpStatusCode.OK)
@@ -195,14 +195,14 @@ namespace UserUITest.StepDefinitions
             int[] array = values.Split(',').Select(int.Parse).ToArray();
             foreach (int i in array)
             {
-                var request = _balanceChargeGenerator.GenerateBalanceChargeRequest(_context.InitialUserId,i);
+                var request = _balanceChargeGenerator.GenerateBalanceChargeRequest(_context.InitialUserId, i);
                 _context.ChargeResponse = await _walletServiceClient.BalanceCharge(request);
                 _context.ChargeAmountRevert = -i;
                 _context.ChargeAmount = i;
                 _context.UserIdTransaction = _context.ChargeResponse.Body;
                 _context.NumberTransactions = array.Length;
             }
-        
+
         }
 
         [When(@"get the information of the first transaction")]
@@ -221,7 +221,7 @@ namespace UserUITest.StepDefinitions
         [Given(@"user has reverted the last transaction")]
         public async Task GivenUserHasRevertedTheLastTransaction()
         {
-             _context.ReverseTransactionStatusResponse = await _walletServiceClient.RevertTransaction(_context.UserIdTransaction);
+            _context.ReverseTransactionStatusResponse = await _walletServiceClient.RevertTransaction(_context.UserIdTransaction);
             _context.RevertUserIdTransaction = _context.ReverseTransactionStatusResponse.Body;
         }
 
@@ -235,8 +235,8 @@ namespace UserUITest.StepDefinitions
                 Amount = _context.UserPage.transactionsAmounts().Skip(1).First(),
                 Status = _context.UserPage.transactionStatus().Skip(1).First()
             };
-           
-           
+
+
         }
 
 
@@ -247,14 +247,14 @@ namespace UserUITest.StepDefinitions
             var responseData = await _walletServiceClient.GetTransactions(_context.InitialUserId);
             string pattern = @"\d{4}-\d{2}-\w+:\d{2}:\d{2}";
 
-           string DateTimeFormat = "yyyy-MM-ddTHH:mm:ss";
+            string DateTimeFormat = "yyyy-MM-ddTHH:mm:ss";
 
             var CreateTimeValues = Regex.Matches(responseData.Content, pattern)
                                  .Cast<Match>()
                                  .Select(match => DateTime.ParseExact(match.Value, DateTimeFormat, CultureInfo.InvariantCulture));
 
             _context.ExpectedTransactionTime = CreateTimeValues.ToList();
-            
+
         }
 
 
@@ -276,11 +276,11 @@ namespace UserUITest.StepDefinitions
                             .Cast<Match>()
                             .Select(match => Guid.Parse(match.Value))
                             .ToList();
-          
+
             string patternAmount = @"\d+\.\d+(?=,)";
             _context.ExpectedAmountTransaction = Regex.Matches(responseData.Content, patternAmount)
                            .Cast<Match>()
-                           .Select(match => Double.Parse(match.Value))
+                           .Select(match => double.Parse(match.Value))
                             .ToList();
 
             string patternStatus = @"(?<=:)\d{1}(?=,)";

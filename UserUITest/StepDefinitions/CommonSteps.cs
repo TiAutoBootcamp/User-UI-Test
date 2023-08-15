@@ -1,13 +1,14 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using UserManagementServiceUITests;
 
-namespace UserUITest.StepDefinitions
+namespace UserManagementServiceUITests.StepDefinitions
 {
     [Binding]
     public sealed class CommonSteps
-    {  
+    {
         private readonly DataContext _context;
-        
+
         public CommonSteps(DataContext context)
         {
             _context = context;

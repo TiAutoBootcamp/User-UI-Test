@@ -7,12 +7,13 @@ using UserServiceAPI.Models.Requests;
 using UserServiceAPI.Models.Responses;
 using WalletServiceAPI.Models.Requests;
 using WalletServiceAPI.Models.Responses;
-using UserUITest.Pages;
 using WalletServiceAPI.Models.Responses.Base;
+using UserManagementServiceUITests.Pages;
+using UserUITest.Pages;
 
-namespace UserUITest
+namespace UserManagementServiceUITests
 {
-    public  class DataContext
+    public class DataContext
     {
         private const bool DEFAULT_USER_STATUS = false;
         public int InitialUserId;
@@ -30,13 +31,14 @@ namespace UserUITest
         public bool UserStatus = DEFAULT_USER_STATUS;
         public Guid UserIdTransaction;
         public Guid RevertUserIdTransaction;
-        
+
         public WalletCommonResponse<decimal> GetBalanceResponse;
         public WalletCommonResponse<Guid> ChargeResponse;
 
         public int NumberTransactions;
         public IWebDriver Driver { get; set; }
         public UserPage UserPage { get; set; }
+        public MainPage MainPage { get; set; }
 
         public BasePage CurrentPage { get; set; }
         public UserInfo UserInfo { get; internal set; }
@@ -50,6 +52,6 @@ namespace UserUITest
         public List<Guid> ExpectedIdsTransaction { get; internal set; }
         public List<double> ExpectedAmountTransaction { get; internal set; }
         public List<string> ExpectedStatusTransaction { get; internal set; }
-        public List<TransactionInfo> transactionInfos { get; internal set; }    
+        public List<TransactionInfo> transactionInfos { get; internal set; }
     }
 }

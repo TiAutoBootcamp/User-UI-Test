@@ -23,11 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Drivers\" />
-    <Folder Include="Support\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\UserServiceAPI\UserServiceAPI.csproj" />
     <ProjectReference Include="..\WalletServiceAPI\WalletServiceAPI\WalletServiceAPI.csproj" />
