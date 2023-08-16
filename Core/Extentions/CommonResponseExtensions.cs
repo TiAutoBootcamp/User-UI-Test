@@ -14,6 +14,7 @@ namespace Core.Extentions
                 Status = message.StatusCode,
                 Content = responseBody
             };
+
             try
             {
                 commonResponse.Body = JsonConvert.DeserializeObject<T>(responseBody);

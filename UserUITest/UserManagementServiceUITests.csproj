@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CatalogServiceAPI\CatalogServiceAPI.csproj" />
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\UserServiceAPI\UserServiceAPI.csproj" />
     <ProjectReference Include="..\WalletServiceAPI\WalletServiceAPI\WalletServiceAPI.csproj" />

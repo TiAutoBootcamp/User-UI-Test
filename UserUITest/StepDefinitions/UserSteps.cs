@@ -1,10 +1,7 @@
 using Core;
-using Newtonsoft.Json;
-using System;
 using System.Globalization;
 using System.Net;
 using System.Text.RegularExpressions;
-using System.Transactions;
 using UserServiceAPI.Client;
 using UserServiceAPI.Utils;
 using WalletServiceAPI.Client;
@@ -181,12 +178,10 @@ namespace UserManagementServiceUITests.StepDefinitions
 
         }
 
-
         [When(@"click on transactions tab")]
         public void WhenClickOnTransactionsTab()
         {
             _context.UserPage.ClickOnTransactionsTab();
-
         }
 
         [Given(@"made multipleTransactions (.*)")]
@@ -202,7 +197,6 @@ namespace UserManagementServiceUITests.StepDefinitions
                 _context.UserIdTransaction = _context.ChargeResponse.Body;
                 _context.NumberTransactions = array.Length;
             }
-
         }
 
         [When(@"get the information of the first transaction")]
@@ -215,7 +209,6 @@ namespace UserManagementServiceUITests.StepDefinitions
                 Amount = _context.UserPage.transactionsAmounts().First(),
                 Status = _context.UserPage.transactionStatus().First()
             };
-
         }
 
         [Given(@"user has reverted the last transaction")]
@@ -235,8 +228,6 @@ namespace UserManagementServiceUITests.StepDefinitions
                 Amount = _context.UserPage.transactionsAmounts().Skip(1).First(),
                 Status = _context.UserPage.transactionStatus().Skip(1).First()
             };
-
-
         }
 
 
@@ -254,7 +245,6 @@ namespace UserManagementServiceUITests.StepDefinitions
                                  .Select(match => DateTime.ParseExact(match.Value, DateTimeFormat, CultureInfo.InvariantCulture));
 
             _context.ExpectedTransactionTime = CreateTimeValues.ToList();
-
         }
 
 
@@ -294,6 +284,34 @@ namespace UserManagementServiceUITests.StepDefinitions
                               .ToList();
         }
 
+        [When(@"User search product by '(.*)'")]
+        public void WhenUserSearchProductBy(string searchedString)
+        {
+            switch (searchedString)
+            {
+                case "Article":
+                    _context.MainPage.FillSearchField(_context.ProductRequest.Article);
+                    break;
+                case "Name":
+                    _context.MainPage.FillSearchField(_context.ProductRequest.Name);
+                    break;
+                case "Manufactor":
+                    _context.MainPage.FillSearchField(_context.ProductRequest.Manufactor);
+                    break;
+                case "":
+                    break;
+                default:
+                    _context.MainPage.FillSearchField(searchedString);
+                    break;
+            }
+            _context.MainPage.ClickSearchButton();
+        }
 
+        [When(@"User enter the partial string (.*) in the field search")]
+        public void WhenUserEnterThePartialStringInTheFieldSearch(string partialString)
+        {
+            _context.MainPage.FillSearchField(partialString);
+            _context.MainPage.ClickSearchButton();
+        }
     }
 }

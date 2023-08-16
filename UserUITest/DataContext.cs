@@ -10,6 +10,8 @@ using WalletServiceAPI.Models.Responses;
 using WalletServiceAPI.Models.Responses.Base;
 using UserManagementServiceUITests.Pages;
 using UserUITest.Pages;
+using CatalogServiceAPI.Models.Requests;
+using CatalogServiceAPI.Client;
 
 namespace UserManagementServiceUITests
 {
@@ -20,12 +22,12 @@ namespace UserManagementServiceUITests
         public int SecondUserId;
         public double ChargeAmount;
         public double ChargeAmountRevert;
-
-
+    
         public WalletCommonResponse<Guid> ReverseTransactionStatusResponse;
         public Guid SecondUserIdTransaction;
 
         public RegisterUserRequest CreateUserRequest;
+        public CreateProductRequest ProductRequest;
         public CommonResponse<int> CreateUserResponse;
         public CommonResponse<object> SetUserStatusResponse;
         public bool UserStatus = DEFAULT_USER_STATUS;
@@ -46,6 +48,8 @@ namespace UserManagementServiceUITests
         public TransactionInfo TransactionInfo { get; internal set; }
         public TransactionInfo RevertTransactionInfo { get; internal set; }
 
+        public CatalogServiceClient CatalogServiceClient { get; set; }
+
         public List<DateTime> ExpectedTransactionTime { get; internal set; }
         public List<DateTime> ActualTransactionTime { get; internal set; }
 
@@ -53,5 +57,6 @@ namespace UserManagementServiceUITests
         public List<double> ExpectedAmountTransaction { get; internal set; }
         public List<string> ExpectedStatusTransaction { get; internal set; }
         public List<TransactionInfo> transactionInfos { get; internal set; }
+        public List<string> ProductArticles { get; internal set; }
     }
 }

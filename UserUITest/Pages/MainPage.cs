@@ -10,8 +10,12 @@ namespace UserManagementServiceUITests.Pages
         [FindsBy(How = How.ClassName, Using = "search")]
         private IWebElement _searchButton;
 
-        [FindsBy(How = How.ClassName, Using = "search")]
+        [FindsBy(How = How.ClassName, Using = "searchField")]
+        private IWebElement _searchField;
+
+        [FindsBy(How = How.ClassName, Using = "product")]
         private IWebElement _product;
+        
 
         public MainPage(IWebDriver driver) : base(driver)
         {
@@ -20,7 +24,17 @@ namespace UserManagementServiceUITests.Pages
         public void WaitProductsLoading()
         {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
-            wait.Until((_) => _product.Displayed);
+            wait.Until((_) => _searchButton.Displayed);
+        }
+
+        public void FillSearchField(string searchedString)
+        {
+            _searchField.SendKeys(searchedString);
+        }
+
+        public void ClickSearchButton()
+        {
+            _searchButton.Click();
         }
     }
 }

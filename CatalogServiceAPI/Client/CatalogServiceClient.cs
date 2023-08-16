@@ -7,8 +7,7 @@ namespace CatalogServiceAPI.Client
 {
     public class CatalogServiceClient : BaseClient
     {
-
-        public CatalogServiceClient(string baseUrl) : base(baseUrl)
+        public CatalogServiceClient(string baseUrl = " https://userservice-uat.azurewebsites.net") : base(baseUrl)
         {
         }
 
@@ -27,6 +26,12 @@ namespace CatalogServiceAPI.Client
         public async Task<CommonResponse<object>> UpdateProductPrice(string article, double price)
         {
             var response = await SendPutRequestWithoutContent($"/Catalog/UpdateProductPrice?article={article}&price={price}");
+            return await response.ToCommonResponse<object>();
+        }
+
+        public async Task<CommonResponse<object>> DeleteProductInfo(string article)
+        {
+            var response = await SendDeleteRequest($"/Catalog/DeleteProductInfo?article={article}");
             return await response.ToCommonResponse<object>();
         }
     }
