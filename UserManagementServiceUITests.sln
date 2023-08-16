@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagementServiceUITests", "UserUITest\UserManagementServiceUITests.csproj", "{F4A968A1-4A53-422C-BE7E-8D77244D3954}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UITests", "UITests\UITests.csproj", "{F4A968A1-4A53-422C-BE7E-8D77244D3954}"
 	ProjectSection(ProjectDependencies) = postProject
 		{364DADD4-7FE2-4A91-9D31-A6FE58BDD17D} = {364DADD4-7FE2-4A91-9D31-A6FE58BDD17D}
 	EndProjectSection
@@ -14,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WalletServiceAPI", "WalletServiceAPI\WalletServiceAPI\WalletServiceAPI.csproj", "{364DADD4-7FE2-4A91-9D31-A6FE58BDD17D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogServiceAPI", "CatalogServiceAPI\CatalogServiceAPI.csproj", "{6AB077CC-F277-4E18-852F-CAC9A7B09BB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogServiceAPI", "CatalogServiceAPI\CatalogServiceAPI.csproj", "{6AB077CC-F277-4E18-852F-CAC9A7B09BB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
