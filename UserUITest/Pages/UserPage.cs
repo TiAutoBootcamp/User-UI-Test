@@ -6,6 +6,7 @@ using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using UserManagementServiceUITests.Utils;
 
 namespace UserUITest.Pages
 {
@@ -53,7 +54,7 @@ namespace UserUITest.Pages
         [FindsBy(How = How.CssSelector, Using = "span[id$='_title']")]
         private IList<IWebElement> _tittleModalFields;
 
-        [FindsBy(How = How.LinkText, Using = "Transactions")]
+        [FindsBy(How = How.XPath, Using = "//div[contains(@class, 'mud-ripple') and contains(text(), 'Transactions')]")]
         private IWebElement _transactionsTab;
 
         [FindsBy(How = How.Id, Using = "create_time_column")]
@@ -73,7 +74,9 @@ namespace UserUITest.Pages
 
          [FindsBy(How = How.CssSelector, Using = ".bm-content .table")]
         private IWebElement _transactionTable;
-       
+
+        PageFactoryUtil pageObject = new PageFactoryUtil();
+
         public void WaitForTableToLoad()
         {
             // TODO:
@@ -175,6 +178,9 @@ namespace UserUITest.Pages
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
             wait.Until((_) => _transactionsTab.Displayed);
             _transactionsTab.Click();
+
+            PageFactory.InitElements(_driver, pageObject);
+            pageObject.WaitForProgressToDisappear(wait);
         }
 
         public void ClickOnSpecificPosition()
