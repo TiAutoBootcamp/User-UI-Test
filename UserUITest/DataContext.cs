@@ -38,7 +38,7 @@ namespace UserUITest
         public int NumberTransactions;
         public IWebDriver Driver { get; set; }
         public UserPage UserPage { get; set; }
-        public CreateUser CreateUser { get; set; }
+        public CreatePage CreateUser { get; set; }
 
         public BasePage CurrentPage { get; set; }
         public UserInfo UserInfo { get; internal set; }
@@ -53,6 +53,7 @@ namespace UserUITest
         public List<Guid> ExpectedIdsTransaction { get; internal set; }
         public List<double> ExpectedAmountTransaction { get; internal set; }
         public List<string> ExpectedStatusTransaction { get; internal set; }
-        public List<TransactionInfo> TransactionInfos { get; internal set; }    
+        public List<TransactionInfo> ActualTransactionInfos { get; internal set; }
+        public List<TransactionInfo> ExpectedTransactionInfos { get; internal set; }
     }
 }

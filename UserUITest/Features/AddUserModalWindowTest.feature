@@ -70,3 +70,27 @@ Scenario: UMS53_AddUserModal_FillTheModalDataCloseTheModalAndOpenAgain_TheFields
 	And click on the close button
 	And click on the add user button
 	Then the fields are empty
+	Examples: 
+		| expectedBirthDate |
+		| 12.07.2023        |
+		| 07/01/2023        |
+
+Scenario: UMS54_AddUserModal_FillTheModalAndWriteInvalidBirthDate_TheFieldsAreEmpty
+	Given a user open the create user modal 
+	When I write a name on the fields
+	And write the birthdate <firstBirthDate>
+	And click on the close button
+	And click on the add user button
+	Then the fields are empty
+	Examples: 
+		| expectedBirthDate |
+		| 21.10.2023        |
+	
+
+Scenario: UMS55_AddUserModal_FillTheModalDataCloseTheModalAndOpenAgain_TheFieldsAreEmpty
+	Given a user open the create user modal 
+	When I write a name on the fields
+	And select the birthdate <firstBirthDate>
+	And click on the close button
+	And click on the add user button
+	Then the fields are empty

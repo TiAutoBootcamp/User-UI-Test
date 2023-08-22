@@ -163,7 +163,7 @@ namespace UserUITest.Pages
                 FirstName = GetFirtsName(),
                 LastName = GetLastName(),
                 IsActive = GetStatusUser(),
-                BirthDate = birthDate == "empty" ? null : birthDate
+                BirthDate = birthDate == "empty" ?  null: birthDate
             };
         }
 
@@ -214,23 +214,27 @@ namespace UserUITest.Pages
            
         }
 
-        // public List<TransactionInfo> GetTableInformation()
-        // {
-        //List<Guid>_IdTransaction = TransactionsIds();
+         public List<TransactionInfo> GetTableInformation()
+         {
+              List<Guid>_IdTransaction = TransactionsIds();
+            List<double> _Amount = transactionsAmounts();
+            List<string> _Status = transactionStatus();
+            List<DateTime> _CreateTime = transactionsCreateTime();
 
-        //  List < TransactionInfo > tableInformation = _transactionTable
-        // .Select(rowElement => new TransactionInfo
-        // {
-        //     IdTransaction = _IdTransaction[index],
-        //     Amount = GetCellValue(rowElement, AmountColumnIndex),
-        //     CreateTime = GetCellValue(rowElement, CreateTimeColumnIndex),
-        //     Status = double.Parse(GetCellValue(rowElement, CreateTimeColumnIndex)),
-        //    
-        // }) 
-        // .ToList();
 
-        //     return tableInformation;
-        // }
+            List < TransactionInfo > tableInformation = _transactionTable
+             .Select((rowElement,index) => new TransactionInfo
+             {
+                 IdTransaction = _IdTransaction[index],
+                 Amount = _Amount[index],
+                 CreateTime = _CreateTime[index],
+                 Status = _Status[index],
+                
+             }) 
+             .ToList();
+            
+            return tableInformation;
+         }
 
         private object GetCellValue(IWebElement rowElement, int columnIndex)
         {
@@ -272,8 +276,6 @@ namespace UserUITest.Pages
         }
 
         public List<DateTime> transactionsCreateTime() {
-
-      
           // return (List<DateTime>)_transactionsCreateTime;
             return _transactionsCreateTime.Select(element => DateTime.Parse(element.Text)).ToList();
 

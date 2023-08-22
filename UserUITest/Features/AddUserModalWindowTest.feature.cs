@@ -292,10 +292,13 @@ this.FeatureBackground();
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("UMS53_AddUserModal_FillTheModalDataCloseTheModalAndOpenAgain_TheFieldsAreEmpty")]
-        public void UMS53_AddUserModal_FillTheModalDataCloseTheModalAndOpenAgain_TheFieldsAreEmpty()
+        [NUnit.Framework.TestCaseAttribute("12.07.2023", null)]
+        [NUnit.Framework.TestCaseAttribute("07/01/2023", null)]
+        public void UMS53_AddUserModal_FillTheModalDataCloseTheModalAndOpenAgain_TheFieldsAreEmpty(string expectedBirthDate, string[] exampleTags)
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("expectedBirthDate", expectedBirthDate);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS53_AddUserModal_FillTheModalDataCloseTheModalAndOpenAgain_TheFieldsAreEmpty", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 66
 this.ScenarioInitialize(scenarioInfo);
@@ -326,6 +329,92 @@ this.FeatureBackground();
  testRunner.And("click on the add user button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 72
+ testRunner.Then("the fields are empty", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("UMS54_AddUserModal_FillTheModalAndWriteInvalidBirthDate_TheFieldsAreEmpty")]
+        [NUnit.Framework.TestCaseAttribute("21.10.2023", null)]
+        public void UMS54_AddUserModal_FillTheModalAndWriteInvalidBirthDate_TheFieldsAreEmpty(string expectedBirthDate, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("expectedBirthDate", expectedBirthDate);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS54_AddUserModal_FillTheModalAndWriteInvalidBirthDate_TheFieldsAreEmpty", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 78
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 7
+this.FeatureBackground();
+#line hidden
+#line 79
+ testRunner.Given("a user open the create user modal", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 80
+ testRunner.When("I write a name on the fields", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 81
+ testRunner.And("write the birthdate <firstBirthDate>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 82
+ testRunner.And("click on the close button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 83
+ testRunner.And("click on the add user button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 84
+ testRunner.Then("the fields are empty", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("UMS55_AddUserModal_FillTheModalDataCloseTheModalAndOpenAgain_TheFieldsAreEmpty")]
+        public void UMS55_AddUserModal_FillTheModalDataCloseTheModalAndOpenAgain_TheFieldsAreEmpty()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UMS55_AddUserModal_FillTheModalDataCloseTheModalAndOpenAgain_TheFieldsAreEmpty", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 90
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 7
+this.FeatureBackground();
+#line hidden
+#line 91
+ testRunner.Given("a user open the create user modal", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 92
+ testRunner.When("I write a name on the fields", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 93
+ testRunner.And("select the birthdate <firstBirthDate>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 94
+ testRunner.And("click on the close button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 95
+ testRunner.And("click on the add user button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 96
  testRunner.Then("the fields are empty", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

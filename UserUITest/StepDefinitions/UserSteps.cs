@@ -263,38 +263,57 @@ namespace UserUITest.StepDefinitions
         public async Task WhenRequestToGetAllTheInformationForAllTheTransactions()
         {
             _context.UserPage.WaitForTableVisible();
+
             var responseData = await _walletServiceClient.GetTransactions(_context.InitialUserId);
             string patternDate = @"\d{4}-\d{2}-\w+:\d{2}:\d{2}";
 
             string DateTimeFormat = "yyyy-MM-ddTHH:mm:ss";
-
-            _context.ExpectedTransactionTime = Regex.Matches(responseData.Content, patternDate)
-                                 .Cast<Match>()
-                                 .Select(match => DateTime.ParseExact(match.Value, DateTimeFormat, CultureInfo.InvariantCulture)).ToList();
-
             string patternId = @"\w+-\w+-\w+-\w+-\w+";
-            _context.ExpectedIdsTransaction = Regex.Matches(responseData.Content, patternId)
-                            .Cast<Match>()
-                            .Select(match => Guid.Parse(match.Value))
-                            .ToList();
-          
             string patternAmount = @"\d+\.\d+(?=,)";
-            _context.ExpectedAmountTransaction = Regex.Matches(responseData.Content, patternAmount)
-                           .Cast<Match>()
-                           .Select(match => Double.Parse(match.Value))
-                            .ToList();
-
             string patternStatus = @"(?<=:)\d{1}(?=,)";
-            _context.ExpectedStatusTransaction = Regex.Matches(responseData.Content, patternStatus)
-                              .Cast<Match>()
-                              .Select(match => int.Parse(match.Value))
-                              .Select(statusValue =>
-                                  Enum.IsDefined(typeof(UserStatus), statusValue)
-                                      ? ((UserStatus)statusValue).ToString()
-                                      : "Unknown")
-                              .ToList();
 
-        
+    //        List<DateTime> _CreateTime = Regex.Matches(responseData.Content, patternDate)
+    //                             .Cast<Match>()
+    //                             .Select(match => DateTime.ParseExact(match.Value, DateTimeFormat, CultureInfo.InvariantCulture)).ToList();
+    //
+    //        
+    //        List<Guid> _IdTransaction = Regex.Matches(responseData.Content, patternId)
+    //                        .Cast<Match>()
+    //                        .Select(match => Guid.Parse(match.Value))
+    //                        .ToList();
+    //      
+    //        
+    //        List<double> _Amount = Regex.Matches(responseData.Content, patternAmount)
+    //                       .Cast<Match>()
+    //                       .Select(match => Double.Parse(match.Value))
+    //                        .ToList();
+    //
+    //        
+    //        List<string> _Status = Regex.Matches(responseData.Content, patternStatus)
+    //                          .Cast<Match>()
+    //                          .Select(match => int.Parse(match.Value))
+    //                          .Select(statusValue =>
+    //                              Enum.IsDefined(typeof(UserStatus), statusValue)
+    //                                  ? ((UserStatus)statusValue).ToString()
+    //                                  : "Unknown")
+    //                          .ToList();
+    //
+    //      
+
+            _context.ExpectedTransactionInfos = Regex.Matches(responseData.Content, patternId)
+         .Cast<Match>()
+         .Select((idMatch, index) => new TransactionInfo
+         {
+             IdTransaction = Guid.Parse(idMatch.Value),
+             Amount = Double.Parse(Regex.Matches(responseData.Content, patternAmount)[index].Value),
+             CreateTime = DateTime.ParseExact(Regex.Matches(responseData.Content, patternDate)[index].Value,
+                                              "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture),
+             Status = Enum.IsDefined(typeof(UserStatus), int.Parse(Regex.Matches(responseData.Content, patternStatus)[index].Value))
+                 ? ((UserStatus)int.Parse(Regex.Matches(responseData.Content, patternStatus)[index].Value)).ToString()
+                 : "Unknown"
+         })
+         .ToList();
+
         }
 
 

@@ -23,7 +23,7 @@ namespace UserUITest.StepDefinitions
 
             _context.UserPage.LoadUserTable();
 
-            _context.CreateUser = new CreateUser(_context.Driver);
+            _context.CreateUser = new CreatePage(_context.Driver);
         }
     }
 }

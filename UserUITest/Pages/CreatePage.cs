@@ -11,10 +11,10 @@ using UserUITest.Pages;
 
 namespace UserManagementServiceUITests.Pages
 {
-    public class CreateUser : BasePage
+    public class CreatePage : BasePage
     {
 
-        public CreateUser(IWebDriver driver) : base(driver)
+        public CreatePage(IWebDriver driver) : base(driver)
         {
         }
 
@@ -54,7 +54,9 @@ namespace UserManagementServiceUITests.Pages
 
         public void ClickSaveButton() {
             _saveButton.Click();
-            Thread.Sleep(3000);
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(3));
+          //  wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.ClassName("size-medium")));
+            wait.Until(_ => Body.GetAttribute("style").Contains("overflow: auto"));
 
         }
         public void ClickCancelButton() {
