@@ -10,5 +10,6 @@ namespace Core
     {
         Active = 1,
         Reverted = 2,
+        Unknown = 2,
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Core;
+using NUnit.Framework.Internal.Execution;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
@@ -6,7 +7,10 @@ using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
+using TechTalk.SpecFlow;
 using UserManagementServiceUITests.Utils;
+
 
 namespace UserUITest.Pages
 {
@@ -72,10 +76,14 @@ namespace UserUITest.Pages
         [FindsBy(How = How.CssSelector, Using = ".bm-content #status_column")]
         private IList<IWebElement> _transactionStatus;
 
-         [FindsBy(How = How.CssSelector, Using = ".bm-content .table")]
-        private IWebElement _transactionTable;
+        [FindsBy(How = How.CssSelector, Using = ".bm-content .table")]
+        private  IList<IWebElement> _transactionTable;
+
+        [FindsBy(How = How.Id, Using = "add_user_button")]
+        private IWebElement _addUserButton;
 
         PageFactoryUtil pageObject = new PageFactoryUtil();
+
 
         public void WaitForTableToLoad()
         {
@@ -157,7 +165,7 @@ namespace UserUITest.Pages
                 FirstName = GetFirtsName(),
                 LastName = GetLastName(),
                 IsActive = GetStatusUser(),
-                BirthDate = birthDate == "empty" ? null : birthDate
+                BirthDate = birthDate == "empty" ?  null: birthDate
             };
         }
 
@@ -171,7 +179,10 @@ namespace UserUITest.Pages
         {
             _secondaryCloseButton.Click();
         }
-
+        public void ClickAddUserButton()
+        {
+            _addUserButton.Click();
+        }
         public void ClickOnTransactionsTab()
         {
            
@@ -204,7 +215,42 @@ namespace UserUITest.Pages
         public void WaitForTableVisible()
         {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            wait.Until((_) => _transactionTable.Displayed);
+            wait.Until((_) => _transactionTable.Where(rowElement => rowElement.Displayed).ToList());
+           
+        }
+
+         public List<TransactionInfo> GetTableInformation()
+         {
+              List<Guid>_IdTransaction = TransactionsIds();
+            List<double> _Amount = transactionsAmounts();
+            List<string> _Status = transactionStatus();
+            List<DateTime> _CreateTime = transactionsCreateTime();
+
+
+            List < TransactionInfo > tableInformation = _transactionTable
+             .Select((rowElement,index) => new TransactionInfo
+             {
+                 IdTransaction = _IdTransaction[index],
+                 Amount = _Amount[index],
+                 CreateTime = _CreateTime[index],
+                 Status = _Status[index],
+                
+             }) 
+             .ToList();
+            
+            return tableInformation;
+         }
+
+        private object GetCellValue(IWebElement rowElement, int columnIndex)
+        {
+            var cellElements = rowElement.FindElements(By.TagName("td"));
+
+            if (cellElements.Count > columnIndex)
+            {
+                return cellElements[columnIndex].Text;
+            }
+
+            return string.Empty;
         }
 
         public List<string> GetFieldsTittle() {
@@ -235,8 +281,6 @@ namespace UserUITest.Pages
         }
 
         public List<DateTime> transactionsCreateTime() {
-
-      
           // return (List<DateTime>)_transactionsCreateTime;
             return _transactionsCreateTime.Select(element => DateTime.Parse(element.Text)).ToList();
 
@@ -261,11 +305,13 @@ namespace UserUITest.Pages
         public string messageTransactions() {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
             wait.Until(ExpectedConditions.TextToBePresentInElement(_messageTransaction, "User does not have transactions"));
-          //  wait.Until(ExpectedConditions.Not(ExpectedConditions.TextToBePresentInElement(_messageTransaction, "loading")));
-          
+            //  wait.Until(ExpectedConditions.Not(ExpectedConditions.TextToBePresentInElement(_messageTransaction, "loading")));
             return _messageTransaction.Text ?? string.Empty;
+            
         }
 
+        
+        
     }
 
 }

@@ -14,7 +14,7 @@ namespace Core
             public DateTime CreateTime { get; set; }
             public string Status { get; set; }
             public int UserId { get; set; }
-            public string BaseTransactionId { get; set; }
+            
 
     }
 }
