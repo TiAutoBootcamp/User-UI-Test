@@ -7,10 +7,10 @@ namespace UserManagementServiceUITests.Pages
 {
     public class MainPage : BasePage
     {
-        [FindsBy(How = How.ClassName, Using = "search")]
+        [FindsBy(How = How.CssSelector, Using = "[aria-label = 'press click to search']")]
         private IWebElement _searchButton;
 
-        [FindsBy(How = How.ClassName, Using = "searchField")]
+        [FindsBy(How = How.TagName, Using = "inputmode")]
         private IWebElement _searchField;
 
         [FindsBy(How = How.ClassName, Using = "product")]
