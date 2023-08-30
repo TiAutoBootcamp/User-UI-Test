@@ -7,7 +7,7 @@ namespace CatalogServiceAPI.Client
 {
     public class CatalogServiceClient : BaseClient
     {
-        public CatalogServiceClient(string baseUrl = " https://userservice-uat.azurewebsites.net") : base(baseUrl)
+        public CatalogServiceClient(string baseUrl = "https://catalogservice-uat.azurewebsites.net") : base(baseUrl)
         {
         }
 

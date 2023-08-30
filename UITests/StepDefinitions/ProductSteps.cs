@@ -23,6 +23,7 @@ namespace UserManagementServiceUITests.StepDefinitions
         public async Task GivenValidProductIsCreated()
         {
             var productRequest = _productGenerator.GenerateNewProduct();
+            _context.ProductRequest = productRequest;
             await _catalogProvider.CreateActiveProductWithSomePrice(productRequest, 950);
             _context.ProductArticles.Add(productRequest.Article);
         }
