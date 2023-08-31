@@ -21,11 +21,12 @@ Scenario: MP001_2_Searching for a product using an existing name
 	| manufactor         | name         |
 	| PRODUCT_MANUFACTOR | PRODUCT_NAME |
 	
-Scenario: MP001_3_Searching for some products using an existing name
+Scenario: MP001_3_Searching for some products using an existing names
 	Given Valid products are created 
 	When User search product by 'Name'
 	Then The product with a certain data is displayed on the page
 	| manufactor         | name         |
+	| PRODUCT_MANUFACTOR | PRODUCT_NAME |
 	| PRODUCT_MANUFACTOR | PRODUCT_NAME |
 
 Scenario: MP001_4_Searching for product using an existing manufactor
@@ -41,16 +42,17 @@ Scenario: MP001_5_Searching for some products using an existing manufactor
 	Then The product with a certain data is displayed on the page
 	| manufactor         | name         |
 	| PRODUCT_MANUFACTOR | PRODUCT_NAME |
+	| PRODUCT_MANUFACTOR | PRODUCT_NAME |
 	
 Scenario: MP001_6_Searching for a product with an empty query field
 	When User search product by ''
 	Then Search button is disabled
 
-Scenario: MP001_5_Searching for a product using a query that doesn't exist in the database
+Scenario: MP001_7_Searching for a product using a query that doesn't exist in the database
 	When User search product by 'NON_EXISTED_PRODUCT_INFO'
-	Then Error message is presented
+	Then Error message 'Error is here' is presented
 
-Scenario Outline: MP001_6_Searching for a product using a partial string
+Scenario Outline: MP001_8_Searching for a product using a partial string
 	Given Valid product is created 
 	When User enter the partial string <partialString> in the field search
 	Then The product with a certain data is displayed on the page
@@ -64,3 +66,10 @@ Scenario Outline: MP001_6_Searching for a product using a partial string
 Scenario: MP001_7_Searching for a product using a mixed fields
 	When User search product by 'PRODUCT_NAME PRODUCT_MANUFACTOR'
 	Then Error message is presented
+
+Scenario: MP001_10_Searching for a product using a camelCase string
+	Given Valid product is created 
+	When User search product by 'PrODuCT_mANUfACTOr'
+	Then The product with a certain data is displayed on the page
+	| manufactor         | name         |
+	| PRODUCT_MANUFACTOR | PRODUCT_NAME |

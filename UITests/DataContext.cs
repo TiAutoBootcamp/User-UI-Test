@@ -28,6 +28,7 @@ namespace UserManagementServiceUITests
 
         public RegisterUserRequest CreateUserRequest;
         public CreateProductRequest ProductRequest;
+        public List<CreateProductRequest> ProductRequestList;
         public CommonResponse<int> CreateUserResponse;
         public CommonResponse<object> SetUserStatusResponse;
         public bool UserStatus = DEFAULT_USER_STATUS;

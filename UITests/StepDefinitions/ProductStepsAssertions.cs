@@ -34,10 +34,11 @@ namespace UserManagementServiceUITests.StepDefinitions
         }
 
 
-        [Then(@"Error message is presented")]
-        public void ThenErrorMessageIsPresented()
+        [Then(@"Error message '([^']*)' is presented")]
+        public void ThenErrorMessageIsPresented(string errorMessage)
         {
-            //TODO: add assertion after UI implementation
+           // Assert.IsTrue(errorMessage.Equals());
         }
+
     }
 }
