@@ -1,4 +1,5 @@
 ﻿using CatalogServiceAPI.Client;
+using CatalogServiceAPI.Models.StepsModels;
 using CatalogServiceAPI.Providers;
 using CatalogServiceAPI.Utils;
 
@@ -29,12 +30,15 @@ namespace UserManagementServiceUITests.StepDefinitions
         }
 
         [Given(@"Valid products are created")]
-        public async Task GivenValidProductsAreCreated()
+        public async Task GivenValidProductsAreCreated(List<ProductModel> products)
         {
-            var productRequest = _catalogProvider.CreateProductsList(2);
+            Random rnd = new Random();
+            var productRequest = _catalogProvider.CreateProductsList(products);
             _context.ProductRequest = productRequest.First();
-            await _catalogProvider.CreateActiveProductsWithSomePrice(productRequest, 100);
+            await _catalogProvider.CreateActiveProductsWithSomePrice(productRequest, rnd.Next(100, 500));
             _context.ProductArticles.AddRange(productRequest.Select(product => product.Article));
         }
+
+
     }
 }

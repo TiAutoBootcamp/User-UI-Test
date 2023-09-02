@@ -284,6 +284,7 @@ namespace UserManagementServiceUITests.StepDefinitions
                               .ToList();
         }
 
+        [Given(@"User search product by '(.*)'")]
         [When(@"User search product by '(.*)'")]
         public void WhenUserSearchProductBy(string searchedString)
         {

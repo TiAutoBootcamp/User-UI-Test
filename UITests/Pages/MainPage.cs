@@ -43,6 +43,7 @@ namespace UserManagementServiceUITests.Pages
 
         public void FillSearchField(string searchedString)
         {
+            _searchField.SendKeys(Keys.LeftShift + Keys.Home);
             _searchField.SendKeys(searchedString);
         }
 

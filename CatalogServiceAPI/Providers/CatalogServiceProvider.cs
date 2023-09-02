@@ -1,7 +1,8 @@
 ﻿using CatalogServiceAPI.Client;
 using CatalogServiceAPI.Models.Requests;
+using CatalogServiceAPI.Models.StepsModels;
 using CatalogServiceAPI.Utils;
-
+using System.Timers;
 
 namespace CatalogServiceAPI.Providers
 {
@@ -28,19 +29,19 @@ namespace CatalogServiceAPI.Providers
         {
             foreach (var product in products)
             {
-                var request = _productGenerator.GenerateNewProduct(product.Article);
-                await CreateActiveProductWithSomePrice(request, price);
+                await CreateActiveProductWithSomePrice(product, price);
             }
         }
 
-        public List<CreateProductRequest> CreateProductsList(int itemsCount)
+        public List<CreateProductRequest> CreateProductsList(List<ProductModel> products)
         {
-            var products = new List<CreateProductRequest>();
-            for (int i = 0; i < itemsCount; i++)
+            var productsRequest = new List<CreateProductRequest>();
+
+            foreach(var product in products)
             {
-                products.Add(_productGenerator.GenerateNewProduct());
+                productsRequest.Add(_productGenerator.GenerateNewProduct(product.Name, product.Manufactor));
             }
-            return products;
+            return productsRequest;
         }
     }
 }

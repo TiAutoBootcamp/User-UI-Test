@@ -4,23 +4,13 @@ namespace CatalogServiceAPI.Utils
 {
     public class ProductGenerator
     {
-        public CreateProductRequest GenerateNewProduct()
+        public CreateProductRequest GenerateNewProduct(string name = "PRODUCT_NAME", string manufactor  = "PRODUCT_MANUFACTOR")
         {
             return new CreateProductRequest()
             {
                 Article = Guid.NewGuid().ToString().ToUpper(),
-                Name = "PRODUCT_NAME",
-                Manufactor = "PRODUCT_MANUFACTOR"
-            };
-        }
-
-        public CreateProductRequest GenerateNewProduct(string article)
-        {
-            return new CreateProductRequest()
-            {
-                Article = article,
-                Name = "PRODUCT_NAME",
-                Manufactor = "PRODUCT_MANUFACTOR"
+                Name = name,
+                Manufactor = manufactor
             };
         }
     }
