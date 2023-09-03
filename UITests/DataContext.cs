@@ -12,6 +12,7 @@ using UserManagementServiceUITests.Pages;
 using UserUITest.Pages;
 using CatalogServiceAPI.Models.Requests;
 using CatalogServiceAPI.Client;
+using Core.Enums;
 
 namespace UserManagementServiceUITests
 {
@@ -59,5 +60,6 @@ namespace UserManagementServiceUITests
         public List<string> ExpectedStatusTransaction { get; internal set; }
         public List<TransactionInfo> transactionInfos { get; internal set; }
         public List<string> ProductArticles { get; internal set; }
-    }
+        public List<(CreateProductRequest, ProductStatus)> ProductRequestsAndStatuses { get; internal set; }
+}
 }

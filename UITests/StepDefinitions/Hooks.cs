@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium.Chrome;
+﻿using CatalogServiceAPI.Models.Requests;
+using Core.Enums;
+using OpenQA.Selenium.Chrome;
 
 
 namespace UserManagementServiceUITests.StepDefinitions
@@ -10,6 +12,7 @@ namespace UserManagementServiceUITests.StepDefinitions
         public static async Task OneTimeSetUp(DataContext context)
         {
             context.ProductArticles = new List<string>();
+            context.ProductRequestsAndStatuses = new List<(CreateProductRequest, ProductStatus)>();
             var chromeOptions = new ChromeOptions();
             // chromeOptions.AddArgument("headless");
             context.Driver = new ChromeDriver(chromeOptions);
@@ -32,6 +35,10 @@ namespace UserManagementServiceUITests.StepDefinitions
                 foreach (var article in context.ProductArticles)
                 {
                     await context.CatalogServiceClient.DeleteProductInfo(article);
+                }
+                foreach (var element in context.ProductRequestsAndStatuses)
+                {
+                    await context.CatalogServiceClient.DeleteProductInfo(element.Item1.Article);
                 }
             }
         }

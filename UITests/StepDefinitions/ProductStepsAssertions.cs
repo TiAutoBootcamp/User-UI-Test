@@ -41,5 +41,22 @@ namespace UserManagementServiceUITests.StepDefinitions
             // Assert.IsTrue(errorMessage.Equals());
         }
 
+
+        [Then(@"The order of products on the main page are correct")]
+        public void ThenTheOrderOfProductsOnTheMainPageAreCorrect()
+        {
+            _context.MainPage.WaitAmountOfExpectedProducts(_context.ProductRequestsAndStatuses.Count);
+            var expectedList = _context.ProductRequestsAndStatuses.OrderByDescending(status => status.Item2).ThenBy(request => request.Item1.Article);
+
+            var actualNames = _context.MainPage.GetProductNamesText();
+           // var actualManufactors = _context.MainPage.GetProductManufactorsText();
+
+            Assert.Multiple(() =>
+            {
+                Assert.AreEqual(expectedList.First().Item1.Name, actualNames.First());
+                Assert.AreEqual(expectedList.Last().Item1.Name, actualNames.Last());
+            });
+        }
+
     }
 }

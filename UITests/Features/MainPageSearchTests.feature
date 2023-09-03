@@ -105,9 +105,15 @@ Scenario: MP001_11_Searching for a product using leading and trailing spaces in 
 		| PRODUCT_MANUFACTOR | PRODUCT_NAME |
 
 Scenario: MP001_12_Testing the order of products after searching
-	Given Valid products in quantities of '2' are created
-	When User search product by 'Manufactor'
-	Then 
+	Given Products with diffrent status are created 
+	| manufactor           | name           | ProductStatus |
+	| PRODUCT_MANUFACTOR_1 | PRODUCT_NAME_1 | Active        |
+	| PRODUCT_MANUFACTOR_2 | PRODUCT_NAME_2 | NotActive     |
+	| PRODUCT_MANUFACTOR_3 | PRODUCT_NAME_3 | NotActive     |
+	| PRODUCT_MANUFACTOR_4 | PRODUCT_NAME_4 | Active        |
+	| PRODUCT_MANUFACTOR_5 | PRODUCT_NAME_5 | NotActive     |
+	When User search product by 'PRODUCT_NAME_'
+	Then The order of products on the main page are correct
 
 Scenario: MP001_13_Research a product after a successful search
 	Given Valid products are created
