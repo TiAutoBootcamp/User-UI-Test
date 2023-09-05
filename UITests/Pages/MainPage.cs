@@ -49,21 +49,6 @@ namespace UserManagementServiceUITests.Pages
 
         public void ClickSearchButton()
         {
-            //WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
-            //wait.Until((_) => _searchButton.Enabled);
-
-            //DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(_driver);
-            //fluentWait.Timeout = TimeSpan.FromSeconds(5);
-            //fluentWait.PollingInterval = TimeSpan.FromMilliseconds(250);
-            //fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            //fluentWait.Until((_) => _searchButton.Enabled);
-
-            //Actions actions = new Actions(_driver);
-            //actions.MoveToElement(_searchButton).DoubleClick().Perform();
-
-            //IJavaScriptExecutor executor = (IJavaScriptExecutor)_driver;
-            //executor.ExecuteScript("arguments[0].click();", _searchButton);
-
             _searchButton.Click();
         }
 
