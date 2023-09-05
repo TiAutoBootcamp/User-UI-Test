@@ -72,23 +72,23 @@ Examples:
 	| partialString        | expectedManufactor     | expectedName     |
 	| PRODUCT_MANUFACTOR_1 | PRODUCT_MANUFACTOR_1_1 | PRODUCT_NAME_1_1 |
 	| NAME_3_1             | PRODUCT_MANUFACTOR_3   | PRODUCT_NAME_3_1 |
-	| MANUFACTOR_2         | PRODUCT_MANUFACTOR_2_1 | PRODUCT_NAME_2   |
+	| MANUFACTOR_2_1       | PRODUCT_MANUFACTOR_2_1 | PRODUCT_NAME_2   |
 
 Scenario Outline: MP001_9_Searching for some products using a partial string
 	Given Valid products are created
-		| manufactor             | name             |
-		| PRODUCT_MANUFACTOR_1   | PRODUCT_NAME_1   |
-		| PRODUCT_MANUFACTOR_1_2 | PRODUCT_NAME_2   |
-		| PRODUCT_MANUFACTOR_3   | PRODUCT_NAME_1_3 |
+		| manufactor               | name             |
+		| PRODUCT_MANUFACTOR_1_1   | PRODUCT_NAME_1_1 |
+		| PRODUCT_MANUFACTOR_1_1_2 | PRODUCT_NAME_2   |
+		| PRODUCT_MANUFACTOR_2     | PRODUCT_NAME_1_1_2 |
 	When User search product by '<partialString>'
 	Then The product with a certain data is displayed on the page
 		| manufactor            | name            |
 		| <expectedManufactor1> | <expectedName1> |
 		| <expectedManufactor2> | <expectedName2> |
 Examples:
-	| partialString | expectedManufactor1  | expectedName1  | expectedManufactor2    | expectedName2    |
-	| MANUFACTOR_1  | PRODUCT_MANUFACTOR_1 | PRODUCT_NAME_1 | PRODUCT_MANUFACTOR_1_2 | PRODUCT_NAME_2   |
-	| NAME_1        | PRODUCT_MANUFACTOR_1 | PRODUCT_NAME_1 | PRODUCT_MANUFACTOR_3   | PRODUCT_NAME_1_3 |
+	| partialString  | expectedManufactor1    | expectedName1    | expectedManufactor2      | expectedName2      |
+	| MANUFACTOR_1_1 | PRODUCT_MANUFACTOR_1_1 | PRODUCT_NAME_1_1 | PRODUCT_MANUFACTOR_1_1_2 | PRODUCT_NAME_2     |
+	| NAME_1_1       | PRODUCT_MANUFACTOR_1_1 | PRODUCT_NAME_1_1 | PRODUCT_MANUFACTOR_2     | PRODUCT_NAME_1_1_2 |
 
 Scenario: MP001_11_Searching for a product using a camelCase string
 	Given Valid product is created
@@ -120,7 +120,7 @@ Scenario: MP001_14_Research a product after a successful search
 		| manufactor           | name           |
 		| PRODUCT_MANUFACTOR_1 | PRODUCT_NAME_1 |
 		| PRODUCT_MANUFACTOR_2 | PRODUCT_NAME_2 |
-	And User search product by 'MANUFACTOR'
+	And User search product by 'PRODUCT_MANUFACTOR'
 	And The product with a certain data is displayed on the page
 		| manufactor           | name           |
 		| PRODUCT_MANUFACTOR_1 | PRODUCT_NAME_1 |
