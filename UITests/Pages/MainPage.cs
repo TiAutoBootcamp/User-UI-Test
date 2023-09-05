@@ -1,8 +1,6 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
-using System.Xml.Linq;
 using UserUITest.Pages;
 
 namespace UserManagementServiceUITests.Pages
@@ -23,7 +21,9 @@ namespace UserManagementServiceUITests.Pages
 
         [FindsBy(How = How.XPath, Using = "//b/ancestor::h4/preceding-sibling::h4")]
         private IList<IWebElement> _productManufactors;
-       
+
+        [FindsBy(How = How.ClassName, Using = "mud-snackbar-content-message")]
+        private IWebElement _errorMessage;
 
         public MainPage(IWebDriver driver) : base(driver)
         {
@@ -61,10 +61,10 @@ namespace UserManagementServiceUITests.Pages
             //Actions actions = new Actions(_driver);
             //actions.MoveToElement(_searchButton).DoubleClick().Perform();
 
-            IJavaScriptExecutor executor = (IJavaScriptExecutor)_driver;
-            executor.ExecuteScript("arguments[0].click();", _searchButton);
+            //IJavaScriptExecutor executor = (IJavaScriptExecutor)_driver;
+            //executor.ExecuteScript("arguments[0].click();", _searchButton);
 
-           // _searchButton.Click();
+            _searchButton.Click();
         }
 
         public List<string> GetProductNamesText()
@@ -80,6 +80,11 @@ namespace UserManagementServiceUITests.Pages
         public bool IsSearchButtonEnabled()
         {
             return _searchButton.Enabled;
+        }
+
+        public string GetErrorMessage()
+        {
+            return _errorMessage.Text;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using CatalogServiceAPI.Models.Requests;
 using Core.Enums;
 using OpenQA.Selenium.Chrome;
-
+using TechTalk.SpecFlow;
 
 namespace UserManagementServiceUITests.StepDefinitions
 {

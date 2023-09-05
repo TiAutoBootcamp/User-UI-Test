@@ -2,6 +2,7 @@ using Core;
 using System.Globalization;
 using System.Net;
 using System.Text.RegularExpressions;
+using TechTalk.SpecFlow;
 using UserServiceAPI.Client;
 using UserServiceAPI.Utils;
 using WalletServiceAPI.Client;
@@ -300,18 +301,11 @@ namespace UserManagementServiceUITests.StepDefinitions
                     _context.MainPage.FillSearchField(_context.ProductRequest.Manufactor);
                     break;
                 case "":
-                    break;
+                    return;
                 default:
                     _context.MainPage.FillSearchField(searchedString);
                     break;
             }
-            _context.MainPage.ClickSearchButton();
-        }
-
-        [When(@"User enter the partial string (.*) in the field search")]
-        public void WhenUserEnterThePartialStringInTheFieldSearch(string partialString)
-        {
-            _context.MainPage.FillSearchField(partialString);
             _context.MainPage.ClickSearchButton();
         }
     }

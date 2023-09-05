@@ -1,5 +1,6 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using TechTalk.SpecFlow;
 using UserManagementServiceUITests;
 
 namespace UserManagementServiceUITests.StepDefinitions

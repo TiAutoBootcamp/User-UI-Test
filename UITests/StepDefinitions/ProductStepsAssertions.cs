@@ -1,5 +1,6 @@
 ﻿using CatalogServiceAPI.Models.StepsModels;
 using NUnit.Framework;
+using TechTalk.SpecFlow;
 
 namespace UserManagementServiceUITests.StepDefinitions
 {
@@ -17,6 +18,7 @@ namespace UserManagementServiceUITests.StepDefinitions
         public void ThenTheProductWithACertainDataIsDisplayedOnThePage(List<ProductModel> productsInfo)
         {
                 _context.MainPage.WaitAmountOfExpectedProducts(productsInfo.Count);
+
                 var actualNames = _context.MainPage.GetProductNamesText();
                 var actualManufactors = _context.MainPage.GetProductManufactorsText();
                
@@ -37,10 +39,8 @@ namespace UserManagementServiceUITests.StepDefinitions
         [Then(@"Error message '([^']*)' is presented")]
         public void ThenErrorMessageIsPresented(string errorMessage)
         {
-            // Will be implemented after https://ti-bootcamp.atlassian.net/browse/DS-39
-            // Assert.IsTrue(errorMessage.Equals());
+            Assert.IsTrue(errorMessage.Equals(_context.MainPage.GetErrorMessage()));
         }
-
 
         [Then(@"The order of products on the main page are correct")]
         public void ThenTheOrderOfProductsOnTheMainPageAreCorrect()
@@ -49,7 +49,6 @@ namespace UserManagementServiceUITests.StepDefinitions
             var expectedList = _context.ProductRequestsAndStatuses.OrderByDescending(status => status.Item2).ThenBy(request => request.Item1.Article);
 
             var actualNames = _context.MainPage.GetProductNamesText();
-           // var actualManufactors = _context.MainPage.GetProductManufactorsText();
 
             Assert.Multiple(() =>
             {
@@ -57,6 +56,5 @@ namespace UserManagementServiceUITests.StepDefinitions
                 Assert.AreEqual(expectedList.Last().Item1.Name, actualNames.Last());
             });
         }
-
     }
 }

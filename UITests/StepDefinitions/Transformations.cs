@@ -1,4 +1,5 @@
 ﻿using CatalogServiceAPI.Models.StepsModels;
+using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 
 namespace UITests.StepDefinitions

@@ -3,6 +3,7 @@ using CatalogServiceAPI.Models.StepsModels;
 using CatalogServiceAPI.Providers;
 using CatalogServiceAPI.Utils;
 using Core.Enums;
+using TechTalk.SpecFlow;
 
 namespace UserManagementServiceUITests.StepDefinitions
 {
@@ -26,24 +27,11 @@ namespace UserManagementServiceUITests.StepDefinitions
         {
             var productRequest = _productGenerator.GenerateNewProduct();
             _context.ProductRequest = productRequest;
-
-
-            var productModel = new ProductModel();
-
-
-            await _catalogProvider.CreateActiveProductWithSomePrice(productRequest,productModel, rnd.Next(100, 500));
+            await _catalogProvider.CreateActiveProductWithSomePrice(productRequest,ProductStatus.Active, rnd.Next(100, 500));
             _context.ProductArticles.Add(productRequest.Article);
         }
 
         [Given(@"Valid products are created")]
-        public async Task GivenValidProductsAreCreated(List<ProductModel> products)
-        {
-            var productRequests = _catalogProvider.CreateProductsList(products);
-            _context.ProductRequest = productRequests.First();
-            await _catalogProvider.CreateActiveProductsWithSomePrice(productRequests, products, rnd.Next(100, 500));
-            _context.ProductArticles.AddRange(productRequests.Select(product => product.Article));
-        }
-
         [Given(@"Products with diffrent status are created")]
         public async Task GivenProductsWithDiffrentStatusAreCreated(List<ProductModel> products)
         {
@@ -55,6 +43,5 @@ namespace UserManagementServiceUITests.StepDefinitions
                     .Zip(products,(request, product) => (request, product.ProductStatus))
                     .ToList());
         }
-
     }
 }

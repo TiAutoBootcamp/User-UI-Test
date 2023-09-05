@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
-using OpenQA.Selenium.Support.UI;
-using System.Linq;
+using TechTalk.SpecFlow;
 
 namespace UserManagementServiceUITests.StepDefinitions
 {
@@ -137,6 +136,5 @@ namespace UserManagementServiceUITests.StepDefinitions
                 CollectionAssert.AreEqual(_context.ExpectedStatusTransaction, _context.UserPage.transactionStatus());
             });
         }
-
     }
 }

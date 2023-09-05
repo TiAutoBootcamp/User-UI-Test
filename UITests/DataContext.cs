@@ -1,12 +1,7 @@
-﻿
-
-using Core;
+﻿using Core;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using UserServiceAPI.Models.Requests;
 using UserServiceAPI.Models.Responses;
-using WalletServiceAPI.Models.Requests;
-using WalletServiceAPI.Models.Responses;
 using WalletServiceAPI.Models.Responses.Base;
 using UserManagementServiceUITests.Pages;
 using UserUITest.Pages;

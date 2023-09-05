@@ -1,3 +1,4 @@
+using TechTalk.SpecFlow;
 using UserManagementServiceUITests.Pages;
 using UserUITest.Pages;
 
@@ -28,10 +29,8 @@ namespace UserManagementServiceUITests.StepDefinitions
         public void GivenOpenMainPage()
         {
             _context.Driver.Navigate().GoToUrl("https://estore-uat.azurewebsites.net/main");
-
             _context.MainPage = new MainPage(_context.Driver);
             _context.CurrentPage = _context.MainPage;
-
             _context.MainPage.WaitProductsLoading();
         }
     }
