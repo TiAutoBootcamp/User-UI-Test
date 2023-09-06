@@ -36,10 +36,10 @@ namespace UserManagementServiceUITests.StepDefinitions
         }
 
 
-        [Then(@"Error message '([^']*)' is presented")]
-        public void ThenErrorMessageIsPresented(string errorMessage)
+        [Then(@"Info message '([^']*)' is presented")]
+        public void ThenInfoMessageIsPresented(string infoMessage)
         {
-            Assert.IsTrue(errorMessage.Equals(_context.MainPage.GetErrorMessage()));
+            Assert.AreEqual(infoMessage,_context.MainPage.GetInfoMessage());
         }
 
         [Then(@"The order of products on the main page are correct")]
@@ -55,6 +55,12 @@ namespace UserManagementServiceUITests.StepDefinitions
                 Assert.AreEqual(expectedList.First().Item1.Name, actualNames.First());
                 Assert.AreEqual(expectedList.Last().Item1.Name, actualNames.Last());
             });
+        }
+
+        [Then(@"Error message '([^']*)' is presented")]
+        public void ThenErrorMessageIsPresented(string errorMessage)
+        {
+            Assert.AreEqual(errorMessage,_context.MainPage.GetErrorMessage());
         }
     }
 }

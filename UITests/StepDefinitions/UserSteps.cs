@@ -1,4 +1,5 @@
 using Core;
+using Core.Libraries;
 using System.Globalization;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -301,6 +302,9 @@ namespace UserManagementServiceUITests.StepDefinitions
                     _context.MainPage.FillSearchField(_context.ProductRequest.Manufactor);
                     break;
                 case "":
+                    return;
+                case "Long string":
+                    _context.MainPage.FillSearchField(TestDataLibrary.LongString);
                     return;
                 default:
                     _context.MainPage.FillSearchField(searchedString);

@@ -56,7 +56,7 @@ Scenario: MP001_6_Searching for a product with an empty query field
 
 Scenario: MP001_7_Searching for a product using a query that doesn't exist in the database
 	When User search product by 'NON_EXISTED_PRODUCT_INFO'
-	Then Error message 'No such products' is presented
+	Then Info message 'No such products' is presented
 
 Scenario Outline: MP001_8_Searching for a product using a partial string
 	Given Valid products are created
@@ -129,3 +129,8 @@ Scenario: MP001_14_Research a product after a successful search
 	Then The product with a certain data is displayed on the page
 		| manufactor           | name           |
 		| PRODUCT_MANUFACTOR_2 | PRODUCT_NAME_2 |
+
+Scenario: MP001_15_Searching for a product with string longer then 200 symbols
+	When User search product by 'Long string'
+	Then Error message 'Search value can be up to 200 symbols' is presented
+	And Search button is disabled

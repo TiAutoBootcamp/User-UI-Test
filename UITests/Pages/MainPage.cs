@@ -23,6 +23,9 @@ namespace UserManagementServiceUITests.Pages
         private IList<IWebElement> _productManufactors;
 
         [FindsBy(How = How.ClassName, Using = "mud-snackbar-content-message")]
+        private IWebElement _infoMessageWindow;
+
+        [FindsBy(How = How.ClassName, Using = "me-auto")]
         private IWebElement _errorMessage;
 
         public MainPage(IWebDriver driver) : base(driver)
@@ -65,6 +68,11 @@ namespace UserManagementServiceUITests.Pages
         public bool IsSearchButtonEnabled()
         {
             return _searchButton.Enabled;
+        }
+
+        public string GetInfoMessage()
+        {
+            return _infoMessageWindow.Text;
         }
 
         public string GetErrorMessage()

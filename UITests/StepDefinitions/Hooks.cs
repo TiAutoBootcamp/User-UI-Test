@@ -14,11 +14,10 @@ namespace UserManagementServiceUITests.StepDefinitions
             context.ProductArticles = new List<string>();
             context.ProductRequestsAndStatuses = new List<(CreateProductRequest, ProductStatus)>();
             var chromeOptions = new ChromeOptions();
-            // chromeOptions.AddArgument("headless");
+            chromeOptions.AddArgument("headless");
             context.Driver = new ChromeDriver(chromeOptions);
             context.Driver.Manage().Window.Maximize();
             context.Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(50);
-
         }
 
         [AfterScenario]
