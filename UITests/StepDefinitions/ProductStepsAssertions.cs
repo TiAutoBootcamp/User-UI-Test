@@ -50,11 +50,7 @@ namespace UserManagementServiceUITests.StepDefinitions
 
             var actualNames = _context.MainPage.GetProductNamesText();
 
-            Assert.Multiple(() =>
-            {
-                Assert.AreEqual(expectedList.First().Item1.Name, actualNames.First());
-                Assert.AreEqual(expectedList.Last().Item1.Name, actualNames.Last());
-            });
+            CollectionAssert.AreEqual(actualNames, expectedList.Select(el => el.Item1.Name).ToList());
         }
 
         [Then(@"Error message '([^']*)' is presented")]

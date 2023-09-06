@@ -27,7 +27,7 @@ namespace UserManagementServiceUITests.StepDefinitions
         {
             var productRequest = _productGenerator.GenerateNewProduct();
             _context.ProductRequest = productRequest;
-            await _catalogProvider.CreateActiveProductWithSomePrice(productRequest,ProductStatus.Active, rnd.Next(100, 500));
+            await _catalogProvider.CreateProductWithStatusAndPrice(productRequest,ProductStatus.Active, rnd.Next(100, 500));
             _context.ProductArticles.Add(productRequest.Article);
         }
 
@@ -37,7 +37,7 @@ namespace UserManagementServiceUITests.StepDefinitions
         {
             var productRequests = _catalogProvider.CreateProductsList(products);
             _context.ProductRequest = productRequests.First();
-            await _catalogProvider.CreateActiveProductsWithSomePrice(productRequests, products, rnd.Next(100, 500));
+            await _catalogProvider.CreateProductWithStatusAndPrice(productRequests, products, rnd.Next(100, 500));
             _context.ProductRequestsAndStatuses
                 .AddRange(productRequests
                     .Zip(products,(request, product) => (request, product.ProductStatus))

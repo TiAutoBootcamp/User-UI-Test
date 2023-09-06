@@ -7,6 +7,8 @@ namespace UserManagementServiceUITests.Pages
 {
     public class MainPage : BasePage
     {
+        private WebDriverWait _wait;
+
         [FindsBy(How = How.CssSelector, Using = ".content.px-4")]
         private IWebElement _elementSection;
 
@@ -30,18 +32,17 @@ namespace UserManagementServiceUITests.Pages
 
         public MainPage(IWebDriver driver) : base(driver)
         {
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
         }
 
         public void WaitProductsLoading()
         {
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
-            wait.Until((_) => _elementSection.Displayed);
+            _wait.Until((_) => _elementSection.Displayed);
         }
 
         public void WaitAmountOfExpectedProducts(int amount)
         {
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
-            wait.Until((_) => _productNames.Count == amount);
+            _wait.Until((_) => _productNames.Count == amount);
         }
 
         public void FillSearchField(string searchedString)

@@ -18,18 +18,18 @@ namespace CatalogServiceAPI.Providers
             _productGenerator = generator;
         }
 
-        public async Task CreateActiveProductWithSomePrice(CreateProductRequest request, ProductStatus status, double price)
+        public async Task CreateProductWithStatusAndPrice(CreateProductRequest request, ProductStatus status, double price)
         {
             await _catalogServiceClient.CreateProduct(request);
             await _catalogServiceClient.UpdateProductPrice(request.Article, price);
             await _catalogServiceClient.SetProductStatus(request.Article, (int)status);
         }
 
-        public async Task CreateActiveProductsWithSomePrice(List<CreateProductRequest> productRequests, List<ProductModel> products, double price)
+        public async Task CreateProductWithStatusAndPrice(List<CreateProductRequest> productRequests, List<ProductModel> products, double price)
         {
             for(var i = 0; i < productRequests.Count; i++) 
             {
-                await CreateActiveProductWithSomePrice(productRequests[i], products[i].ProductStatus, price);
+                await CreateProductWithStatusAndPrice(productRequests[i], products[i].ProductStatus, price);
             }
         }
 
