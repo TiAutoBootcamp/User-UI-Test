@@ -8,6 +8,8 @@ namespace CatalogServiceAPI.Models.StepsModels
 
         public string Manufactor;
 
+        public bool isPresented;
+
         public ProductStatus ProductStatus = ProductStatus.Active;
     }
 }

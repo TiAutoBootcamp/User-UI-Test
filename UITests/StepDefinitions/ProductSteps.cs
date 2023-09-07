@@ -25,10 +25,10 @@ namespace UserManagementServiceUITests.StepDefinitions
         [Given(@"Valid product is created")]
         public async Task GivenValidProductIsCreated()
         {
-            var productRequest = _productGenerator.GenerateNewProduct();
-            _context.ProductRequest = productRequest;
-            await _catalogProvider.CreateProductWithStatusAndPrice(productRequest,ProductStatus.Active, rnd.Next(100, 500));
-            _context.ProductArticles.Add(productRequest.Article);
+                var productRequest = _productGenerator.GenerateNewProduct();
+                _context.ProductRequest = productRequest;
+                await _catalogProvider.CreateProductWithStatusAndPrice(productRequest, ProductStatus.Active, rnd.Next(100, 500));
+                _context.ProductArticles.Add(productRequest.Article);
         }
 
         [Given(@"Valid products are created")]

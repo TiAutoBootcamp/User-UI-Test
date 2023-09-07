@@ -27,7 +27,7 @@ Scenario: MP001_3_Searching for some products using an existing names
 		| @@PRODUCT_MANUFACTOR_1@@ | @@PRODUCT_NAME@@ |
 		| @@PRODUCT_MANUFACTOR_2@@ | @@PRODUCT_NAME@@ |
 	When User search product by 'Name'
-	Then The product with a certain data is displayed on the page
+	Then Products with a certain data are displayed on the page
 		| manufactor               | name             |
 		| @@PRODUCT_MANUFACTOR_1@@ | @@PRODUCT_NAME@@ |
 		| @@PRODUCT_MANUFACTOR_2@@ | @@PRODUCT_NAME@@ |
@@ -45,7 +45,7 @@ Scenario: MP001_5_Searching for some products using an existing manufactor
 		| @@PRODUCT_MANUFACTOR@@ | @@PRODUCT_NAME_1@@ |
 		| @@PRODUCT_MANUFACTOR@@ | @@PRODUCT_NAME_2@@ |
 	When User search product by 'Manufactor'
-	Then The product with a certain data is displayed on the page
+	Then Products with a certain data are displayed on the page
 		| manufactor             | name               |
 		| @@PRODUCT_MANUFACTOR@@ | @@PRODUCT_NAME_1@@ |
 		| @@PRODUCT_MANUFACTOR@@ | @@PRODUCT_NAME_2@@ |
@@ -65,14 +65,16 @@ Scenario Outline: MP001_8_Searching for a product using a partial string
 		| @@PRODUCT_MANUFACTOR_2@@ | @@PRODUCT_NAME_2@@ |
 		| @@PRODUCT_MANUFACTOR_3@@ | @@PRODUCT_NAME_3@@ |
 	When User search product by '<partialString>'
-	Then The product with a certain data is displayed on the page
-		| manufactor           | name           |
-		| <expectedManufactor> | <expectedName> |
+	Then One created product is existed others not
+		| manufactor               | name               | isPresented |
+		| <expectedManufactor>     | <expectedName>     | true        |
+		| <notExpectedManufactor1> | <notExpectedName1> | false       |
+		| <notExpectedManufactor2> | <notExpectedName2> | false       |
 Examples:
-	| partialString          | expectedManufactor       | expectedName       |
-	| @@PRODUCT_MANUFACTOR_1 | @@PRODUCT_MANUFACTOR_1@@ | @@PRODUCT_NAME_1@@ |
-	| NAME_3@@               | @@PRODUCT_MANUFACTOR_3@@ | @@PRODUCT_NAME_3@@ |
-	| MANUFACTOR_2@@         | @@PRODUCT_MANUFACTOR_2@@ | @@PRODUCT_NAME_2@@ |
+	| partialString          | expectedManufactor       | expectedName       | notExpectedManufactor1   | notExpectedName1   | notExpectedManufactor2   | notExpectedName2   |
+	| @@PRODUCT_MANUFACTOR_1 | @@PRODUCT_MANUFACTOR_1@@ | @@PRODUCT_NAME_1@@ | @@PRODUCT_MANUFACTOR_2@@ | @@PRODUCT_NAME_2@@ | @@PRODUCT_MANUFACTOR_3@@ | @@PRODUCT_NAME_3@@ |
+	| NAME_3@@               | @@PRODUCT_MANUFACTOR_3@@ | @@PRODUCT_NAME_3@@ | @@PRODUCT_MANUFACTOR_1@@ | @@PRODUCT_NAME_1@@ | @@PRODUCT_MANUFACTOR_2@@ | @@PRODUCT_NAME_2@@ |
+	| MANUFACTOR_2@@         | @@PRODUCT_MANUFACTOR_2@@ | @@PRODUCT_NAME_2@@ | @@PRODUCT_MANUFACTOR_1@@ | @@PRODUCT_NAME_1@@ | @@PRODUCT_MANUFACTOR_3@@ | @@PRODUCT_NAME_3@@ |
 
 Scenario Outline: MP001_9_Searching for some products using a partial string
 	Given Valid products are created
@@ -81,15 +83,16 @@ Scenario Outline: MP001_9_Searching for some products using a partial string
 		| @@PRODUCT_MANUFACTOR_1_2@@ | @@PRODUCT_NAME_2_1@@ |
 		| @@PRODUCT_MANUFACTOR_2@@   | @@PRODUCT_NAME_2@@   |
 	When User search product by '<partialString>'
-	Then The product with a certain data is displayed on the page
-		| manufactor            | name            |
-		| <expectedManufactor1> | <expectedName1> |
-		| <expectedManufactor2> | <expectedName2> |
+	Then Some created product are existed one not
+		| manufactor              | name              | isPresented |
+		| <expectedManufactor1>   | <expectedName1>   | true        |
+		| <expectedManufactor2>   | <expectedName2>   | true        |
+		| <notExpectedManufactor> | <notExpectedName> | false       |
 Examples:
-	| partialString         | expectedManufactor1        | expectedName1        | expectedManufactor2        | expectedName2        |
-	| @PRODUCT_MANUFACTOR_1 | @@PRODUCT_MANUFACTOR_1@@   | @@PRODUCT_NAME_1@@   | @@PRODUCT_MANUFACTOR_1_2@@ | @@PRODUCT_NAME_2_1@@ |
-	| @PRODUCT_NAME_2       | @@PRODUCT_MANUFACTOR_1_2@@ | @@PRODUCT_NAME_2_1@@ | @@PRODUCT_MANUFACTOR_2@@   | @@PRODUCT_NAME_2@@   |
-
+	| partialString         | expectedManufactor1        | expectedName1        | expectedManufactor2        | expectedName2        | notExpectedManufactor    | notExpectedName    |
+	| @PRODUCT_MANUFACTOR_1 | @@PRODUCT_MANUFACTOR_1@@   | @@PRODUCT_NAME_1@@   | @@PRODUCT_MANUFACTOR_1_2@@ | @@PRODUCT_NAME_2_1@@ | @@PRODUCT_MANUFACTOR_2@@ | @@PRODUCT_NAME_2@@ |
+	| @PRODUCT_NAME_2       | @@PRODUCT_MANUFACTOR_1_2@@ | @@PRODUCT_NAME_2_1@@ | @@PRODUCT_MANUFACTOR_2@@   | @@PRODUCT_NAME_2@@   | @@PRODUCT_MANUFACTOR_1@@ | @@PRODUCT_NAME_1@@ |
+																																	  
 Scenario: MP001_11_Searching for a product using a camelCase string
 	Given Valid product is created
 	When User search product by '@@PrODuCT_mANUfACTOr@@'
@@ -121,7 +124,7 @@ Scenario: MP001_14_Research a product after a successful search
 		| @@PRODUCT_MANUFACTOR_1@@ | @@PRODUCT_NAME_1@@ |
 		| @@PRODUCT_MANUFACTOR_2@@ | @@PRODUCT_NAME_2@@ |
 	And User search product by '@@PRODUCT_MANUFACTOR'
-	And The product with a certain data is displayed on the page
+	And Products with a certain data are displayed on the page
 		| manufactor               | name               |
 		| @@PRODUCT_MANUFACTOR_1@@ | @@PRODUCT_NAME_1@@ |
 		| @@PRODUCT_MANUFACTOR_2@@ | @@PRODUCT_NAME_2@@ |

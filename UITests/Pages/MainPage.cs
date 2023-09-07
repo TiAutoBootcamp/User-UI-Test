@@ -1,6 +1,8 @@
-﻿using OpenQA.Selenium;
+﻿using Core.Extentions;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
+using SeleniumExtras.WaitHelpers;
 using UserUITest.Pages;
 
 namespace UserManagementServiceUITests.Pages
@@ -30,14 +32,27 @@ namespace UserManagementServiceUITests.Pages
         [FindsBy(How = How.ClassName, Using = "me-auto")]
         private IWebElement _errorMessage;
 
+        [FindsBy(How = How.ClassName, Using = "mud-progress-circular-svg")]
+        private IWebElement _pageLoader;
+
+        private By _pageLoaderLocator = By.ClassName("mud-progress-circular-svg");
+
         public MainPage(IWebDriver driver) : base(driver)
         {
-            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
         }
 
         public void WaitProductsLoading()
         {
             _wait.Until((_) => _elementSection.Displayed);
+        }
+
+        public void WaitPageLoading()
+        {
+            // _wait.Until((_) => !_pageLoader.Displayed);
+            //_wait.Until(ExpectedConditions.InvisibilityOfElementLocated(_pageLoaderLocator));
+            //_wait.Until(ExpectedConditions.StalenessOf(_pageLoader));
+            _wait.WaitUntilElementDisappears(_pageLoaderLocator);
         }
 
         public void WaitAmountOfExpectedProducts(int amount)
