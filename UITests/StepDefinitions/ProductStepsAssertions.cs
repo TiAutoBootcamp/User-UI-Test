@@ -41,7 +41,8 @@ namespace UserManagementServiceUITests.StepDefinitions
 
             Assert.Multiple(() =>
             {
-                CollectionAssert.IsSubsetOf(productsInfo.Where(el => el.isPresented.Equals(true))
+                CollectionAssert.IsSubsetOf(productsInfo
+                    .Where(el => el.isPresented.Equals(true))
                     .Select(product => product.Name)
                     .ToList(), actualNames);
                 CollectionAssert.IsSubsetOf(productsInfo
@@ -77,7 +78,9 @@ namespace UserManagementServiceUITests.StepDefinitions
         {
             //_context.MainPage.WaitAmountOfExpectedProducts(_context.ProductRequestsAndStatuses.Count);
             _context.MainPage.WaitPageLoading();
-            var expectedList = _context.ProductRequestsAndStatuses.OrderByDescending(status => status.Item2).ThenBy(request => request.Item1.Article);
+            var expectedList = _context.ProductRequestsAndStatuses
+                .OrderByDescending(status => status.Item2)
+                .ThenBy(request => request.Item1.Article);
 
             var actualNames = _context.MainPage.GetProductNamesText();
 

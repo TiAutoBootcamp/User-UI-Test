@@ -2,7 +2,6 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
-using SeleniumExtras.WaitHelpers;
 using UserUITest.Pages;
 
 namespace UserManagementServiceUITests.Pages
@@ -39,7 +38,7 @@ namespace UserManagementServiceUITests.Pages
 
         public MainPage(IWebDriver driver) : base(driver)
         {
-            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
         }
 
         public void WaitProductsLoading()

@@ -19,16 +19,16 @@ namespace UserManagementServiceUITests.StepDefinitions
         {
             _context = context;
             _context.CatalogServiceClient = new CatalogServiceClient();
-            _catalogProvider = new CatalogServiceProvider(_context.CatalogServiceClient, _productGenerator);       
+            _catalogProvider = new CatalogServiceProvider(_context.CatalogServiceClient, _productGenerator);
         }
 
         [Given(@"Valid product is created")]
         public async Task GivenValidProductIsCreated()
         {
-                var productRequest = _productGenerator.GenerateNewProduct();
-                _context.ProductRequest = productRequest;
-                await _catalogProvider.CreateProductWithStatusAndPrice(productRequest, ProductStatus.Active, rnd.Next(100, 500));
-                _context.ProductArticles.Add(productRequest.Article);
+            var productRequest = _productGenerator.GenerateNewProduct();
+            _context.ProductRequest = productRequest;
+            await _catalogProvider.CreateProductWithStatusAndPrice(productRequest, ProductStatus.Active, rnd.Next(100, 500));
+            _context.ProductArticles.Add(productRequest.Article);
         }
 
         [Given(@"Valid products are created")]
@@ -40,7 +40,7 @@ namespace UserManagementServiceUITests.StepDefinitions
             await _catalogProvider.CreateProductWithStatusAndPrice(productRequests, products, rnd.Next(100, 500));
             _context.ProductRequestsAndStatuses
                 .AddRange(productRequests
-                    .Zip(products,(request, product) => (request, product.ProductStatus))
+                    .Zip(products, (request, product) => (request, product.ProductStatus))
                     .ToList());
         }
     }
