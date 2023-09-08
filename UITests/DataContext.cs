@@ -3,13 +3,12 @@ using OpenQA.Selenium;
 using UserServiceAPI.Models.Requests;
 using UserServiceAPI.Models.Responses;
 using WalletServiceAPI.Models.Responses.Base;
-using UserManagementServiceUITests.Pages;
-using UserUITest.Pages;
 using CatalogServiceAPI.Models.Requests;
 using CatalogServiceAPI.Client;
 using Core.Enums;
+using UITests.Pages;
 
-namespace UserManagementServiceUITests
+namespace UITests
 {
     public class DataContext
     {
@@ -18,7 +17,7 @@ namespace UserManagementServiceUITests
         public int SecondUserId;
         public double ChargeAmount;
         public double ChargeAmountRevert;
-    
+
         public WalletCommonResponse<Guid> ReverseTransactionStatusResponse;
         public Guid SecondUserIdTransaction;
 
@@ -56,5 +55,5 @@ namespace UserManagementServiceUITests
         public List<TransactionInfo> transactionInfos { get; internal set; }
         public List<string> ProductArticles { get; internal set; }
         public List<(CreateProductRequest, ProductStatus)> ProductRequestsAndStatuses { get; internal set; }
-}
+    }
 }

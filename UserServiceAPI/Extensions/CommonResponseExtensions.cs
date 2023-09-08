@@ -2,9 +2,9 @@
 
 using UserServiceAPI.Models.Responses;
 
-namespace UserServiceAPI.CatalogTests.Models.Responses
+namespace UserServiceAPI.Extensions
 {
-     public static class CommonResponseExtensions
+    public static class CommonResponseExtensions
     {
         public static async Task<CommonResponse<T>> ToCommonResponse<T>(this HttpResponseMessage message)
         {

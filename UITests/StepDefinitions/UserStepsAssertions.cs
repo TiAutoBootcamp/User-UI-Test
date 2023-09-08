@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using TechTalk.SpecFlow;
 
-namespace UserManagementServiceUITests.StepDefinitions
+namespace UITests.StepDefinitions
 {
     [Binding]
     public sealed class UserStepsAssertions

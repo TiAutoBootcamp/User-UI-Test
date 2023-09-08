@@ -4,8 +4,9 @@ using CatalogServiceAPI.Providers;
 using CatalogServiceAPI.Utils;
 using Core.Enums;
 using TechTalk.SpecFlow;
+using UITests;
 
-namespace UserManagementServiceUITests.StepDefinitions
+namespace UITests.StepDefinitions
 {
     [Binding]
     public class ProductSteps

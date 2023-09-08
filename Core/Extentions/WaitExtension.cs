@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 
 namespace Core.Extentions
 {
-    public static class WaitExtention
+    public static class WaitExtension
     {
         public static bool WaitUntilElementDisappears(this WebDriverWait wait, By elementLocator)
         {
@@ -15,6 +15,7 @@ namespace Core.Extentions
                     {
                         var element = driver.FindElement(elementLocator);
                         return !element.Displayed;
+                        return !element.Displayed;
                     }
                     catch (NoSuchElementException)
                     {
@@ -25,11 +26,11 @@ namespace Core.Extentions
                         return true;
                     }
                 });
-                return true; 
+                return true;
             }
             catch (TimeoutException)
             {
-                return false; 
+                return false;
             }
         }
     }

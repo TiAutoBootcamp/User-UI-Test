@@ -2,9 +2,10 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
-using UserUITest.Pages;
+using SeleniumExtras.WaitHelpers;
+using System.Diagnostics;
 
-namespace UserManagementServiceUITests.Pages
+namespace UITests.Pages
 {
     public class MainPage : BasePage
     {
@@ -34,7 +35,8 @@ namespace UserManagementServiceUITests.Pages
         [FindsBy(How = How.ClassName, Using = "mud-progress-circular-svg")]
         private IWebElement _pageLoader;
 
-        private By _pageLoaderLocator = By.ClassName("mud-progress-circular-svg");
+        private By _pageLoaderLocator = By.XPath("//*[@class = 'mud-progress-circular-circle mud-progress-indeterminate']");
+        // private By _pageLoaderLocator2 = By.TagName("circle");
 
         public MainPage(IWebDriver driver) : base(driver)
         {
@@ -48,10 +50,61 @@ namespace UserManagementServiceUITests.Pages
 
         public void WaitPageLoading()
         {
+            // var _wait2 = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
             // _wait.Until((_) => !_pageLoader.Displayed);
-            //_wait.Until(ExpectedConditions.InvisibilityOfElementLocated(_pageLoaderLocator));
+            //_wait2.Until(ExpectedConditions.InvisibilityOfElementLocated(_pageLoaderLocator));
             //_wait.Until(ExpectedConditions.StalenessOf(_pageLoader));
-            _wait.WaitUntilElementDisappears(_pageLoaderLocator);
+            //_wait.WaitUntilElementDisappears(_pageLoaderLocator);
+            //_wait.Until(driver => driver.FindElements(_pageLoaderLocator).Count() == 0);
+
+            //var sw_className = new Stopwatch();
+            //sw_className.Start();
+            //var pageLoader = _driver.FindElement(_pageLoaderLocator);
+            //var elapsed = sw_className.Elapsed;
+            //sw_className.Stop();
+
+            //var sw_className = new Stopwatch();
+            //sw_className.Start();
+            //var pageLoader = _driver.FindElements(_pageLoaderLocator);
+            //var elapsed = sw_className.Elapsed;
+            //sw_className.Stop();
+
+            // _pageLoader.WaitForElementToBeInvisible();
+
+            bool isRun = true;
+
+            var dict = new Dictionary<TimeSpan, int>();
+
+            var sw = new Stopwatch();
+
+            sw.Start();
+
+
+
+            while (isRun)
+
+                do
+                {
+
+                    var count = _driver.FindElements(_pageLoaderLocator).Count();
+
+                    dict.Add(sw.Elapsed, count);
+
+                    Thread.Sleep(new TimeSpan(0, 0, 0, 0, 20));
+
+                    if (sw.Elapsed.Seconds > 10)
+
+                    {
+
+                        isRun = false;
+
+                        sw.Stop();
+
+                    }
+
+                }
+                while (isRun);
+
         }
 
         public void WaitAmountOfExpectedProducts(int amount)
@@ -71,7 +124,7 @@ namespace UserManagementServiceUITests.Pages
         }
 
         public List<string> GetProductNamesText()
-        { 
+        {
             return _productNames.Select(el => el.Text).ToList();
         }
 

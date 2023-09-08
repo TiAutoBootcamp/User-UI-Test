@@ -4,12 +4,13 @@ using System.Globalization;
 using System.Net;
 using System.Text.RegularExpressions;
 using TechTalk.SpecFlow;
+using UITests;
 using UserServiceAPI.Client;
 using UserServiceAPI.Utils;
 using WalletServiceAPI.Client;
 using WalletServiceAPI.Utils;
 
-namespace UserManagementServiceUITests.StepDefinitions
+namespace UITests.StepDefinitions
 {
     [Binding]
     public sealed class UserSteps

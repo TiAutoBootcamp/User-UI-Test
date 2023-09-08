@@ -1,9 +1,9 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using TechTalk.SpecFlow;
-using UserManagementServiceUITests;
+using UITests;
 
-namespace UserManagementServiceUITests.StepDefinitions
+namespace UITests.StepDefinitions
 {
     [Binding]
     public sealed class CommonSteps

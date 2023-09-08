@@ -1,8 +1,7 @@
 using TechTalk.SpecFlow;
-using UserManagementServiceUITests.Pages;
-using UserUITest.Pages;
+using UITests.Pages;
 
-namespace UserManagementServiceUITests.StepDefinitions
+namespace UITests.StepDefinitions
 {
     [Binding]
     public sealed class NavigationSteps

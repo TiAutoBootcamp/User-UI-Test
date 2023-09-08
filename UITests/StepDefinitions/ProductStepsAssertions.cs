@@ -1,8 +1,9 @@
 ﻿using CatalogServiceAPI.Models.StepsModels;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
+using UITests;
 
-namespace UserManagementServiceUITests.StepDefinitions
+namespace UITests.StepDefinitions
 {
     [Binding]
     public class ProductStepsAssertions

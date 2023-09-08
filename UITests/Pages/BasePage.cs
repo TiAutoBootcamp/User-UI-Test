@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 
-namespace UserUITest.Pages
+namespace UITests.Pages
 {
     public class BasePage
     {
@@ -11,6 +11,6 @@ namespace UserUITest.Pages
         {
             _driver = driver;
             PageFactory.InitElements(driver, this);
-        }  
+        }
     }
 }
