@@ -226,24 +226,19 @@ namespace UITests.Pages
 
         public bool IsTransactionsTabClickable()
         {
-
             return _transactionsTab.Enabled;
         }
 
         public List<DateTime> transactionsCreateTime()
         {
-
-
             // return (List<DateTime>)_transactionsCreateTime;
             return _transactionsCreateTime.Select(element => DateTime.Parse(element.Text)).ToList();
-
         }
 
         public List<Guid> TransactionsIds()
         {
             return _transactionsIds.Select(element => Guid.Parse(element.Text)).ToList();
         }
-
 
         public List<double> transactionsAmounts()
         {

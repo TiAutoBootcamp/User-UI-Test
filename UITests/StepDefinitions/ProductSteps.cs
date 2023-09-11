@@ -4,7 +4,6 @@ using CatalogServiceAPI.Providers;
 using CatalogServiceAPI.Utils;
 using Core.Enums;
 using TechTalk.SpecFlow;
-using UITests;
 
 namespace UITests.StepDefinitions
 {

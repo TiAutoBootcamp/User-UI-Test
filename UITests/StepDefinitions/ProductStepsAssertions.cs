@@ -19,8 +19,6 @@ namespace UITests.StepDefinitions
         [StepDefinition(@"The product with a certain data is displayed on the page")]
         public void ThenProductsWithACertainDataAreDisplayedOnThePage(List<ProductModel> productsInfo)
         {
-            // _context.MainPage.WaitAmountOfExpectedProducts(productsInfo.Count);
-
             _context.MainPage.WaitPageLoading();
             var actualNames = _context.MainPage.GetProductNamesText();
             var actualManufactors = _context.MainPage.GetProductManufactorsText();
@@ -77,14 +75,13 @@ namespace UITests.StepDefinitions
         [Then(@"The order of products on the main page are correct")]
         public void ThenTheOrderOfProductsOnTheMainPageAreCorrect()
         {
-            //_context.MainPage.WaitAmountOfExpectedProducts(_context.ProductRequestsAndStatuses.Count);
             _context.MainPage.WaitPageLoading();
             var expectedList = _context.ProductRequestsAndStatuses
                 .OrderByDescending(status => status.Item2)
                 .ThenBy(request => request.Item1.Article);
 
+            //Can work unstably. It's better to use APi call to get actualList
             var actualNames = _context.MainPage.GetProductNamesText();
-
             CollectionAssert.AreEqual(actualNames, expectedList.Select(el => el.Item1.Name).ToList());
         }
 

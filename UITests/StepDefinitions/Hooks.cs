@@ -1,9 +1,7 @@
 ﻿using CatalogServiceAPI.Models.Requests;
 using Core.Enums;
-using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using TechTalk.SpecFlow;
-using UITests;
 
 namespace UITests.StepDefinitions
 {
@@ -16,11 +14,10 @@ namespace UITests.StepDefinitions
             context.ProductArticles = new List<string>();
             context.ProductRequestsAndStatuses = new List<(CreateProductRequest, ProductStatus)>();
             var chromeOptions = new ChromeOptions();
-            //chromeOptions.AddArgument("headless");
+            chromeOptions.AddArgument("headless");
             context.Driver = new ChromeDriver(chromeOptions);
             context.Driver.Manage().Window.Maximize();
-            context.Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
-            chromeOptions.PageLoadStrategy = PageLoadStrategy.None;
+            context.Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
         }
 
         [AfterScenario]
