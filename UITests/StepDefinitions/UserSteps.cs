@@ -1,27 +1,26 @@
 using Core;
-using Newtonsoft.Json;
-using System;
+using Core.Libraries;
 using System.Globalization;
 using System.Net;
 using System.Text.RegularExpressions;
-using System.Transactions;
 using TechTalk.SpecFlow;
+using UITests;
 using UserServiceAPI.Client;
 using UserServiceAPI.Utils;
 using WalletServiceAPI.Client;
 using WalletServiceAPI.Utils;
 
-namespace UserUITest.StepDefinitions
+namespace UITests.StepDefinitions
 {
     [Binding]
     public sealed class UserSteps
-    {  
+    {
         private readonly UserServiceClient _userServiceClient = new UserServiceClient();
         private readonly WalletServiceClient _walletServiceClient = new WalletServiceClient();
         private readonly BalanceChargeGenerator _balanceChargeGenerator = new BalanceChargeGenerator();
         private readonly UserGenerator _createUser = new UserGenerator();
         private readonly DataContext _context;
-        
+
         public UserSteps(DataContext context)
         {
             _context = context;
@@ -59,7 +58,7 @@ namespace UserUITest.StepDefinitions
         [Given(@"a user first name created with (.*) characters and GUID last name with birth date ([^']*)")]
         public async Task GivenAUserFirstNameCreatedWithCharactersAndGUIDLastNameWithBirthDate_(int length, string birthDate)
         {
-            _context.CreateUserRequest = _createUser.GenerateRandomFirstNameWithGuidLastNameRequest(length,birthDate);
+            _context.CreateUserRequest = _createUser.GenerateRandomFirstNameWithGuidLastNameRequest(length, birthDate);
             _context.CreateUserResponse = await _userServiceClient.CreateUser(_context.CreateUserRequest);
             _context.InitialUserId = _context.CreateUserResponse.Body;
         }
@@ -84,7 +83,7 @@ namespace UserUITest.StepDefinitions
         public void WhenIWriteAGuidNameToFirstNameField()
         {
             _context.UserPage.SearchUser(_context.CreateUserRequest.FirstName, _context.CreateUserRequest.LastName);
-        }    
+        }
 
         [When(@"click on the search button")]
         public void WhenClickOnTheSearchButton()
@@ -97,7 +96,7 @@ namespace UserUITest.StepDefinitions
         {
             Thread.Sleep(500);
             _context.UserPage.ClickDetailsButton();
-            
+
         }
 
         [When(@"get all the information from the modal")]
@@ -121,7 +120,7 @@ namespace UserUITest.StepDefinitions
         [Given(@"change the user status to ([^']*)")]
         [Given(@"change second time the user status to ([^']*)")]
         [Given(@"change third time the user status to ([^']*)")]
-        public async Task  GivenChangeTheUserStatusToActive(bool status)
+        public async Task GivenChangeTheUserStatusToActive(bool status)
         {
             var response = await _userServiceClient.SetUserStatus(_context.InitialUserId, status);
             if (response.StatusCode == HttpStatusCode.OK)
@@ -182,12 +181,10 @@ namespace UserUITest.StepDefinitions
 
         }
 
-
         [When(@"click on transactions tab")]
         public void WhenClickOnTransactionsTab()
         {
             _context.UserPage.ClickOnTransactionsTab();
-
         }
 
         [Given(@"made multipleTransactions (.*)")]
@@ -196,14 +193,13 @@ namespace UserUITest.StepDefinitions
             int[] array = values.Split(',').Select(int.Parse).ToArray();
             foreach (int i in array)
             {
-                var request = _balanceChargeGenerator.GenerateBalanceChargeRequest(_context.InitialUserId,i);
+                var request = _balanceChargeGenerator.GenerateBalanceChargeRequest(_context.InitialUserId, i);
                 _context.ChargeResponse = await _walletServiceClient.BalanceCharge(request);
                 _context.ChargeAmountRevert = -i;
                 _context.ChargeAmount = i;
                 _context.UserIdTransaction = _context.ChargeResponse.Body;
                 _context.NumberTransactions = array.Length;
             }
-        
         }
 
         [When(@"get the information of the first transaction")]
@@ -216,13 +212,12 @@ namespace UserUITest.StepDefinitions
                 Amount = _context.UserPage.transactionsAmounts().First(),
                 Status = _context.UserPage.transactionStatus().First()
             };
-
         }
 
         [Given(@"user has reverted the last transaction")]
         public async Task GivenUserHasRevertedTheLastTransaction()
         {
-             _context.ReverseTransactionStatusResponse = await _walletServiceClient.RevertTransaction(_context.UserIdTransaction);
+            _context.ReverseTransactionStatusResponse = await _walletServiceClient.RevertTransaction(_context.UserIdTransaction);
             _context.RevertUserIdTransaction = _context.ReverseTransactionStatusResponse.Body;
         }
 
@@ -236,8 +231,6 @@ namespace UserUITest.StepDefinitions
                 Amount = _context.UserPage.transactionsAmounts().Skip(1).First(),
                 Status = _context.UserPage.transactionStatus().Skip(1).First()
             };
-           
-           
         }
 
 
@@ -248,14 +241,13 @@ namespace UserUITest.StepDefinitions
             var responseData = await _walletServiceClient.GetTransactions(_context.InitialUserId);
             string pattern = @"\d{4}-\d{2}-\w+:\d{2}:\d{2}";
 
-           string DateTimeFormat = "yyyy-MM-ddTHH:mm:ss";
+            string DateTimeFormat = "yyyy-MM-ddTHH:mm:ss";
 
             var CreateTimeValues = Regex.Matches(responseData.Content, pattern)
                                  .Cast<Match>()
                                  .Select(match => DateTime.ParseExact(match.Value, DateTimeFormat, CultureInfo.InvariantCulture));
 
             _context.ExpectedTransactionTime = CreateTimeValues.ToList();
-            
         }
 
 
@@ -272,50 +264,49 @@ namespace UserUITest.StepDefinitions
             string patternAmount = @"\d+\.\d+(?=,)";
             string patternStatus = @"(?<=:)\d{1}(?=,)";
 
-    //        List<DateTime> _CreateTime = Regex.Matches(responseData.Content, patternDate)
-    //                             .Cast<Match>()
-    //                             .Select(match => DateTime.ParseExact(match.Value, DateTimeFormat, CultureInfo.InvariantCulture)).ToList();
-    //
-    //        
-    //        List<Guid> _IdTransaction = Regex.Matches(responseData.Content, patternId)
-    //                        .Cast<Match>()
-    //                        .Select(match => Guid.Parse(match.Value))
-    //                        .ToList();
-    //      
-    //        
-    //        List<double> _Amount = Regex.Matches(responseData.Content, patternAmount)
-    //                       .Cast<Match>()
-    //                       .Select(match => Double.Parse(match.Value))
-    //                        .ToList();
-    //
-    //        
-    //        List<string> _Status = Regex.Matches(responseData.Content, patternStatus)
-    //                          .Cast<Match>()
-    //                          .Select(match => int.Parse(match.Value))
-    //                          .Select(statusValue =>
-    //                              Enum.IsDefined(typeof(UserStatus), statusValue)
-    //                                  ? ((UserStatus)statusValue).ToString()
-    //                                  : "Unknown")
-    //                          .ToList();
-    //
-    //      
+            _context.ExpectedTransactionTime = Regex.Matches(responseData.Content, patternDate)
+                                 .Cast<Match>()
+                                 .Select(match => DateTime.ParseExact(match.Value, DateTimeFormat, CultureInfo.InvariantCulture)).ToList();
 
-            _context.ExpectedTransactionInfos = Regex.Matches(responseData.Content, patternId)
-         .Cast<Match>()
-         .Select((idMatch, index) => new TransactionInfo
-         {
-             IdTransaction = Guid.Parse(idMatch.Value),
-             Amount = Double.Parse(Regex.Matches(responseData.Content, patternAmount)[index].Value),
-             CreateTime = DateTime.ParseExact(Regex.Matches(responseData.Content, patternDate)[index].Value,
-                                              "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture),
-             Status = Enum.IsDefined(typeof(UserStatus), int.Parse(Regex.Matches(responseData.Content, patternStatus)[index].Value))
-                 ? ((UserStatus)int.Parse(Regex.Matches(responseData.Content, patternStatus)[index].Value)).ToString()
-                 : "Unknown"
-         })
-         .ToList();
+            string patternId = @"\w+-\w+-\w+-\w+-\w+";
+            _context.ExpectedIdsTransaction = Regex.Matches(responseData.Content, patternId)
+                            .Cast<Match>()
+                            .Select(match => Guid.Parse(match.Value))
+                            .ToList();
+
+            string patternAmount = @"\d+\.\d+(?=,)";
+            _context.ExpectedAmountTransaction = Regex.Matches(responseData.Content, patternAmount)
+                           .Cast<Match>()
+                           .Select(match => double.Parse(match.Value))
+                            .ToList();
 
         }
 
-
+        [Given(@"User search product by '(.*)'")]
+        [When(@"User search product by '(.*)'")]
+        public void WhenUserSearchProductBy(string searchedString)
+        {
+            switch (searchedString)
+            {
+                case "Article":
+                    _context.MainPage.FillSearchField(_context.ProductRequest.Article);
+                    break;
+                case "Name":
+                    _context.MainPage.FillSearchField(_context.ProductRequest.Name);
+                    break;
+                case "Manufactor":
+                    _context.MainPage.FillSearchField(_context.ProductRequest.Manufactor);
+                    break;
+                case "":
+                    return;
+                case "Long string":
+                    _context.MainPage.FillSearchField(TestDataLibrary.LongString);
+                    return;
+                default:
+                    _context.MainPage.FillSearchField(searchedString);
+                    break;
+            }
+            _context.MainPage.ClickSearchButton();
+        }
     }
 }

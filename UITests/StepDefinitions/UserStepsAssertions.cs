@@ -1,14 +1,13 @@
 ﻿using NUnit.Framework;
-using OpenQA.Selenium.Support.UI;
-using System.Linq;
+using TechTalk.SpecFlow;
 
-namespace UserUITest.StepDefinitions
+namespace UITests.StepDefinitions
 {
     [Binding]
     public sealed class UserStepsAssertions
     {
         private readonly DataContext _context;
-    
+
         public UserStepsAssertions(DataContext context)
         {
             _context = context;
@@ -16,8 +15,9 @@ namespace UserUITest.StepDefinitions
 
         [Then(@"the information on the modal match with the set data")]
         public void ThenTheInformationOnTheModalMatchWithTheUser()
-        {      
-            Assert.Multiple(()=>{
+        {
+            Assert.Multiple(() =>
+            {
                 Assert.That(_context.UserInfo.Id, Is.EqualTo(_context.InitialUserId));
                 Assert.That(_context.UserInfo.FirstName, Is.EqualTo(_context.CreateUserRequest.FirstName));
                 Assert.That(_context.UserInfo.LastName, Is.EqualTo(_context.CreateUserRequest.LastName));
@@ -65,9 +65,9 @@ namespace UserUITest.StepDefinitions
         [Then(@"no transactions message is displayed")]
         public void ThenNoTransactionsMessageIsDisplayed()
         {
-            
+
             string expectedMessage = "User does not have transactions";
-         
+
             Assert.That(_context.UserPage.messageTransactions(), Is.EqualTo(expectedMessage));
         }
 
@@ -76,10 +76,10 @@ namespace UserUITest.StepDefinitions
         {
             _context.UserPage.WaitForTableVisible();
             _context.ActualTransactionTime = _context.UserPage.transactionsCreateTime();
-             CollectionAssert.AreEqual(_context.ExpectedTransactionTime, _context.ActualTransactionTime);
+            CollectionAssert.AreEqual(_context.ExpectedTransactionTime, _context.ActualTransactionTime);
 
-        
-    }
+
+        }
 
         [Then(@"the information displayed has the expected information for the transaction")]
         public void ThenTheInformationDisplayedHasTheExpectedInformationForTheTransaction()
@@ -89,7 +89,7 @@ namespace UserUITest.StepDefinitions
                 Assert.That(_context.ChargeAmount, Is.EqualTo(_context.TransactionInfo.Amount));
                 Assert.That(_context.ChargeResponse.Body, Is.EqualTo(_context.TransactionInfo.IdTransaction));
             });
-         }
+        }
 
 
         [Then(@"second transaction has the ([^']*) and expected information")]
@@ -144,6 +144,5 @@ namespace UserUITest.StepDefinitions
             CollectionAssert.AreEquivalent(_context.ExpectedTransactionInfos, _context.ActualTransactionInfos);
 
         }
-
     }
 }

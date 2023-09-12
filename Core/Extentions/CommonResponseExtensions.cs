@@ -1,8 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using Core.Models.Base;
+using Newtonsoft.Json;
 
-using UserServiceAPI.Models.Responses;
-
-namespace UserServiceAPI.Extensions
+namespace Core.Extentions
 {
     public static class CommonResponseExtensions
     {
@@ -12,7 +11,7 @@ namespace UserServiceAPI.Extensions
 
             var commonResponse = new CommonResponse<T>
             {
-                StatusCode = message.StatusCode,
+                Status = message.StatusCode,
                 Content = responseBody
             };
 
@@ -20,10 +19,7 @@ namespace UserServiceAPI.Extensions
             {
                 commonResponse.Body = JsonConvert.DeserializeObject<T>(responseBody);
             }
-            catch (JsonReaderException exception)
-            {
-            }
-
+            catch (JsonReaderException exception) { }
             return commonResponse;
         }
     }

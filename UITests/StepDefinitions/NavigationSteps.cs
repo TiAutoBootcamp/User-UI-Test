@@ -1,7 +1,7 @@
-using UserManagementServiceUITests.Pages;
-using UserUITest.Pages;
+using TechTalk.SpecFlow;
+using UITests.Pages;
 
-namespace UserUITest.StepDefinitions
+namespace UITests.StepDefinitions
 {
     [Binding]
     public sealed class NavigationSteps
@@ -20,10 +20,17 @@ namespace UserUITest.StepDefinitions
 
             _context.UserPage = new UserPage(_context.Driver);
             _context.CurrentPage = _context.UserPage;
-
             _context.UserPage.LoadUserTable();
+        }
 
             _context.CreateUser = new CreatePage(_context.Driver);
+        [Given(@"open main page")]
+        public void GivenOpenMainPage()
+        {
+            _context.Driver.Navigate().GoToUrl("https://estore-uat.azurewebsites.net/main");
+            _context.MainPage = new MainPage(_context.Driver);
+            _context.CurrentPage = _context.MainPage;
+            _context.MainPage.WaitProductsLoading();
         }
     }
 }

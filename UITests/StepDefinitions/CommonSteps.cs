@@ -1,13 +1,14 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using TechTalk.SpecFlow;
 
-namespace UserUITest.StepDefinitions
+namespace UITests.StepDefinitions
 {
     [Binding]
     public sealed class CommonSteps
-    {  
+    {
         private readonly DataContext _context;
-        
+
         public CommonSteps(DataContext context)
         {
             _context = context;

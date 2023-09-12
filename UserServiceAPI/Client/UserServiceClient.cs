@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Text;
-using UserServiceAPI.CatalogTests.Models.Responses;
+using UserServiceAPI.Extensions;
 using UserServiceAPI.Models.Requests;
 using UserServiceAPI.Models.Responses;
 

@@ -11,8 +11,7 @@ using System.Xml.Linq;
 using TechTalk.SpecFlow;
 using UserManagementServiceUITests.Utils;
 
-
-namespace UserUITest.Pages
+namespace UITests.Pages
 {
     public class UserPage : BasePage
     {
@@ -77,6 +76,9 @@ namespace UserUITest.Pages
         private IList<IWebElement> _transactionStatus;
 
         [FindsBy(How = How.CssSelector, Using = ".bm-content .table")]
+        private IWebElement _transactionTable;
+
+        [FindsBy(How = How.CssSelector, Using = ".bm-content .table")]
         private  IList<IWebElement> _transactionTable;
 
         [FindsBy(How = How.Id, Using = "add_user_button")]
@@ -128,7 +130,7 @@ namespace UserUITest.Pages
         {
             var tittle = _idField.Text;
             Match match = Regex.Match(tittle, @"\d+");
-            return Int32.Parse(match.Value);
+            return int.Parse(match.Value);
         }
         public string GetFirtsName()
         {
@@ -142,7 +144,7 @@ namespace UserUITest.Pages
 
         public bool GetStatusUser()
         {
-            bool status = (_statusField.Text == "Active");
+            bool status = _statusField.Text == "Active";
             return status;
         }
 
@@ -185,7 +187,7 @@ namespace UserUITest.Pages
         }
         public void ClickOnTransactionsTab()
         {
-           
+
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
             wait.Until((_) => _transactionsTab.Displayed);
             _transactionsTab.Click();
@@ -210,7 +212,7 @@ namespace UserUITest.Pages
             wait.Until((_) => !IsModalDisplayed());
         }
 
-        
+
 
         public void WaitForTableVisible()
         {
@@ -253,14 +255,15 @@ namespace UserUITest.Pages
             return string.Empty;
         }
 
-        public List<string> GetFieldsTittle() {
+        public List<string> GetFieldsTittle()
+        {
 
             List<string> fields = new List<string>();
-            foreach(var tittle in _tittleModalFields)
+            foreach (var tittle in _tittleModalFields)
             {
                 fields.Add(tittle.Text.ToString());
             }
-           return fields;
+            return fields;
         }
 
         public bool IsModalDisplayed()
@@ -269,21 +272,21 @@ namespace UserUITest.Pages
             {
                 return _detailsModal.Displayed;
             }
-            catch(NoSuchElementException)
+            catch (NoSuchElementException)
             {
                 return false;
             }
         }
 
-        public bool IsTransactionsTabClickable() {
-
+        public bool IsTransactionsTabClickable()
+        {
             return _transactionsTab.Enabled;
         }
 
-        public List<DateTime> transactionsCreateTime() {
-          // return (List<DateTime>)_transactionsCreateTime;
+        public List<DateTime> transactionsCreateTime()
+        {
+            // return (List<DateTime>)_transactionsCreateTime;
             return _transactionsCreateTime.Select(element => DateTime.Parse(element.Text)).ToList();
-
         }
 
         public List<Guid> TransactionsIds()
@@ -291,10 +294,9 @@ namespace UserUITest.Pages
             return _transactionsIds.Select(element => Guid.Parse(element.Text)).ToList();
         }
 
-
         public List<double> transactionsAmounts()
         {
-            
+
             return _transactionsAmounts.Select(element => double.Parse(element.Text)).ToList();
         }
         public List<string> transactionStatus()
@@ -302,12 +304,13 @@ namespace UserUITest.Pages
             return _transactionStatus.Select(element => element.Text).ToList();
 
         }
-        public string messageTransactions() {
+        public string messageTransactions()
+        {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
             wait.Until(ExpectedConditions.TextToBePresentInElement(_messageTransaction, "User does not have transactions"));
             //  wait.Until(ExpectedConditions.Not(ExpectedConditions.TextToBePresentInElement(_messageTransaction, "loading")));
+
             return _messageTransaction.Text ?? string.Empty;
-            
         }
 
         
