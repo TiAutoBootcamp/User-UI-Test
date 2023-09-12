@@ -1,4 +1,5 @@
 ﻿using Core;
+using NUnit.Framework.Internal.Execution;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
@@ -6,6 +7,9 @@ using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
+using TechTalk.SpecFlow;
+using UserManagementServiceUITests.Utils;
 
 namespace UITests.Pages
 {
@@ -53,7 +57,7 @@ namespace UITests.Pages
         [FindsBy(How = How.CssSelector, Using = "span[id$='_title']")]
         private IList<IWebElement> _tittleModalFields;
 
-        [FindsBy(How = How.LinkText, Using = "Transactions")]
+        [FindsBy(How = How.XPath, Using = "//div[contains(@class, 'mud-ripple') and contains(text(), 'Transactions')]")]
         private IWebElement _transactionsTab;
 
         [FindsBy(How = How.Id, Using = "create_time_column")]
@@ -73,6 +77,15 @@ namespace UITests.Pages
 
         [FindsBy(How = How.CssSelector, Using = ".bm-content .table")]
         private IWebElement _transactionTable;
+
+        [FindsBy(How = How.CssSelector, Using = ".bm-content .table")]
+        private  IList<IWebElement> _transactionTable;
+
+        [FindsBy(How = How.Id, Using = "add_user_button")]
+        private IWebElement _addUserButton;
+
+        PageFactoryUtil pageObject = new PageFactoryUtil();
+
 
         public void WaitForTableToLoad()
         {
@@ -154,7 +167,7 @@ namespace UITests.Pages
                 FirstName = GetFirtsName(),
                 LastName = GetLastName(),
                 IsActive = GetStatusUser(),
-                BirthDate = birthDate == "empty" ? null : birthDate
+                BirthDate = birthDate == "empty" ?  null: birthDate
             };
         }
 
@@ -168,13 +181,19 @@ namespace UITests.Pages
         {
             _secondaryCloseButton.Click();
         }
-
+        public void ClickAddUserButton()
+        {
+            _addUserButton.Click();
+        }
         public void ClickOnTransactionsTab()
         {
 
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
             wait.Until((_) => _transactionsTab.Displayed);
             _transactionsTab.Click();
+
+            PageFactory.InitElements(_driver, pageObject);
+            pageObject.WaitForProgressToDisappear(wait);
         }
 
         public void ClickOnSpecificPosition()
@@ -198,7 +217,42 @@ namespace UITests.Pages
         public void WaitForTableVisible()
         {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            wait.Until((_) => _transactionTable.Displayed);
+            wait.Until((_) => _transactionTable.Where(rowElement => rowElement.Displayed).ToList());
+           
+        }
+
+         public List<TransactionInfo> GetTableInformation()
+         {
+              List<Guid>_IdTransaction = TransactionsIds();
+            List<double> _Amount = transactionsAmounts();
+            List<string> _Status = transactionStatus();
+            List<DateTime> _CreateTime = transactionsCreateTime();
+
+
+            List < TransactionInfo > tableInformation = _transactionTable
+             .Select((rowElement,index) => new TransactionInfo
+             {
+                 IdTransaction = _IdTransaction[index],
+                 Amount = _Amount[index],
+                 CreateTime = _CreateTime[index],
+                 Status = _Status[index],
+                
+             }) 
+             .ToList();
+            
+            return tableInformation;
+         }
+
+        private object GetCellValue(IWebElement rowElement, int columnIndex)
+        {
+            var cellElements = rowElement.FindElements(By.TagName("td"));
+
+            if (cellElements.Count > columnIndex)
+            {
+                return cellElements[columnIndex].Text;
+            }
+
+            return string.Empty;
         }
 
         public List<string> GetFieldsTittle()
@@ -259,6 +313,8 @@ namespace UITests.Pages
             return _messageTransaction.Text ?? string.Empty;
         }
 
+        
+        
     }
 
 }

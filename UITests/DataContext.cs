@@ -37,9 +37,11 @@ namespace UITests
         public IWebDriver Driver { get; set; }
         public UserPage UserPage { get; set; }
         public MainPage MainPage { get; set; }
+        public CreatePage CreateUser { get; set; }
 
         public BasePage CurrentPage { get; set; }
         public UserInfo UserInfo { get; internal set; }
+
         public List<string> TittleModalFields;
         public TransactionInfo TransactionInfo { get; internal set; }
         public TransactionInfo RevertTransactionInfo { get; internal set; }
@@ -55,5 +57,7 @@ namespace UITests
         public List<TransactionInfo> transactionInfos { get; internal set; }
         public List<string> ProductArticles { get; internal set; }
         public List<(CreateProductRequest, ProductStatus)> ProductRequestsAndStatuses { get; internal set; }
+        public List<TransactionInfo> ActualTransactionInfos { get; internal set; }
+        public List<TransactionInfo> ExpectedTransactionInfos { get; internal set; }
     }
 }

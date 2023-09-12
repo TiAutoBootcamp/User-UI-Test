@@ -255,10 +255,14 @@ namespace UITests.StepDefinitions
         public async Task WhenRequestToGetAllTheInformationForAllTheTransactions()
         {
             _context.UserPage.WaitForTableVisible();
+
             var responseData = await _walletServiceClient.GetTransactions(_context.InitialUserId);
             string patternDate = @"\d{4}-\d{2}-\w+:\d{2}:\d{2}";
 
             string DateTimeFormat = "yyyy-MM-ddTHH:mm:ss";
+            string patternId = @"\w+-\w+-\w+-\w+-\w+";
+            string patternAmount = @"\d+\.\d+(?=,)";
+            string patternStatus = @"(?<=:)\d{1}(?=,)";
 
             _context.ExpectedTransactionTime = Regex.Matches(responseData.Content, patternDate)
                                  .Cast<Match>()
@@ -276,15 +280,6 @@ namespace UITests.StepDefinitions
                            .Select(match => double.Parse(match.Value))
                             .ToList();
 
-            string patternStatus = @"(?<=:)\d{1}(?=,)";
-            _context.ExpectedStatusTransaction = Regex.Matches(responseData.Content, patternStatus)
-                              .Cast<Match>()
-                              .Select(match => int.Parse(match.Value))
-                              .Select(statusValue =>
-                                  Enum.IsDefined(typeof(UserStatus), statusValue)
-                                      ? ((UserStatus)statusValue).ToString()
-                                      : "Unknown")
-                              .ToList();
         }
 
         [Given(@"User search product by '(.*)'")]

@@ -12,5 +12,9 @@ namespace UITests.Pages
             _driver = driver;
             PageFactory.InitElements(driver, this);
         }
+
+        [FindsBy(How = How.TagName, Using = "body")]
+        protected IWebElement Body { get; set; }
+
     }
 }

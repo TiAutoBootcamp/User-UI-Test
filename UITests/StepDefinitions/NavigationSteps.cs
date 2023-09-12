@@ -23,6 +23,7 @@ namespace UITests.StepDefinitions
             _context.UserPage.LoadUserTable();
         }
 
+            _context.CreateUser = new CreatePage(_context.Driver);
         [Given(@"open main page")]
         public void GivenOpenMainPage()
         {
