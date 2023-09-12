@@ -7,6 +7,7 @@ using CatalogServiceAPI.Models.Requests;
 using CatalogServiceAPI.Client;
 using Core.Enums;
 using UITests.Pages;
+using UserManagementServiceUITests.Pages;
 
 namespace UITests
 {

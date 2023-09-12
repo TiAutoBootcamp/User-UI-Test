@@ -1,5 +1,6 @@
 using TechTalk.SpecFlow;
 using UITests.Pages;
+using UserManagementServiceUITests.Pages;
 
 namespace UITests.StepDefinitions
 {
@@ -21,9 +22,9 @@ namespace UITests.StepDefinitions
             _context.UserPage = new UserPage(_context.Driver);
             _context.CurrentPage = _context.UserPage;
             _context.UserPage.LoadUserTable();
+            _context.CreateUser = new CreatePage(_context.Driver);
         }
 
-            _context.CreateUser = new CreatePage(_context.Driver);
         [Given(@"open main page")]
         public void GivenOpenMainPage()
         {

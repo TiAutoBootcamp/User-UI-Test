@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Text;
 using WalletServiceAPI.Extensions;
 using WalletServiceAPI.Models.Requests;
@@ -33,7 +32,7 @@ namespace WalletServiceAPI.Client
                 Content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json")
             };
 
-            HttpResponseMessage response = await _httpClient.SendAsync(httpRequestMessage);            
+            HttpResponseMessage response = await _httpClient.SendAsync(httpRequestMessage);
 
             return await response.ToCommonResponse<Guid>();
         }
