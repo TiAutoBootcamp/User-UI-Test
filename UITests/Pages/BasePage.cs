@@ -15,6 +15,5 @@ namespace UITests.Pages
 
         [FindsBy(How = How.TagName, Using = "body")]
         protected IWebElement Body { get; set; }
-
     }
 }

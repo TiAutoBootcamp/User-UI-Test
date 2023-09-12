@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Net;
 using System.Text.RegularExpressions;
 using TechTalk.SpecFlow;
-using UITests;
 using UserServiceAPI.Client;
 using UserServiceAPI.Utils;
 using WalletServiceAPI.Client;
@@ -148,7 +147,6 @@ namespace UITests.StepDefinitions
         [When(@"get all the tiitle fields on the modal")]
         public void WhenGetAllTheTiitleFieldsOnTheModal()
         {
-            // _tittleModalFields.
             _context.TittleModalFields = _context.UserPage.GetFieldsTittle();
         }
 
@@ -267,18 +265,6 @@ namespace UITests.StepDefinitions
             _context.ExpectedTransactionTime = Regex.Matches(responseData.Content, patternDate)
                                  .Cast<Match>()
                                  .Select(match => DateTime.ParseExact(match.Value, DateTimeFormat, CultureInfo.InvariantCulture)).ToList();
-
-            string patternId = @"\w+-\w+-\w+-\w+-\w+";
-            _context.ExpectedIdsTransaction = Regex.Matches(responseData.Content, patternId)
-                            .Cast<Match>()
-                            .Select(match => Guid.Parse(match.Value))
-                            .ToList();
-
-            string patternAmount = @"\d+\.\d+(?=,)";
-            _context.ExpectedAmountTransaction = Regex.Matches(responseData.Content, patternAmount)
-                           .Cast<Match>()
-                           .Select(match => double.Parse(match.Value))
-                            .ToList();
 
         }
 

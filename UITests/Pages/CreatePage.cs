@@ -1,19 +1,12 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
-using SeleniumExtras.WaitHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UserUITest.Pages;
+using UITests.Pages;
 
 namespace UserManagementServiceUITests.Pages
 {
     public class CreatePage : BasePage
     {
-
         public CreatePage(IWebDriver driver) : base(driver)
         {
         }
@@ -55,7 +48,6 @@ namespace UserManagementServiceUITests.Pages
         public void ClickSaveButton() {
             _saveButton.Click();
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(3));
-          //  wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.ClassName("size-medium")));
             wait.Until(_ => Body.GetAttribute("style").Contains("overflow: auto"));
 
         }
@@ -72,7 +64,6 @@ namespace UserManagementServiceUITests.Pages
             {
                 return false;
             }
-            
         }
     }
 }

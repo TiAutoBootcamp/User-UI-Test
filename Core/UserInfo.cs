@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace Core
+﻿namespace Core
 {
     public class UserInfo
     {
@@ -18,5 +16,4 @@ namespace Core
             set => _birthDate = value ?? string.Empty;
         }
     }
-
-    }
+}

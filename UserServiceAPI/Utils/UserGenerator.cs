@@ -6,7 +6,6 @@ namespace UserServiceAPI.Utils
 {
     public class UserGenerator
     {
-        
         public RegisterUserRequest GenerateUserRequest()
         {
             return GenerateCreateUserRequest("KCV" + Guid.NewGuid().ToString().ToUpper().Replace("-", ""));
@@ -38,7 +37,7 @@ namespace UserServiceAPI.Utils
             };
         }
 
-        public RegisterUserRequest GenerateCreateUserRequestWithBirthDate(string firstName, string lastName,string birthDate)
+        public RegisterUserRequest GenerateCreateUserRequestWithBirthDate(string firstName, string lastName, string birthDate)
         {
             return new RegisterUserRequest()
             {
@@ -51,7 +50,7 @@ namespace UserServiceAPI.Utils
         public RegisterUserRequest GenerateRandomUserRequest(int length, string birthDate)
         {
             const string _string = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()/{";
-            Random random = new Random();   
+            Random random = new Random();
 
             StringBuilder firstName = new StringBuilder();
             StringBuilder lastName = new StringBuilder();
@@ -66,11 +65,10 @@ namespace UserServiceAPI.Utils
             return GenerateCreateUserRequestWithBirthDate(firstName.ToString(), lastName.ToString(), birthDate);
         }
 
-
         public RegisterUserRequest GenerateRandomFirstNameWithGuidLastNameRequest(int length, string birthDate)
         {
             StringBuilder name = GenerateRandomString(length);
-            return GenerateCreateUserRequestWithBirthDate(name.ToString(), "Cucunuba" + Guid.NewGuid().ToString(),birthDate);
+            return GenerateCreateUserRequestWithBirthDate(name.ToString(), "Cucunuba" + Guid.NewGuid().ToString(), birthDate);
         }
 
         public RegisterUserRequest GenerateRandomLastNameWithGuidLastNameRequest(int length, string birthDate)
@@ -78,8 +76,9 @@ namespace UserServiceAPI.Utils
             StringBuilder name = GenerateRandomString(length);
             return GenerateCreateUserRequestWithBirthDate("KCV" + Guid.NewGuid().ToString().ToUpper().Replace("-", ""), name.ToString(), birthDate);
         }
-        
-        public StringBuilder GenerateRandomString(int length) {
+
+        public StringBuilder GenerateRandomString(int length)
+        {
             const string _string = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()/{";
             Random random = new Random();
             StringBuilder name = new StringBuilder();
@@ -92,12 +91,11 @@ namespace UserServiceAPI.Utils
             return name;
         }
 
-
-        public int GenerateId() {
+        public int GenerateId()
+        {
             Random random = new Random();
-            int randomNumber = random.Next(0,10000000);
+            int randomNumber = random.Next(0, 10000000);
             return randomNumber;
-        } 
-
+        }
     }
 }

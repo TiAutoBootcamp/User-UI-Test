@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using TechTalk.SpecFlow;
-using UserUITest;
+using UITests;
 
 namespace UserManagementServiceUITests.StepDefinitions
 {
@@ -25,6 +25,5 @@ namespace UserManagementServiceUITests.StepDefinitions
                 Assert.That(_context.UserInfo.BirthDate, Is.EqualTo(_context.CreateUserRequest.BirthDate));
             });
         }
-
     }
 }

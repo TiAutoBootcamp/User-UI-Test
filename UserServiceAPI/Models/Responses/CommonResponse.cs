@@ -13,7 +13,6 @@ namespace UserServiceAPI.Models.Responses
 
         public string Content;
 
-        public T Body;
-    
+        public T Body;   
     }
 }

@@ -42,7 +42,6 @@ namespace UITests.StepDefinitions
                 "Last name:",
                 "Status:",
                 "Birth date:"
-
             };
 
             CollectionAssert.AreEqual(expectedFields, _context.TittleModalFields);
@@ -128,19 +127,8 @@ namespace UITests.StepDefinitions
         public void ThenTransactionsDisplayedAreCorrectWithTheExpectedInformation()
         {
             _context.UserPage.WaitForTableVisible();
-           // Assert.Multiple(() =>
-           // {
-           //     CollectionAssert.AreEqual(_context.ExpectedTransactionTime, _context.UserPage.transactionsCreateTime());
-           //     CollectionAssert.AreEqual(_context.ExpectedAmountTransaction, _context.UserPage.transactionsAmounts());
-           //     CollectionAssert.AreEqual(_context.ExpectedIdsTransaction, _context.UserPage.TransactionsIds());
-           //     CollectionAssert.AreEqual(_context.ExpectedStatusTransaction, _context.UserPage.transactionStatus());
-           // });
             _context.ActualTransactionInfos = _context.UserPage.GetTableInformation();
-          //  Assert.Multiple(() =>
-          //  {
-          //      CollectionAssert.AreEqual(_context.ExpectedTransactionInfos, _context.ActualTransactionInfos);
-          //  });
-
+          
             CollectionAssert.AreEquivalent(_context.ExpectedTransactionInfos, _context.ActualTransactionInfos);
 
         }
