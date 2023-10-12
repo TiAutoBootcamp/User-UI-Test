@@ -23,7 +23,6 @@ namespace UITests.StepDefinitions
         [BeforeScenario]
         public static async Task OneTimeSetUp(DataContext context)
         {
-            var container = ScenarioDependencies().Build();
             context.ProductArticles = new List<string>();
             context.ProductRequestsAndStatuses = new List<(AddProductRequest, ProductStatus)>();
             var chromeOptions = new ChromeOptions();
