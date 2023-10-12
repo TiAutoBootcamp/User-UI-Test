@@ -1,53 +1,52 @@
-﻿using System.Text;
-using System.Xml.Linq;
-using UserServiceAPI.Models.Requests;
+﻿using Estore.Models.Request.User;
+using System.Text;
 
-namespace UserServiceAPI.Utils
+namespace CoreAdditional.Utils
 {
-    public class UserGenerator
+    public class UserRequestGenerator
     {
-        public RegisterUserRequest GenerateUserRequest()
+        public RegisterCustomerRequest GenerateUserRequest()
         {
             return GenerateCreateUserRequest("KCV" + Guid.NewGuid().ToString().ToUpper().Replace("-", ""));
         }
 
-        public RegisterUserRequest GenerateCreateUserRequest(string firstName)
+        public RegisterCustomerRequest GenerateCreateUserRequest(string firstName)
         {
             return GenerateCreateUserRequest(firstName, "Cucunuba" + Guid.NewGuid().ToString());
         }
 
-        public RegisterUserRequest GenerateCreateUserRequest(string firstName, string lastName)
+        public RegisterCustomerRequest GenerateCreateUserRequest(string firstName, string lastName)
         {
-            return new RegisterUserRequest()
+            return new RegisterCustomerRequest()
             {
                 FirstName = firstName ?? "",
                 LastName = lastName ?? "",
             };
         }
 
-        public RegisterUserRequest GenerateCreateUserRequestWithBirthDate(string birthDate)
+        public RegisterCustomerRequest GenerateCreateUserRequestWithBirthDate(string birthDate)
         {
             var firstName = "KCV" + Guid.NewGuid().ToString().ToUpper().Replace("-", "");
             var lastName = "Cucunuba" + Guid.NewGuid().ToString();
-            return new RegisterUserRequest()
+            return new RegisterCustomerRequest()
             {
                 FirstName = firstName ?? "",
                 LastName = lastName ?? "",
-                BirthDate = birthDate ?? "",
+                BirthDate = DateTime.TryParse(birthDate, out DateTime parsedDate) ? (DateTime?)parsedDate : null
             };
         }
 
-        public RegisterUserRequest GenerateCreateUserRequestWithBirthDate(string firstName, string lastName, string birthDate)
+        public RegisterCustomerRequest GenerateCreateUserRequestWithBirthDate(string firstName, string lastName, string birthDate)
         {
-            return new RegisterUserRequest()
+            return new RegisterCustomerRequest()
             {
                 FirstName = firstName ?? "",
                 LastName = lastName ?? "",
-                BirthDate = birthDate ?? "",
+                BirthDate = DateTime.TryParse(birthDate, out DateTime parsedDate) ? (DateTime?)parsedDate : null
             };
         }
 
-        public RegisterUserRequest GenerateRandomUserRequest(int length, string birthDate)
+        public RegisterCustomerRequest GenerateRandomUserRequest(int length, string birthDate)
         {
             const string _string = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()/{";
             Random random = new Random();
@@ -65,13 +64,13 @@ namespace UserServiceAPI.Utils
             return GenerateCreateUserRequestWithBirthDate(firstName.ToString(), lastName.ToString(), birthDate);
         }
 
-        public RegisterUserRequest GenerateRandomFirstNameWithGuidLastNameRequest(int length, string birthDate)
+        public RegisterCustomerRequest GenerateRandomFirstNameWithGuidLastNameRequest(int length, string birthDate)
         {
             StringBuilder name = GenerateRandomString(length);
             return GenerateCreateUserRequestWithBirthDate(name.ToString(), "Cucunuba" + Guid.NewGuid().ToString(), birthDate);
         }
 
-        public RegisterUserRequest GenerateRandomLastNameWithGuidLastNameRequest(int length, string birthDate)
+        public RegisterCustomerRequest GenerateRandomLastNameWithGuidLastNameRequest(int length, string birthDate)
         {
             StringBuilder name = GenerateRandomString(length);
             return GenerateCreateUserRequestWithBirthDate("KCV" + Guid.NewGuid().ToString().ToUpper().Replace("-", ""), name.ToString(), birthDate);
@@ -96,6 +95,15 @@ namespace UserServiceAPI.Utils
             Random random = new Random();
             int randomNumber = random.Next(0, 10000000);
             return randomNumber;
+        }
+
+        public LoginRequest GenerateLoginRequest(string email, string password)
+        {
+            return new LoginRequest()
+            {
+                Email = email,
+                Password = password
+            };
         }
     }
 }

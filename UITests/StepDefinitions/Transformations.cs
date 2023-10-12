@@ -1,4 +1,4 @@
-﻿using CatalogServiceAPI.Models.StepsModels;
+﻿using CoreAdditional.Models;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 

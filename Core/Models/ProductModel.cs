@@ -1,6 +1,6 @@
-﻿using Core.Enums;
+﻿using Estore.Models.Enum;
 
-namespace CatalogServiceAPI.Models.StepsModels
+namespace CoreAdditional.Models
 {
     public class ProductModel
     {

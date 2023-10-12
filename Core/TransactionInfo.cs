@@ -1,4 +1,4 @@
-﻿namespace Core
+﻿namespace CoreAdditional
 {
     public class TransactionInfo
     {

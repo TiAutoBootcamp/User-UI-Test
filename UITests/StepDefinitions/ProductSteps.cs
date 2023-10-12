@@ -1,9 +1,8 @@
-﻿using CatalogServiceAPI.Client;
-using CatalogServiceAPI.Models.StepsModels;
-using CatalogServiceAPI.Providers;
-using CatalogServiceAPI.Utils;
-using Core.Enums;
+﻿using CoreAdditional.Models;
+using CoreAdditional.Utils;
+using CoreAdditional.Providers;
 using TechTalk.SpecFlow;
+using Estore.Models.Enum;
 
 namespace UITests.StepDefinitions
 {
@@ -11,15 +10,17 @@ namespace UITests.StepDefinitions
     public class ProductSteps
     {
         private readonly DataContext _context;
-        private readonly ProductGenerator _productGenerator = new ProductGenerator();
+        private readonly CatalogRequestGenerator _productGenerator;
         private readonly CatalogServiceProvider _catalogProvider;
         private readonly Random rnd = new Random();
 
-        public ProductSteps(DataContext context)
+        public ProductSteps(DataContext context, 
+            CatalogServiceProvider catalogProvider,
+            CatalogRequestGenerator productGenerator)
         {
             _context = context;
-            _context.CatalogServiceClient = new CatalogServiceClient();
-            _catalogProvider = new CatalogServiceProvider(_context.CatalogServiceClient, _productGenerator);
+            _catalogProvider = catalogProvider;
+            _productGenerator = productGenerator;
         }
 
         [Given(@"Valid product is created")]

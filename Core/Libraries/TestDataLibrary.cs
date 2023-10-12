@@ -1,4 +1,4 @@
-﻿namespace Core.Libraries
+﻿namespace CoreAdditional.Libraries
 {
     public static class TestDataLibrary
     {

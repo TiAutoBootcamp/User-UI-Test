@@ -4,7 +4,26 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Features\AddUserModalWindowTest.feature.cs" />
+    <Compile Remove="Features\TransactionsTabUserModalWindowTests.feature.cs" />
+    <Compile Remove="Features\UserDetailsModalWindowTests.feature.cs" />
+    <Compile Remove="StepDefinitions\CreateUser.cs" />
+    <Compile Remove="StepDefinitions\CreateUserAssertions.cs" />
+    <Compile Remove="StepDefinitions\UserStepsAssertions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Features\AddUserModalWindowTest.feature.cs" />
+    <None Include="Features\TransactionsTabUserModalWindowTests.feature.cs" />
+    <None Include="Features\UserDetailsModalWindowTests.feature.cs" />
+    <None Include="StepDefinitions\CreateUser.cs" />
+    <None Include="StepDefinitions\CreateUserAssertions.cs" />
+    <None Include="StepDefinitions\UserStepsAssertions.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DotNetSeleniumExtras.PageObjects" Version="3.11.0" />
@@ -16,6 +35,7 @@
     <PackageReference Include="Selenium.WebDriver" Version="4.11.0" />
     <PackageReference Include="SeleniumExtras.WaitHelpers" Version="1.0.2" />
     <PackageReference Include="SpecFlow" Version="3.9.74" />
+    <PackageReference Include="SpecFlow.Autofac" Version="3.9.74" />
     <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
     <PackageReference Include="SpecFlow.NUnit" Version="3.9.74" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
@@ -23,10 +43,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CatalogServiceAPI\CatalogServiceAPI.csproj" />
-    <ProjectReference Include="..\Core\Core.csproj" />
-    <ProjectReference Include="..\UserServiceAPI\UserServiceAPI.csproj" />
-    <ProjectReference Include="..\WalletServiceAPI\WalletServiceAPI\WalletServiceAPI.csproj" />
+    <ProjectReference Include="..\Core\CoreAdditional.csproj" />
+    <ProjectReference Include="..\Estore.Core\Estore.Client\Estore.Clients.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

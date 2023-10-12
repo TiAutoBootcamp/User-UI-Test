@@ -1,18 +1,31 @@
-﻿using CatalogServiceAPI.Models.Requests;
-using Core.Enums;
+﻿using CoreAdditional.Modules;
+using Estore.Models.Enum;
+using Estore.Models.Request.Catalog;
 using OpenQA.Selenium.Chrome;
 using TechTalk.SpecFlow;
+using Autofac;
+using SpecFlow.Autofac;
+
 
 namespace UITests.StepDefinitions
 {
     [Binding]
     public sealed class Hooks
     {
+        [ScenarioDependencies]
+        public static ContainerBuilder ScenarioDependencies()
+        {
+            var builder = new ContainerBuilder();
+            builder.RegisterModule<TestDependencyModule>();
+            return builder;
+        }
+
         [BeforeScenario]
         public static async Task OneTimeSetUp(DataContext context)
         {
+            var container = ScenarioDependencies().Build();
             context.ProductArticles = new List<string>();
-            context.ProductRequestsAndStatuses = new List<(CreateProductRequest, ProductStatus)>();
+            context.ProductRequestsAndStatuses = new List<(AddProductRequest, ProductStatus)>();
             var chromeOptions = new ChromeOptions();
             chromeOptions.AddArgument("headless");
             context.Driver = new ChromeDriver(chromeOptions);
@@ -33,11 +46,11 @@ namespace UITests.StepDefinitions
             {
                 foreach (var article in context.ProductArticles)
                 {
-                    await context.CatalogServiceClient.DeleteProductInfo(article);
+                    await context.CatalogServiceClient.DeleteProduct(article);
                 }
                 foreach (var element in context.ProductRequestsAndStatuses)
                 {
-                    await context.CatalogServiceClient.DeleteProductInfo(element.Item1.Article);
+                    await context.CatalogServiceClient.DeleteProduct(element.Item1.Article);
                 }
             }
         }

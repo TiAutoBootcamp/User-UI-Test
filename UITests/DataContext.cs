@@ -1,13 +1,12 @@
-﻿using Core;
+﻿using CoreAdditional;
 using OpenQA.Selenium;
-using UserServiceAPI.Models.Requests;
-using UserServiceAPI.Models.Responses;
-using WalletServiceAPI.Models.Responses.Base;
-using CatalogServiceAPI.Models.Requests;
-using CatalogServiceAPI.Client;
-using Core.Enums;
 using UITests.Pages;
 using UserManagementServiceUITests.Pages;
+using Estore.Models.Request.User;
+using Estore.Core.HTTP.Base;
+using Estore.Models.Request.Catalog;
+using Estore.Clients.Clients;
+using Estore.Models.Enum;
 
 namespace UITests
 {
@@ -19,20 +18,20 @@ namespace UITests
         public double ChargeAmount;
         public double ChargeAmountRevert;
 
-        public WalletCommonResponse<Guid> ReverseTransactionStatusResponse;
+        public CommonResponse<Guid> ReverseTransactionStatusResponse;
         public Guid SecondUserIdTransaction;
 
-        public RegisterUserRequest CreateUserRequest;
-        public CreateProductRequest ProductRequest;
-        public List<CreateProductRequest> ProductRequestList;
+        public RegisterCustomerRequest CreateUserRequest;
+        public AddProductRequest ProductRequest;
+        public List<AddProductRequest> ProductRequestList;
         public CommonResponse<int> CreateUserResponse;
         public CommonResponse<object> SetUserStatusResponse;
         public bool UserStatus = DEFAULT_USER_STATUS;
         public Guid UserIdTransaction;
         public Guid RevertUserIdTransaction;
 
-        public WalletCommonResponse<decimal> GetBalanceResponse;
-        public WalletCommonResponse<Guid> ChargeResponse;
+        public CommonResponse<decimal> GetBalanceResponse;
+        public CommonResponse<Guid> ChargeResponse;
 
         public int NumberTransactions;
         public IWebDriver Driver { get; set; }
@@ -47,7 +46,7 @@ namespace UITests
         public TransactionInfo TransactionInfo { get; internal set; }
         public TransactionInfo RevertTransactionInfo { get; internal set; }
 
-        public CatalogServiceClient CatalogServiceClient { get; set; }
+        public CatalogClient CatalogServiceClient { get; set; }
 
         public List<DateTime> ExpectedTransactionTime { get; internal set; }
         public List<DateTime> ActualTransactionTime { get; internal set; }
@@ -57,7 +56,7 @@ namespace UITests
         public List<string> ExpectedStatusTransaction { get; internal set; }
         public List<TransactionInfo> transactionInfos { get; internal set; }
         public List<string> ProductArticles { get; internal set; }
-        public List<(CreateProductRequest, ProductStatus)> ProductRequestsAndStatuses { get; internal set; }
+        public List<(AddProductRequest, ProductStatus)> ProductRequestsAndStatuses { get; internal set; }
         public List<TransactionInfo> ActualTransactionInfos { get; internal set; }
         public List<TransactionInfo> ExpectedTransactionInfos { get; internal set; }
     }

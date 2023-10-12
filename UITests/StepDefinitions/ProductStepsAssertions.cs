@@ -1,7 +1,6 @@
-﻿using CatalogServiceAPI.Models.StepsModels;
+﻿using CoreAdditional.Models;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
-using UITests;
 
 namespace UITests.StepDefinitions
 {
