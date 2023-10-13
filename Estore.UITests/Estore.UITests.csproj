@@ -8,18 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Features\AddUserModalWindowTest.feature.cs" />
-    <Compile Remove="Features\TransactionsTabUserModalWindowTests.feature.cs" />
-    <Compile Remove="Features\UserDetailsModalWindowTests.feature.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Features\AddUserModalWindowTest.feature.cs" />
-    <None Include="Features\TransactionsTabUserModalWindowTests.feature.cs" />
-    <None Include="Features\UserDetailsModalWindowTests.feature.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="DotNetSeleniumExtras.PageObjects" Version="3.11.0" />
     <PackageReference Include="DotNetSeleniumExtras.PageObjects.Core" Version="4.3.0" />
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
