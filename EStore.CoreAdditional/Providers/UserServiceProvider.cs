@@ -3,7 +3,6 @@ using Estore.Clients.Clients;
 using Estore.Core.HTTP.Base;
 using Estore.Models.Request.User;
 using Microsoft.Extensions.Configuration;
-using System.Diagnostics;
 
 namespace CoreAdditional.Providers
 {
@@ -12,6 +11,7 @@ namespace CoreAdditional.Providers
         private readonly UserClient _userServiceClient;
         private readonly UserRequestGenerator _userGenerator;
         private readonly IConfiguration _configuration;
+       
         public UserServiceProvider(UserClient client,
            UserRequestGenerator generator,
            IConfiguration configuration)
@@ -30,6 +30,14 @@ namespace CoreAdditional.Providers
         public async Task<CommonResponse<string>> Login(string email, string password)
         {
             var request = _userGenerator.GenerateLoginRequest(email, password);
+            return await _userServiceClient.Login(request);
+        }
+
+        public async Task<CommonResponse<string>> LoginAsAdmin()
+        {
+            var request = _userGenerator.GenerateLoginRequest(
+                _configuration["AdminCredentials:email"],
+                _configuration["AdminCredentials:password"]);
             return await _userServiceClient.Login(request);
         }
 

@@ -3,7 +3,7 @@ using OpenQA.Selenium.Interactions;
 using TechTalk.SpecFlow;
 using UITests.Context;
 
-namespace UITests.StepDefinitions
+namespace Estore.UITests.StepDefinitions.Base
 {
     [Binding]
     public sealed class CommonSteps

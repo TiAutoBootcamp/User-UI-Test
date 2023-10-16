@@ -59,15 +59,6 @@ namespace CoreAdditional.Modules
                 .AsSelf();
 
             builder
-                .RegisterType<WarehouseServiceProvider>()
-                .SingleInstance()
-                .AsSelf();
-
-            builder
-                .RegisterType<OrderServiceProvider>()
-                .AsSelf();
-
-            builder
                .RegisterType<UserRequestGenerator>()
                .AsSelf();
 
@@ -82,7 +73,7 @@ namespace CoreAdditional.Modules
             builder
                 .RegisterType<TokenManager>()
                 .SingleInstance()
-                .AsSelf();
+                .AsSelf();           
         }
 
         private void RegisterHttpClientAndConfiguration(ContainerBuilder builder)

@@ -2,7 +2,7 @@
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 
-namespace UITests.StepDefinitions
+namespace Estore.UITests.StepDefinitions.Base
 {
     [Binding]
     public class Transformations

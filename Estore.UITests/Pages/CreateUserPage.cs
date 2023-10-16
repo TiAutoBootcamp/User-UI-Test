@@ -5,9 +5,9 @@ using UITests.Pages;
 
 namespace UserManagementServiceUITests.Pages
 {
-    public class CreateCustomerPage : BasePage
+    public class CreateUserPage : BasePage
     {
-        public CreateCustomerPage(IWebDriver driver) : base(driver)
+        public CreateUserPage(IWebDriver driver) : base(driver)
         {
         }
 

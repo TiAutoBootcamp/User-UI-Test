@@ -1,5 +1,4 @@
-﻿using CoreAdditional.Models;
-using Estore.Models.Enum;
+﻿using Estore.Models.Enum;
 using Estore.Models.Response.Wallet;
 using Estore.UITests.Pages;
 using OpenQA.Selenium;
@@ -88,12 +87,6 @@ namespace UITests.Pages
             _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
         }
 
-        public void WaitForTableToLoad()
-        {
-            // TODO:
-            Thread.Sleep(1000);
-        }
-
         public void LoadUserTable()
         {
             _wait.Until((_) => _userTable.Displayed);
@@ -108,7 +101,6 @@ namespace UITests.Pages
         public void ClickSearchButton()
         {
             _searchButton.Click();
-            WaitForTableToLoad();
         }
 
         public void ClickDetailsButton()
@@ -145,20 +137,6 @@ namespace UITests.Pages
             Thread.Sleep(500);
             string _birthDate = _birthDateField.Text ?? string.Empty;
             return _birthDate;
-        }
-
-        public UserInfo GetAllTheModalInformation()
-        {
-            var birthDate = GetBirthDate();
-
-            return new UserInfo
-            {
-                Id = GetId(),
-                FirstName = GetFirtsName(),
-                LastName = GetLastName(),
-                IsActive = GetStatusUser(),
-                BirthDate = birthDate == "empty" ? null : birthDate
-            };
         }
 
         public void ClickOnPrimaryCloseButton()

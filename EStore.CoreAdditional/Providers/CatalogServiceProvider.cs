@@ -10,7 +10,7 @@ namespace CoreAdditional.Providers
     {
         private readonly CatalogClient _catalogServiceClient;
         private readonly CatalogRequestGenerator _catalogGenerator;
-
+        
         public CatalogServiceProvider(CatalogClient client,
            CatalogRequestGenerator catalogGenerator)
         {

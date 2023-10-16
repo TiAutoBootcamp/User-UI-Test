@@ -7,8 +7,9 @@ using Autofac;
 using SpecFlow.Autofac;
 using UITests.Modules;
 using UITests.Context;
+using Estore.Clients.Clients;
 
-namespace UITests.StepDefinitions
+namespace Estore.UITests.StepDefinitions.Base
 {
     [Binding]
     public sealed class SetUpFixture
@@ -41,17 +42,20 @@ namespace UITests.StepDefinitions
         }
 
         [AfterScenario]
-        public static async Task CleanUp(DataContext context)
+        public static async Task CleanUp(DataContext context, CatalogClient catalogClient)
         {
-            if (context.CatalogServiceClient != null)
+            if (context.ProductArticles != null)
             {
                 foreach (var article in context.ProductArticles)
                 {
-                    await context.CatalogServiceClient.DeleteProduct(article);
+                    await catalogClient.DeleteProduct(article);
                 }
+            }
+            if (context.ProductRequestsAndStatuses != null)
+            {
                 foreach (var element in context.ProductRequestsAndStatuses)
                 {
-                    await context.CatalogServiceClient.DeleteProduct(element.Item1.Article);
+                    await catalogClient.DeleteProduct(element.Item1.Article);
                 }
             }
         }

@@ -9,7 +9,7 @@ namespace CoreAdditional.Providers
     {
         private readonly WalletClient _walletServiceClient;
         private readonly WalletRequestGenerator _balanceChargeGenerator;
-
+       
         public WalletServiceProvider(WalletClient client,
            WalletRequestGenerator generator)
         {

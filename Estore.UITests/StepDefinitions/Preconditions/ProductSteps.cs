@@ -5,7 +5,7 @@ using TechTalk.SpecFlow;
 using Estore.Models.Enum;
 using UITests.Context;
 
-namespace UITests.StepDefinitions
+namespace Estore.UITests.StepDefinitions.Preconditions
 {
     [Binding]
     public class ProductSteps
@@ -15,7 +15,7 @@ namespace UITests.StepDefinitions
         private readonly CatalogServiceProvider _catalogProvider;
         private readonly Random rnd = new Random();
 
-        public ProductSteps(DataContext context, 
+        public ProductSteps(DataContext context,
             CatalogServiceProvider catalogProvider,
             CatalogRequestGenerator productGenerator)
         {

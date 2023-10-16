@@ -3,7 +3,7 @@ using NUnit.Framework;
 using TechTalk.SpecFlow;
 using UITests.Context;
 
-namespace UITests.StepDefinitions
+namespace Estore.UITests.StepDefinitions.Assertions
 {
     [Binding]
     public class ProductStepsAssertions
