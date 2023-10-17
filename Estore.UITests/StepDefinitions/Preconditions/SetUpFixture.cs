@@ -9,7 +9,7 @@ using UITests.Modules;
 using UITests.Context;
 using Estore.Clients.Clients;
 
-namespace Estore.UITests.StepDefinitions.Base
+namespace Estore.UITests.StepDefinitions.Preconditions
 {
     [Binding]
     public sealed class SetUpFixture

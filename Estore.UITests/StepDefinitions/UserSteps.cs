@@ -4,7 +4,7 @@ using CoreAdditional.Providers;
 using UITests.Context;
 using CoreAdditional.Utils;
 
-namespace Estore.UITests.StepDefinitions.Preconditions
+namespace Estore.UITests.StepDefinitions
 {
     [Binding]
     public sealed class UserSteps

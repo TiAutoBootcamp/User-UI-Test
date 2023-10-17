@@ -1,9 +1,7 @@
 ﻿using Estore.Models.Enum;
 using Estore.Models.Response.Wallet;
-using Estore.UITests.Pages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
 using System.Text.RegularExpressions;
@@ -12,8 +10,6 @@ namespace UITests.Pages
 {
     public class UsersPage : BasePage
     {
-        private WebDriverWait _wait;
-
         [FindsBy(How = How.ClassName, Using = "table")]
         private IWebElement _userTable;
 
@@ -79,12 +75,9 @@ namespace UITests.Pages
 
         [FindsBy(How = How.Id, Using = "add_user_button")]
         private IWebElement _addUserButton;
-
-        Loader pageObject = new Loader();
-
+        
         public UsersPage(IWebDriver driver) : base(driver)
         {
-            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
         }
 
         public void LoadUserTable()
@@ -157,9 +150,7 @@ namespace UITests.Pages
         {
             _wait.Until((_) => _transactionsTab.Displayed);
             _transactionsTab.Click();
-
-            PageFactory.InitElements(_driver, pageObject);
-            pageObject.WaitForProgressToDisappear(_wait);
+            WaitPageLoading();
         }
 
         public void ClickOnSpecificPosition()

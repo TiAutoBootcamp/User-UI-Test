@@ -5,7 +5,7 @@ using TechTalk.SpecFlow;
 using Estore.Models.Enum;
 using UITests.Context;
 
-namespace Estore.UITests.StepDefinitions.Preconditions
+namespace Estore.UITests.StepDefinitions
 {
     [Binding]
     public class ProductSteps

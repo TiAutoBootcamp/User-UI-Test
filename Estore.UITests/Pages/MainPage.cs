@@ -6,9 +6,7 @@ using SeleniumExtras.WaitHelpers;
 namespace UITests.Pages
 {
     public class MainPage : BasePage
-    {
-        private WebDriverWait _wait;
-
+    {        
         [FindsBy(How = How.CssSelector, Using = ".content.px-4")]
         private IWebElement _elementSection;
 
@@ -28,25 +26,15 @@ namespace UITests.Pages
         private IWebElement _infoMessageWindow;
 
         [FindsBy(How = How.ClassName, Using = "me-auto")]
-        private IWebElement _errorMessage;
-
-        private By _pageLoaderLocator = By.XPath("//*[@class = 'mud-progress-circular-circle mud-progress-indeterminate']");        
+        private IWebElement _errorMessage;                
 
         public MainPage(IWebDriver driver) : base(driver)
-        {
-            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
+        {            
         }
 
         public void WaitProductsLoading()
         {
             _wait.Until((_) => _elementSection.Displayed);
-        }
-
-        public void WaitPageLoading()
-        {
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(0);
-            _wait.Until(ExpectedConditions.InvisibilityOfElementLocated(_pageLoaderLocator));
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
         }
 
         public void WaitAmountOfExpectedProducts(int amount)

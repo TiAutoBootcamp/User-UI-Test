@@ -1,7 +1,7 @@
 ﻿using Autofac;
+using Estore.UITests.StepDefinitions;
 using Estore.UITests.StepDefinitions.Assertions;
 using Estore.UITests.StepDefinitions.Base;
-using Estore.UITests.StepDefinitions.Preconditions;
 using UITests.Context;
 
 namespace UITests.Modules

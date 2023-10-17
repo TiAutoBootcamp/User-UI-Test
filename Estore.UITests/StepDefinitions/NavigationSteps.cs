@@ -3,7 +3,7 @@ using TechTalk.SpecFlow;
 using UITests.Context;
 using UITests.Pages;
 
-namespace Estore.UITests.StepDefinitions.Preconditions
+namespace Estore.UITests.StepDefinitions
 {
     [Binding]
     public sealed class NavigationSteps
