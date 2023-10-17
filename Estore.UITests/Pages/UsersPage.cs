@@ -134,7 +134,6 @@ namespace UITests.Pages
 
         public string GetBirthDate()
         {
-            Thread.Sleep(500);
             string _birthDate = _birthDateField.Text ?? string.Empty;
             return _birthDate;
         }
