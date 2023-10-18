@@ -1,0 +1,3 @@
+[submodule "Estore.Core"]
+	path = Estore.Core
+	url = https://github.com/TiAutoBootcamp/Estore.Core.git
