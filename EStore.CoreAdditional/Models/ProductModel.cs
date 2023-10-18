@@ -4,11 +4,11 @@ namespace CoreAdditional.Models
 {
     public class ProductModel
     {
-        public string Name;
+        public string Name { get; set; }
 
-        public string Manufactor;
+        public string Manufactor { get; set; }
 
-        public bool isPresented;
+        public bool IsPresented { get; set; }
 
         public ProductStatus ProductStatus = ProductStatus.Active;
     }

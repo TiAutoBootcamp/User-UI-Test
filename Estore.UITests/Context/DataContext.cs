@@ -8,8 +8,7 @@ namespace UITests.Context
 {
     public class DataContext
     {
-        public AddProductRequest ProductRequest;
-        public List<AddProductRequest> ProductRequestList;
+        public AddProductRequest ProductRequest { get; set; }
         public IWebDriver Driver { get; set; }
         public UsersPage UserPage { get; set; }
         public MainPage MainPage { get; set; }

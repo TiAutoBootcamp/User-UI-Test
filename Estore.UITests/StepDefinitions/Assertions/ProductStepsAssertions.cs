@@ -41,19 +41,19 @@ namespace Estore.UITests.StepDefinitions.Assertions
             Assert.Multiple(() =>
             {
                 CollectionAssert.IsSubsetOf(productsInfo
-                    .Where(el => el.isPresented.Equals(true))
+                    .Where(el => el.IsPresented.Equals(true))
                     .Select(product => product.Name)
                     .ToList(), actualNames);
                 CollectionAssert.IsSubsetOf(productsInfo
-                    .Where(el => el.isPresented.Equals(true))
+                    .Where(el => el.IsPresented.Equals(true))
                     .Select(product => product.Manufactor)
                     .ToList(), actualManufactors);
                 CollectionAssert.IsNotSubsetOf(productsInfo
-                    .Where(el => el.isPresented.Equals(false))
+                    .Where(el => el.IsPresented.Equals(false))
                     .Select(product => product.Name)
                     .ToList(), actualNames);
                 CollectionAssert.IsNotSubsetOf(productsInfo
-                    .Where(el => el.isPresented.Equals(false))
+                    .Where(el => el.IsPresented.Equals(false))
                     .Select(product => product.Manufactor)
                     .ToList(), actualManufactors);
             });

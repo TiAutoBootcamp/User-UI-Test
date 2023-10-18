@@ -1,8 +1,6 @@
 using UITests.TestData;
 using TechTalk.SpecFlow;
-using CoreAdditional.Providers;
 using UITests.Context;
-using CoreAdditional.Utils;
 
 namespace Estore.UITests.StepDefinitions
 {

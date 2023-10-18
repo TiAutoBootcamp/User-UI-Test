@@ -28,6 +28,5 @@ namespace UITests.Pages
             _wait.Until(ExpectedConditions.InvisibilityOfElementLocated(_pageLoaderLocator));
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
         }
-
     }
 }
