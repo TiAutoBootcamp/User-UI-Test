@@ -1,6 +1,9 @@
 using UITests.TestData;
 using TechTalk.SpecFlow;
 using UITests.Context;
+using Estore.UITests.Pages;
+using CoreAdditional.Providers;
+using Microsoft.Extensions.Configuration;
 
 namespace Estore.UITests.StepDefinitions
 {
@@ -8,10 +11,16 @@ namespace Estore.UITests.StepDefinitions
     public sealed class UserSteps
     {
         private readonly DataContext _context;
+        private readonly UserServiceProvider _userProvider;
+        private readonly IConfiguration _configuration;
 
-        public UserSteps(DataContext context)
+        public UserSteps(DataContext context,
+            UserServiceProvider userProvider,
+            IConfiguration configuration)
         {
             _context = context;
+            _userProvider = userProvider;
+            _configuration = configuration;
         }
 
         [Given(@"User search product by '(.*)'")]
@@ -40,5 +49,56 @@ namespace Estore.UITests.StepDefinitions
             }
             _context.MainPage.ClickSearchButton();
         }
+
+        [Given(@"User clicks on the Login button in the top right corner")]
+        public void GivenUserClicksOnTheLoginButtonInTheTopRightCorner()
+        {
+            _context.MainPage.ClickLoginButton();
+            _context.LoginPage = new LoginPage(_context.Driver);
+            _context.CurrentPage = _context.LoginPage;            
+        }
+
+        [Given(@"User fills email and password fields with valid customer credentials")]
+        public async Task GivenUserFillsEmailAndPasswordFieldsWithValidCustomerCredentials()
+        {
+            var registeredCustomer = await _userProvider.RegisterCustomer();
+            _context.LoginPage.FillEmailField(registeredCustomer.Credentials.Email);
+            _context.LoginPage.FillPasswordField(registeredCustomer.Credentials.Password);
+            _context.WelcomeMessage = $"Welcome, {registeredCustomer.MainInfo.FirstName}{registeredCustomer.MainInfo.LastName}!";
+        }
+
+        [Given(@"User fills email and password fields with valid admin credentials")]
+        public void GivenUserFillsEmailAndPasswordFieldsWithValidAdminCredentials()
+        {
+            _context.LoginPage.FillEmailField(_configuration["AdminCredentials:email"]);
+            _context.LoginPage.FillPasswordField(_configuration["AdminCredentials:password"]);
+            _context.WelcomeMessage = $"Welcome, {_configuration["AdminCredentials:email"]}!";
+        }
+
+        [When(@"User clicks Login button")]
+        public void WhenUserClicksLoginButton()
+        {
+            _context.LoginPage.ClickLoginButton();
+        }
+
+        [Given(@"User logs in")]
+        public async Task GivenUserLogsIn()
+        {
+            GivenUserClicksOnTheLoginButtonInTheTopRightCorner();
+            await GivenUserFillsEmailAndPasswordFieldsWithValidCustomerCredentials();
+            WhenUserClicksLoginButton();
+        }
+
+        [When(@"User moves to Welcom message in the top right corner")]
+        public void WhenUserMovesToWelcomMessageInTheTopRightCorner()
+        {
+            _context.MainPage.MoveToAccountButton();
+        }
+
+        [When(@"User clicks Sign out button in the drop down list")]
+        public void WhenClickSignOutButtonInTheDropDownList()
+        {
+            throw new PendingStepException();
+        }        
     }
 }

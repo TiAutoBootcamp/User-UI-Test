@@ -1,6 +1,8 @@
 ﻿using CoreAdditional.Utils;
 using Estore.Clients.Clients;
 using Estore.Core.HTTP.Base;
+using Estore.Models.DataModels.User;
+using Estore.Models.Enum;
 using Estore.Models.Request.User;
 using Microsoft.Extensions.Configuration;
 
@@ -25,6 +27,28 @@ namespace CoreAdditional.Providers
         {
             var commonResponse = await _userServiceClient.RegisterCustomer(request);
             return commonResponse;
+        }
+
+        public async Task<UserModel> RegisterCustomer()
+        {
+            var request = _userGenerator.GenerateRegisterNewUserRequest();
+            var response = await RegisterValidUser(request);
+            return new UserModel
+            {
+                Id = response.Body,
+                MainInfo = new CustomerUserMainInfo
+                {
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    BirthDate = request.BirthDate
+                },
+                Credentials = new UserCredentials
+                {
+                    Email = request.Email,
+                    Password = request.Password,
+                    Role = UserRole.Customer
+                }
+            };
         }
 
         public async Task<CommonResponse<string>> Login(string email, string password)

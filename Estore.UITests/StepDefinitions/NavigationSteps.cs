@@ -1,3 +1,4 @@
+using Estore.UITests.Pages;
 using Microsoft.Extensions.Configuration;
 using TechTalk.SpecFlow;
 using UITests.Context;
@@ -35,6 +36,15 @@ namespace Estore.UITests.StepDefinitions
             _context.MainPage = new MainPage(_context.Driver);
             _context.CurrentPage = _context.MainPage;
             _context.MainPage.WaitProductsLoading();
+        }
+
+        [Given(@"open login page")]
+        public void GivenOpenLoginPage()
+        {
+            _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:login"]}");
+            _context.LoginPage = new LoginPage(_context.Driver);
+            _context.CurrentPage = _context.LoginPage;
+            _context.LoginPage.WaitPageLoading();
         }
     }
 }

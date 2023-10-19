@@ -29,7 +29,7 @@ namespace Estore.UITests.StepDefinitions.Preconditions
             context.ProductArticles = new List<string>();
             context.ProductRequestsAndStatuses = new List<(AddProductRequest, ProductStatus)>();
             var chromeOptions = new ChromeOptions();
-            chromeOptions.AddArgument("headless");
+           // chromeOptions.AddArgument("headless");
             context.Driver = new ChromeDriver(chromeOptions);
             context.Driver.Manage().Window.Maximize();
             context.Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);

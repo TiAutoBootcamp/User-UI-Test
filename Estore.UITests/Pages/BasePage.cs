@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
@@ -18,7 +19,7 @@ namespace UITests.Pages
         public BasePage(IWebDriver driver)
         {
             _driver = driver;
-            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
             PageFactory.InitElements(driver, this);
         }
 
@@ -27,6 +28,12 @@ namespace UITests.Pages
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(0);
             _wait.Until(ExpectedConditions.InvisibilityOfElementLocated(_pageLoaderLocator));
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+        }
+
+        public void MoveTo(IWebElement element)
+        {
+            Actions actions = new Actions(_driver);
+            actions.MoveToElement(element).Perform();
         }
     }
 }

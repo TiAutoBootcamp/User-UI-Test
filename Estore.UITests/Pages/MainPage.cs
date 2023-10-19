@@ -1,7 +1,5 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
-using SeleniumExtras.WaitHelpers;
 
 namespace UITests.Pages
 {
@@ -26,7 +24,14 @@ namespace UITests.Pages
         private IWebElement _infoMessageWindow;
 
         [FindsBy(How = How.ClassName, Using = "me-auto")]
-        private IWebElement _errorMessage;                
+        private IWebElement _errorMessage;
+
+        [FindsBy(How = How.CssSelector, Using = "[href='/login']")]
+        private IWebElement _loginButton;
+
+        [FindsBy(How = How.CssSelector, Using = "[tabindex='0']")]
+        private IWebElement _accountButton;
+        
 
         public MainPage(IWebDriver driver) : base(driver)
         {            
@@ -76,6 +81,16 @@ namespace UITests.Pages
         public string GetErrorMessage()
         {
             return _errorMessage.Text;
+        }
+
+        public void ClickLoginButton()
+        {
+            _loginButton.Click();
+        }
+
+        public void MoveToAccountButton()
+        {
+            MoveTo(_accountButton);
         }
     }
 }
