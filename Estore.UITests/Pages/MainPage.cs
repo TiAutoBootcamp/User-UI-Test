@@ -24,14 +24,7 @@ namespace UITests.Pages
         private IWebElement _infoMessageWindow;
 
         [FindsBy(How = How.ClassName, Using = "me-auto")]
-        private IWebElement _errorMessage;
-
-        [FindsBy(How = How.CssSelector, Using = "[href='/login']")]
-        private IWebElement _loginButton;
-
-        [FindsBy(How = How.CssSelector, Using = "[tabindex='0']")]
-        private IWebElement _accountButton;
-        
+        private IWebElement _errorMessage;                      
 
         public MainPage(IWebDriver driver) : base(driver)
         {            
@@ -40,6 +33,11 @@ namespace UITests.Pages
         public void WaitProductsLoading()
         {
             _wait.Until((_) => _elementSection.Displayed);
+        }
+
+        public void WaitSeachFieldDisplayed()
+        {
+            _wait.Until((_) => _searchField.Displayed);
         }
 
         public void WaitAmountOfExpectedProducts(int amount)
@@ -81,16 +79,6 @@ namespace UITests.Pages
         public string GetErrorMessage()
         {
             return _errorMessage.Text;
-        }
-
-        public void ClickLoginButton()
-        {
-            _loginButton.Click();
-        }
-
-        public void MoveToAccountButton()
-        {
-            MoveTo(_accountButton);
         }
     }
 }

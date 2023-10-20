@@ -32,6 +32,10 @@ namespace UITests.Modules
                 .AsSelf();
 
             builder
+                .RegisterType<LoginStepsAssertions>()
+                .AsSelf();
+
+            builder
                 .RegisterType<CommonSteps>()
                 .AsSelf();
 

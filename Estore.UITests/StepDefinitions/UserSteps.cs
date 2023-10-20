@@ -53,9 +53,7 @@ namespace Estore.UITests.StepDefinitions
         [Given(@"User clicks on the Login button in the top right corner")]
         public void GivenUserClicksOnTheLoginButtonInTheTopRightCorner()
         {
-            _context.MainPage.ClickLoginButton();
-            _context.LoginPage = new LoginPage(_context.Driver);
-            _context.CurrentPage = _context.LoginPage;            
+            _context.CurrentPage.ClickLoginLink();                        
         }
 
         [Given(@"User fills email and password fields with valid customer credentials")]
@@ -64,7 +62,8 @@ namespace Estore.UITests.StepDefinitions
             var registeredCustomer = await _userProvider.RegisterCustomer();
             _context.LoginPage.FillEmailField(registeredCustomer.Credentials.Email);
             _context.LoginPage.FillPasswordField(registeredCustomer.Credentials.Password);
-            _context.WelcomeMessage = $"Welcome, {registeredCustomer.MainInfo.FirstName}{registeredCustomer.MainInfo.LastName}!";
+            _context.WelcomeMessage = $"Welcome, {registeredCustomer.MainInfo.FirstName} " +
+                $"{registeredCustomer.MainInfo.LastName}! (Customer)";
         }
 
         [Given(@"User fills email and password fields with valid admin credentials")]
@@ -72,7 +71,7 @@ namespace Estore.UITests.StepDefinitions
         {
             _context.LoginPage.FillEmailField(_configuration["AdminCredentials:email"]);
             _context.LoginPage.FillPasswordField(_configuration["AdminCredentials:password"]);
-            _context.WelcomeMessage = $"Welcome, {_configuration["AdminCredentials:email"]}!";
+            _context.WelcomeMessage = $"Welcome, {_configuration["AdminCredentials:email"]}! (Admin)";
         }
 
         [When(@"User clicks Login button")]
@@ -95,10 +94,24 @@ namespace Estore.UITests.StepDefinitions
             _context.MainPage.MoveToAccountButton();
         }
 
+        [When(@"Email and password fields are empty")]
+        public void WhenEmailAndPasswordFieldsAreEmpty()
+        {
+            _context.LoginPage.FillEmailField("");
+            _context.LoginPage.FillPasswordField("");
+            _context.CurrentPage.ClickOnSpecificPlace();
+        }
+
         [When(@"User clicks Sign out button in the drop down list")]
         public void WhenClickSignOutButtonInTheDropDownList()
         {
+            _context.CurrentPage.ClickSignOutButton();
+        }
+
+        [When(@"User types email in invalid format")]
+        public void WhenUserTypesEmailInInvalidFormat()
+        {
             throw new PendingStepException();
-        }        
+        }
     }
 }

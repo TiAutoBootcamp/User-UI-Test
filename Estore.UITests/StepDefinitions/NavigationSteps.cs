@@ -1,5 +1,6 @@
 using Estore.UITests.Pages;
 using Microsoft.Extensions.Configuration;
+using NUnit.Framework;
 using TechTalk.SpecFlow;
 using UITests.Context;
 using UITests.Pages;
@@ -38,13 +39,75 @@ namespace Estore.UITests.StepDefinitions
             _context.MainPage.WaitProductsLoading();
         }
 
-        [Given(@"open login page")]
+        [Given(@"Open login page")]
         public void GivenOpenLoginPage()
         {
             _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:login"]}");
             _context.LoginPage = new LoginPage(_context.Driver);
-            _context.CurrentPage = _context.LoginPage;
-            _context.LoginPage.WaitPageLoading();
+            _context.CurrentPage = _context.LoginPage;            
+        }
+
+        [Given(@"Is Login page open")]
+        [When(@"Is Login page open")]
+        [Then(@"Login page should be open")]
+        public void IsLoginPageOpen()
+        {
+            string pageTitle = _context.Driver.Title;
+            string expectedTitle = "EstoreBlazor";
+            if (pageTitle == expectedTitle)
+            {
+                if(_context.LoginPage == null)
+                {
+                    _context.LoginPage = new LoginPage(_context.Driver);
+                }                
+                _context.CurrentPage = _context.LoginPage;
+            }
+            else
+            {
+                Assert.Fail("Login page is not open");
+            }
+        }
+
+        [Given(@"Is Main page open")]
+        [When(@"Is Main page open")]
+        [Then(@"Main page should be open")]
+        public void IsMainPageOpen()
+        {
+            string pageTitle = _context.Driver.Title;
+            string expectedTitle = "EstoreBlazor";
+            if (pageTitle == expectedTitle)
+            {
+                if (_context.MainPage == null)
+                {
+                    _context.MainPage = new MainPage(_context.Driver);
+                }                
+                _context.CurrentPage = _context.MainPage;                
+            }
+            else
+            {
+                Assert.Fail("Main page is not open");
+            }
+        }
+
+        [Given(@"Is User page open")]
+        [When(@"Is User page open")]
+        [Then(@"User page should be open")]
+        public void IsUserPageOpen()
+        {
+            string pageTitle = _context.Driver.Title;
+            string expectedTitle = "User";
+            if (pageTitle == expectedTitle)
+            {
+                if (_context.UserPage == null)
+                {
+                    _context.UserPage = new UsersPage(_context.Driver);
+                }
+                _context.CurrentPage = _context.UserPage;
+            }
+            else
+            {
+                Assert.Fail("User page is not open");
+            }
         }
     }
 }

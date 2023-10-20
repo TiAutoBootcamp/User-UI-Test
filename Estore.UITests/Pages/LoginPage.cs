@@ -1,5 +1,7 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
+using SeleniumExtras.WaitHelpers;
 using UITests.Pages;
 
 namespace Estore.UITests.Pages
@@ -13,7 +15,9 @@ namespace Estore.UITests.Pages
         private IWebElement _passwordInputField;
 
         [FindsBy(How = How.CssSelector, Using = "[type='button']")]
-        private IWebElement _loginButton;        
+        private IWebElement _loginButton;
+
+        private By _loginButtonLocator = By.CssSelector("[type='button']");
 
         public LoginPage(IWebDriver driver) : base(driver)
         {
@@ -33,7 +37,14 @@ namespace Estore.UITests.Pages
 
         public void ClickLoginButton()
         {
-            _loginButton.Click();
+            ClickOnSpecificPlace();
+            _wait.Until(ExpectedConditions.ElementToBeClickable(_loginButton)).Click();
+            _wait.Until(driver => !driver.Url.Contains("/login"));            
+        }
+
+        public bool IsLoginButtonNotClickable()
+        {
+            return !_loginButton.Enabled;
         }
     }
 }
