@@ -21,12 +21,11 @@ namespace Estore.UITests.StepDefinitions
             _configuration = configuration;
         }
 
-        [Given(@"open users page")]
+        [Given(@"Open users page")]
         public void GivenOpenUsersPage()
         {
             _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:users"]}");
             _context.UserPage = new UsersPage(_context.Driver);
-            _context.CurrentPage = _context.UserPage;
             _context.UserPage.LoadUserTable();
         }
 
@@ -35,7 +34,6 @@ namespace Estore.UITests.StepDefinitions
         {
             _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:main"]}");
             _context.MainPage = new MainPage(_context.Driver);
-            _context.CurrentPage = _context.MainPage;
             _context.MainPage.WaitProductsLoading();
         }
 
@@ -43,14 +41,13 @@ namespace Estore.UITests.StepDefinitions
         public void GivenOpenLoginPage()
         {
             _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:login"]}");
-            _context.LoginPage = new LoginPage(_context.Driver);
-            _context.CurrentPage = _context.LoginPage;            
+            _context.LoginPage = new LoginPage(_context.Driver);                        
         }
 
-        [Given(@"Is Login page open")]
-        [When(@"Is Login page open")]
+        [Given(@"Login page is open")]
+        [When(@"Login page is open")]
         [Then(@"Login page should be open")]
-        public void IsLoginPageOpen()
+        public void LoginPageIsOpen()
         {
             string pageTitle = _context.Driver.Title;
             string expectedTitle = "EstoreBlazor";
@@ -60,7 +57,6 @@ namespace Estore.UITests.StepDefinitions
                 {
                     _context.LoginPage = new LoginPage(_context.Driver);
                 }                
-                _context.CurrentPage = _context.LoginPage;
             }
             else
             {
@@ -68,11 +64,13 @@ namespace Estore.UITests.StepDefinitions
             }
         }
 
-        [Given(@"Is Main page open")]
-        [When(@"Is Main page open")]
+        [Given(@"Main page is open")]
+        [When(@"Main page is open")]
         [Then(@"Main page should be open")]
-        public void IsMainPageOpen()
+        public void MainPageIsOpen()
         {
+            //Need to add waiter 
+            //_wait.Until(driver => !driver.Url.Contains("/login")); 
             string pageTitle = _context.Driver.Title;
             string expectedTitle = "EstoreBlazor";
             if (pageTitle == expectedTitle)
@@ -80,8 +78,7 @@ namespace Estore.UITests.StepDefinitions
                 if (_context.MainPage == null)
                 {
                     _context.MainPage = new MainPage(_context.Driver);
-                }                
-                _context.CurrentPage = _context.MainPage;                
+                }                                
             }
             else
             {
@@ -89,10 +86,10 @@ namespace Estore.UITests.StepDefinitions
             }
         }
 
-        [Given(@"Is User page open")]
-        [When(@"Is User page open")]
+        [Given(@"User page is open")]
+        [When(@"User page is open")]
         [Then(@"User page should be open")]
-        public void IsUserPageOpen()
+        public void UserPageIsOpen()
         {
             string pageTitle = _context.Driver.Title;
             string expectedTitle = "User";
@@ -101,8 +98,7 @@ namespace Estore.UITests.StepDefinitions
                 if (_context.UserPage == null)
                 {
                     _context.UserPage = new UsersPage(_context.Driver);
-                }
-                _context.CurrentPage = _context.UserPage;
+                }                
             }
             else
             {

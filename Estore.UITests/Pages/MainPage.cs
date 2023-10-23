@@ -20,14 +20,12 @@ namespace UITests.Pages
         [FindsBy(How = How.XPath, Using = "//b/ancestor::h4/preceding-sibling::h4")]
         private IList<IWebElement> _productManufactors;
 
-        [FindsBy(How = How.ClassName, Using = "mud-snackbar-content-message")]
-        private IWebElement _infoMessageWindow;
-
         [FindsBy(How = How.ClassName, Using = "me-auto")]
         private IWebElement _errorMessage;                      
 
         public MainPage(IWebDriver driver) : base(driver)
-        {            
+        {
+            Title = "EstoreBlazor";
         }
 
         public void WaitProductsLoading()
@@ -69,11 +67,6 @@ namespace UITests.Pages
         public bool IsSearchButtonEnabled()
         {
             return _searchButton.Enabled;
-        }
-
-        public string GetInfoMessage()
-        {
-            return _infoMessageWindow.Text;
         }
 
         public string GetErrorMessage()

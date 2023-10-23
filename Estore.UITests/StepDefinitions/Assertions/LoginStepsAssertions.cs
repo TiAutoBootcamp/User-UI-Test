@@ -53,5 +53,42 @@ namespace Estore.UITests.StepDefinitions.Assertions
         {
             Assert.IsTrue(_context.LoginPage.IsLoginButtonNotClickable());
         }
+
+        [Then(@"Welcome message is correct")]
+        public void ThenWelcomeMessageIsCorrect()
+        {
+            var expectedWelcomMessage = _context.CurrentUser.Credentials.Role == Models.Enum.UserRole.Admin
+                ? _context.WelcomeMessage = $"Welcome, {_context.CurrentUser.Credentials.Email}! (Admin)"
+                : _context.WelcomeMessage = $"Welcome, {_context.CurrentUser.MainInfo.FirstName} " +
+                $"{_context.CurrentUser.MainInfo.LastName}! (Customer)";
+
+            Assert.AreEqual(expectedWelcomMessage, _context.CurrentPage.GetWelcomeMessage());
+        }
+
+        [Then(@"Login button is displayed")]
+        public void ThenLoginButtonIsDisplayed()
+        {
+            Assert.IsTrue(_context.CurrentPage.WaitLoginLinkLoading());
+        }
+
+        [Then(@"Navigation bar has next (.*)")]
+        public void ThenNavigationBarHasNext(string itemNames)
+        {
+            var expectedItems = itemNames.Split(" - ").ToArray();
+            CollectionAssert.AreEquivalent(expectedItems, _context.CurrentPage.GetNavigationBarTextItems());
+        }
+
+        [Then(@"A prompt message '([^']*)' is presented")]
+        public void ThenAPromptMessageIsPresented(string message)
+        {
+            var actualMessage = _context.LoginPage.GetPromtMessage();
+            Assert.AreEqual(message, actualMessage);
+        }
+
+        [When(@"User fills (.*) and (.*) field")]
+        public void WhenUserFillsFields(string email, string password)
+        {
+            throw new PendingStepException();
+        }
     }
 }

@@ -10,6 +10,7 @@ namespace UITests.Pages
     {
         protected readonly IWebDriver _driver;
         protected WebDriverWait _wait;
+        public string Title { get; protected set; }
 
         private By _pageLoaderLocator = By.XPath("//*[@class = 'mud-progress-circular-circle mud-progress-indeterminate']");
 
@@ -23,7 +24,10 @@ namespace UITests.Pages
         private IList<IWebElement> _leftNavigationBarItems;
 
         [FindsBy(How = How.XPath, Using = "//p[contains(text(), 'Sign Out')]")]
-        private IWebElement _signOutButton;        
+        private IWebElement _signOutButton;
+
+        [FindsBy(How = How.ClassName, Using = "mud-snackbar-content-message")]
+        private IWebElement _infoMessageWindow;
 
         [FindsBy(How = How.TagName, Using = "body")]
         protected IWebElement Body { get; set; }
@@ -42,9 +46,9 @@ namespace UITests.Pages
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
         }
 
-        public void WaitLoginLinkLoading()
+        public bool WaitLoginLinkLoading()
         {
-            _wait.Until((_) => _loginLink.Displayed); ;            
+            return _wait.Until((_) => _loginLink.Displayed);            
         }
         public void ClickOnSpecificPlace()
         {
@@ -67,6 +71,7 @@ namespace UITests.Pages
 
         public void MoveToAccountButton()
         {
+            RefreshPage();
             MoveTo(_accountButton);
         }
 
@@ -88,9 +93,14 @@ namespace UITests.Pages
             return _accountButton.Text;
         }
 
-        public List<string> GetLeftNavigationBarTextItems()
+        public List<string> GetNavigationBarTextItems()
         {
             return _leftNavigationBarItems.Select(el => el.Text).ToList();
+        }
+
+        public string GetInfoMessage()
+        {
+            return _infoMessageWindow.Text;
         }
     }
 }

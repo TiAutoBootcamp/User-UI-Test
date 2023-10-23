@@ -78,6 +78,7 @@ namespace UITests.Pages
         
         public UsersPage(IWebDriver driver) : base(driver)
         {
+            Title = "Users";
         }
 
         public void LoadUserTable()

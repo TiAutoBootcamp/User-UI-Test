@@ -12,15 +12,15 @@ namespace Estore.UITests.StepDefinitions
     {
         private readonly DataContext _context;
         private readonly UserServiceProvider _userProvider;
-        private readonly IConfiguration _configuration;
+        private readonly TokenManager _credentials;
 
         public UserSteps(DataContext context,
             UserServiceProvider userProvider,
-            IConfiguration configuration)
+            TokenManager credentials)
         {
             _context = context;
             _userProvider = userProvider;
-            _configuration = configuration;
+            _credentials = credentials;
         }
 
         [Given(@"User search product by '(.*)'")]
@@ -50,30 +50,35 @@ namespace Estore.UITests.StepDefinitions
             _context.MainPage.ClickSearchButton();
         }
 
-        [Given(@"User clicks on the Login button in the top right corner")]
-        public void GivenUserClicksOnTheLoginButtonInTheTopRightCorner()
+        [Given(@"User opens login page clicking on the Login button")]
+        public void GivenUserOpensLoginPageClickingOnTheLoginButton()
         {
             _context.CurrentPage.ClickLoginLink();                        
         }
 
-        [Given(@"User fills email and password fields with valid customer credentials")]
-        public async Task GivenUserFillsEmailAndPasswordFieldsWithValidCustomerCredentials()
+        [Given(@"User fills email and password fields with '([^']*)' credentials")]
+        [When(@"User fills email and password fields with '([^']*)' credentials")]
+        public async Task WhenUserFillsEmailAndPasswordFieldsWithValidCredentialsAsA(string userRole)
         {
-            var registeredCustomer = await _userProvider.RegisterCustomer();
-            _context.LoginPage.FillEmailField(registeredCustomer.Credentials.Email);
-            _context.LoginPage.FillPasswordField(registeredCustomer.Credentials.Password);
-            _context.WelcomeMessage = $"Welcome, {registeredCustomer.MainInfo.FirstName} " +
-                $"{registeredCustomer.MainInfo.LastName}! (Customer)";
+            switch (userRole)
+            {
+                case "Customer":
+                    _context.CurrentUser = await _userProvider.RegisterCustomer();
+                    _context.LoginPage.FillEmailAndPasswordFields(_context.CurrentUser.Credentials.Email,
+                        _context.CurrentUser.Credentials.Password);
+                    break;
+                case "Admin":
+                    _context.CurrentUser = _credentials.GetAdminCredentials();
+                    _context.LoginPage.FillEmailAndPasswordFields(_context.CurrentUser.Credentials.Email,
+                        _context.CurrentUser.Credentials.Password);
+                    break;
+                case "Empty":
+                    _context.LoginPage.FillEmailAndPasswordFields("", "");
+                    break;
+            }
         }
 
-        [Given(@"User fills email and password fields with valid admin credentials")]
-        public void GivenUserFillsEmailAndPasswordFieldsWithValidAdminCredentials()
-        {
-            _context.LoginPage.FillEmailField(_configuration["AdminCredentials:email"]);
-            _context.LoginPage.FillPasswordField(_configuration["AdminCredentials:password"]);
-            _context.WelcomeMessage = $"Welcome, {_configuration["AdminCredentials:email"]}! (Admin)";
-        }
-
+        [Given(@"User clicks Login button")]
         [When(@"User clicks Login button")]
         public void WhenUserClicksLoginButton()
         {
@@ -82,36 +87,28 @@ namespace Estore.UITests.StepDefinitions
 
         [Given(@"User logs in")]
         public async Task GivenUserLogsIn()
-        {
-            GivenUserClicksOnTheLoginButtonInTheTopRightCorner();
-            await GivenUserFillsEmailAndPasswordFieldsWithValidCustomerCredentials();
+        {           
+            GivenUserOpensLoginPageClickingOnTheLoginButton();
+            await WhenUserFillsEmailAndPasswordFieldsWithValidCredentialsAsA("Admin");
             WhenUserClicksLoginButton();
         }
 
-        [When(@"User moves to Welcom message in the top right corner")]
-        public void WhenUserMovesToWelcomMessageInTheTopRightCorner()
+        [When(@"User moves to Welcome message")]
+        public void WhenUserMovesToWelcomeMessage()
         {
-            _context.MainPage.MoveToAccountButton();
+            _context.CurrentPage.MoveToAccountButton();
         }
 
-        [When(@"Email and password fields are empty")]
-        public void WhenEmailAndPasswordFieldsAreEmpty()
-        {
-            _context.LoginPage.FillEmailField("");
-            _context.LoginPage.FillPasswordField("");
-            _context.CurrentPage.ClickOnSpecificPlace();
-        }
-
-        [When(@"User clicks Sign out button in the drop down list")]
+        [When(@"User clicks Sign out button")]
         public void WhenClickSignOutButtonInTheDropDownList()
         {
             _context.CurrentPage.ClickSignOutButton();
         }
 
-        [When(@"User types email in invalid format")]
-        public void WhenUserTypesEmailInInvalidFormat()
+        [When(@"User fills email field in (.*)")]
+        public void WhenUserFillsEmailFieldInInvalidFormat(string invalidEmail)
         {
-            throw new PendingStepException();
+            _context.LoginPage.FillEmailField(invalidEmail);
         }
     }
 }
