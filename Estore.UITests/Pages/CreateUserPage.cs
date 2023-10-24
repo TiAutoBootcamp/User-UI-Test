@@ -1,5 +1,5 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
+﻿using Estore.Models.DataModels.User;
+using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 using UITests.Pages;
 
@@ -11,50 +11,96 @@ namespace UserManagementServiceUITests.Pages
         {
         }
 
-        [FindsBy(How = How.Id, Using = "first_name_input")]
-        private IWebElement _firstName;
+        [FindsBy(How = How.Id, Using = "add_user_button")]
+        private IWebElement _addUserButton;
 
-        [FindsBy(How = How.Id, Using = "last_name_input")]
-        private IWebElement _lastName;
+        [FindsBy(How = How.XPath, Using = "//label[contains(.,'First name')]")]
+        private IWebElement _firstNameInputField;
+
+        [FindsBy(How = How.XPath, Using = "//label[contains(.,'Last name')]")]
+        private IWebElement _lastNameInputField;
+
+        [FindsBy(How = How.XPath, Using = "//label[contains(.,'Email')]")]
+        private IWebElement _emailInputField;
+
+        [FindsBy(How = How.XPath, Using = "//label[contains(.,'Password')]")]
+        private IList<IWebElement> _passwordInputFields;
+
+        [FindsBy(How = How.ClassName, Using = ".me-auto")]
+        private IList<IWebElement> _inputHelperText;
 
         [FindsBy(How = How.Id, Using = "birth_date_input")]
         private IWebElement _birthDate;
 
-        [FindsBy(How = How.Id, Using = "save_button")]
-        private IWebElement _saveButton;
+        [FindsBy(How = How.Id, Using = ".mud-button-label")]
+        private IWebElement _registerButton;
 
-        [FindsBy(How = How.Id, Using = "cancel_button")]
+        [FindsBy(How = How.Id, Using = ".bm-close")]
         private IWebElement _cancelButton;
 
-        [FindsBy(How = How.ClassName, Using = ".size-medium")]
+        [FindsBy(How = How.ClassName, Using = ".blazored-modal")]
         private IWebElement _createUserModal;
 
-        public void SetFirstName(string firstName) 
+        public void FillFirstNameInputField(string firstName) 
         {
-            _firstName.SendKeys(firstName);
+            _firstNameInputField.Click();
+            _firstNameInputField.SendKeys(firstName);
         }
 
-        public void SetLastName(string lastName)
+        public void FillLastNameInputField(string lastName)
         {
-            _lastName.SendKeys(lastName);
+            _lastNameInputField.Click();
+            _lastNameInputField.SendKeys(lastName);
         }
 
-        public void SetNameOnModal(string firstName, string lastName) 
-        { 
-            SetFirstName(firstName); 
-            SetLastName(lastName);
+        public void FillEmailInputField(string email)
+        {
+            _emailInputField.Click();
+            _emailInputField.SendKeys(email);
         }
 
-        public void SetBirthDate(string birthDate)
+        public void FillPasswordInputField(string password)
+        {
+            _passwordInputFields.First().Click();
+            _passwordInputFields.First().SendKeys(password);
+        }
+
+        public void FillRepeatPasswordInputField(string password)
+        {
+            _passwordInputFields.Last().Click();
+            _passwordInputFields.Last().SendKeys(password);
+        }
+
+        public void FillModalWindowAndClickRegisterButton(string firstName, string lastName, string email, 
+            string password, string? repeatPassword) 
+        {
+            FillFirstNameInputField(firstName);
+            FillLastNameInputField(lastName);
+            FillEmailInputField(email);
+            FillPasswordInputField(password);
+            FillRepeatPasswordInputField(repeatPassword ?? password);
+            ClickRegisterButton();
+        }
+
+        public void FillModalWindowAndClickRegisterButton(UserModel user)
+        {
+            FillFirstNameInputField(user.MainInfo.FirstName);
+            FillLastNameInputField(user.MainInfo.LastName);
+            FillEmailInputField(user.Credentials.Email);
+            FillPasswordInputField(user.Credentials.Password);
+            FillRepeatPasswordInputField(user.Credentials.Password);
+            ClickRegisterButton();
+        }
+
+        public void FillBirthDateInputField(string birthDate)
         {
             _birthDate.SendKeys(birthDate);
         }
 
-        public void ClickSaveButton() 
+        public void ClickRegisterButton() 
         {
-            _saveButton.Click();
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(3));
-            wait.Until(_ => Body.GetAttribute("style").Contains("overflow: auto"));
+            _registerButton.Click();
+            Wait.Until(_ => Body.GetAttribute("style").Contains("overflow: auto"));
         }
 
         public void ClickCancelButton() 
@@ -62,7 +108,12 @@ namespace UserManagementServiceUITests.Pages
             _cancelButton.Click();
         }
 
-        public bool CheckModalIsOpen() 
+        public void ClickAddUserButton()
+        {
+            _addUserButton.Click();
+        }
+
+        public bool CreateUserModalIsOpen() 
         {
             try
             {

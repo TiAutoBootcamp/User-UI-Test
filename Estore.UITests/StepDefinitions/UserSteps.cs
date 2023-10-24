@@ -1,9 +1,9 @@
 using UITests.TestData;
 using TechTalk.SpecFlow;
 using UITests.Context;
-using Estore.UITests.Pages;
 using CoreAdditional.Providers;
-using Microsoft.Extensions.Configuration;
+using NUnit.Framework;
+using Bogus;
 
 namespace Estore.UITests.StepDefinitions
 {
@@ -13,6 +13,7 @@ namespace Estore.UITests.StepDefinitions
         private readonly DataContext _context;
         private readonly UserServiceProvider _userProvider;
         private readonly TokenManager _credentials;
+        private readonly Faker _faker;
 
         public UserSteps(DataContext context,
             UserServiceProvider userProvider,
@@ -64,6 +65,7 @@ namespace Estore.UITests.StepDefinitions
             {
                 case "Customer":
                     _context.CurrentUser = await _userProvider.RegisterCustomer();
+                    _context.RegisteredCustomers.Add(_context.CurrentUser.Id.Value);
                     _context.LoginPage.FillEmailAndPasswordFields(_context.CurrentUser.Credentials.Email,
                         _context.CurrentUser.Credentials.Password);
                     break;
@@ -85,14 +87,6 @@ namespace Estore.UITests.StepDefinitions
             _context.LoginPage.ClickLoginButton();
         }
 
-        [Given(@"User logs in")]
-        public async Task GivenUserLogsIn()
-        {           
-            GivenUserOpensLoginPageClickingOnTheLoginButton();
-            await WhenUserFillsEmailAndPasswordFieldsWithValidCredentialsAsA("Admin");
-            WhenUserClicksLoginButton();
-        }
-
         [When(@"User moves to Welcome message")]
         public void WhenUserMovesToWelcomeMessage()
         {
@@ -105,10 +99,44 @@ namespace Estore.UITests.StepDefinitions
             _context.CurrentPage.ClickSignOutButton();
         }
 
-        [When(@"User fills email field in (.*)")]
-        public void WhenUserFillsEmailFieldInInvalidFormat(string invalidEmail)
+        [When(@"User fills email field with (.*)")]
+        public void WhenUserFillsEmailFieldWithInvalidFormat(string invalidEmail)
         {
             _context.LoginPage.FillEmailField(invalidEmail);
+        }
+
+        [When(@"User fills (.*) and (.*) fields")]
+        public void WhenUserFillsFields(string email, string password)
+        {
+            var adminModel = _credentials.GetAdminCredentials();
+            switch (email)
+            {
+                case "registered":
+                    _context.LoginPage.FillEmailField(adminModel.Credentials.Email);
+                    break;
+                case "unregistered":
+                    _context.LoginPage.FillEmailField(_faker.Internet.Email());
+                    break;
+                case "wrong":
+                    _context.LoginPage.FillEmailField(adminModel.Credentials.Email.Substring(1));
+                    break;
+                default:
+                    Assert.Fail("Unknown option for email field");
+                    break;
+            }
+
+            switch (password)
+            {
+                case "wrong":
+                    _context.LoginPage.FillPasswordField(adminModel.Credentials.Password.ToLower());
+                    break;
+                case "exist":
+                    _context.LoginPage.FillPasswordField(adminModel.Credentials.Password);                    
+                    break;
+                default:
+                    Assert.Fail("Unknown option for password field");
+                    break;
+            }
         }
     }
 }

@@ -64,13 +64,7 @@ namespace Estore.UITests.StepDefinitions.Assertions
         {
             Assert.IsFalse(_context.MainPage.IsSearchButtonEnabled());
         }
-
-        [Then(@"Info message '([^']*)' is presented")]
-        public void ThenInfoMessageIsPresented(string infoMessage)
-        {
-            Assert.AreEqual(infoMessage, _context.MainPage.GetInfoMessage());
-        }
-
+        
         [Then(@"The order of products on the main page are correct")]
         public void ThenTheOrderOfProductsOnTheMainPageAreCorrect()
         {

@@ -3,13 +3,14 @@ using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
+using System.Xml.Linq;
 
 namespace UITests.Pages
 {
     public class BasePage
     {
-        protected readonly IWebDriver _driver;
-        protected WebDriverWait _wait;
+        protected readonly IWebDriver Driver;
+        protected WebDriverWait Wait;
         public string Title { get; protected set; }
 
         private By _pageLoaderLocator = By.XPath("//*[@class = 'mud-progress-circular-circle mud-progress-indeterminate']");
@@ -17,7 +18,7 @@ namespace UITests.Pages
         [FindsBy(How = How.CssSelector, Using = "[href='/login']")]
         private IWebElement _loginLink;
 
-        [FindsBy(How = How.ClassName, Using = "mud-menu-activator")]
+        [FindsBy(How = How.ClassName, Using = "mud-menu")]
         private IWebElement _accountButton;
 
         [FindsBy(How = How.ClassName, Using = "nav-item")]
@@ -29,30 +30,34 @@ namespace UITests.Pages
         [FindsBy(How = How.ClassName, Using = "mud-snackbar-content-message")]
         private IWebElement _infoMessageWindow;
 
+        [FindsBy(How = How.CssSelector, Using = "[href='users']")]
+        private IWebElement _usersNavigationButton;
+        
+
         [FindsBy(How = How.TagName, Using = "body")]
         protected IWebElement Body { get; set; }
 
         public BasePage(IWebDriver driver)
         {
-            _driver = driver;
-            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(50));
-            PageFactory.InitElements(driver, this);
+            Driver = driver;
+            Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(50));
+            PageFactory.InitElements(driver, this);            
         }
 
         public void WaitPageLoading()
         {
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(0);
-            _wait.Until(ExpectedConditions.InvisibilityOfElementLocated(_pageLoaderLocator));
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(0);
+            Wait.Until(ExpectedConditions.InvisibilityOfElementLocated(_pageLoaderLocator));
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
         }
 
         public bool WaitLoginLinkLoading()
         {
-            return _wait.Until((_) => _loginLink.Displayed);            
+            return Wait.Until((_) => _loginLink.Displayed);            
         }
         public void ClickOnSpecificPlace()
         {
-            Actions actions = new Actions(_driver);
+            Actions actions = new Actions(Driver);
             actions.MoveByOffset(10, 10);
             actions.Click();
             actions.Perform();
@@ -60,18 +65,19 @@ namespace UITests.Pages
 
         public void RefreshPage()
         {
-            _driver.Navigate().Refresh();
+            Driver.Navigate().Refresh();
         }
 
         public void MoveTo(IWebElement element)
         {
-            Actions actions = new Actions(_driver);
-            actions.MoveToElement(element).Perform();
+            Actions actions = new Actions(Driver);
+            actions.MoveToElement(element);
+            actions.Perform();
         }
 
         public void MoveToAccountButton()
         {
-            RefreshPage();
+            Wait.Until((_) => _accountButton.Displayed);
             MoveTo(_accountButton);
         }
 
@@ -80,16 +86,20 @@ namespace UITests.Pages
             _loginLink.Click();
         }
 
+        public void ClickUsersNavigationButton()
+        {
+            _usersNavigationButton.Click();
+        }
+
         public void ClickSignOutButton()
         {
-            _wait.Until((_) => _signOutButton.Displayed);
+            Wait.Until((_) => _signOutButton.Displayed);
             _signOutButton.Click();
         }
 
         public string GetWelcomeMessage()
         {
-            RefreshPage();
-            _wait.Until((_) => _accountButton.Displayed);
+            Wait.Until((_) => _accountButton.Displayed);
             return _accountButton.Text;
         }
 

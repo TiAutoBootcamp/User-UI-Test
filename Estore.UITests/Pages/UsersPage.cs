@@ -78,12 +78,13 @@ namespace UITests.Pages
         
         public UsersPage(IWebDriver driver) : base(driver)
         {
-            Title = "Users";
+            Title = "Estore - User management";
+            Wait.Until(d => d.Title == Title);
         }
 
         public void LoadUserTable()
         {
-            _wait.Until((_) => _userTable.Displayed);
+            Wait.Until((_) => _userTable.Displayed);
         }
 
         public void SearchUser(string firstName, string secondName)
@@ -100,7 +101,7 @@ namespace UITests.Pages
         public void ClickDetailsButton()
         {
             _buttonDetails.Click();
-            _wait.Until((_) => _detailsModal.Displayed);
+            Wait.Until((_) => _detailsModal.Displayed);
         }
 
         public int GetId()
@@ -149,14 +150,14 @@ namespace UITests.Pages
 
         public void ClickOnTransactionsTab()
         {
-            _wait.Until((_) => _transactionsTab.Displayed);
+            Wait.Until((_) => _transactionsTab.Displayed);
             _transactionsTab.Click();
             WaitPageLoading();
         }
 
         public void ClickOnSpecificPosition()
         {
-            Actions actions = new Actions(_driver);
+            Actions actions = new Actions(Driver);
             actions.MoveByOffset(10, 10);
             actions.Click();
             actions.Perform();
@@ -166,12 +167,12 @@ namespace UITests.Pages
 
         public void WaitForUserDetailsModalClosed()
         {
-            _wait.Until((_) => !IsModalDisplayed());
+            Wait.Until((_) => !IsModalDisplayed());
         }
 
         public void WaitForTableVisible()
         {
-            _wait.Until((_) => _transactionTable.Where(rowElement => rowElement.Displayed).ToList());
+            Wait.Until((_) => _transactionTable.Where(rowElement => rowElement.Displayed).ToList());
         }
 
         public List<TransactionInfoResponse> GetTableInformation()
@@ -275,7 +276,7 @@ namespace UITests.Pages
 
         public string MessageTransactions()
         {
-            _wait.Until(ExpectedConditions.TextToBePresentInElement(_messageTransaction, "User does not have transactions"));
+            Wait.Until(ExpectedConditions.TextToBePresentInElement(_messageTransaction, "User does not have transactions"));
             return _messageTransaction.Text ?? string.Empty;
         }
     }

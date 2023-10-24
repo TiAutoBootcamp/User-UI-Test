@@ -4,6 +4,7 @@ using NUnit.Framework;
 using TechTalk.SpecFlow;
 using UITests.Context;
 using UITests.Pages;
+using UserManagementServiceUITests.Pages;
 
 namespace Estore.UITests.StepDefinitions
 {
@@ -24,24 +25,19 @@ namespace Estore.UITests.StepDefinitions
         [Given(@"Open users page")]
         public void GivenOpenUsersPage()
         {
-            _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:users"]}");
-            _context.UserPage = new UsersPage(_context.Driver);
-            _context.UserPage.LoadUserTable();
+            _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:users"]}");            
         }
 
-        [Given(@"open main page")]
+        [Given(@"Open main page")]
         public void GivenOpenMainPage()
         {
-            _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:main"]}");
-            _context.MainPage = new MainPage(_context.Driver);
-            _context.MainPage.WaitProductsLoading();
+            _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:main"]}");            
         }
 
         [Given(@"Open login page")]
         public void GivenOpenLoginPage()
         {
-            _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:login"]}");
-            _context.LoginPage = new LoginPage(_context.Driver);                        
+            _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:login"]}");                                    
         }
 
         [Given(@"Login page is open")]
@@ -49,19 +45,7 @@ namespace Estore.UITests.StepDefinitions
         [Then(@"Login page should be open")]
         public void LoginPageIsOpen()
         {
-            string pageTitle = _context.Driver.Title;
-            string expectedTitle = "EstoreBlazor";
-            if (pageTitle == expectedTitle)
-            {
-                if(_context.LoginPage == null)
-                {
-                    _context.LoginPage = new LoginPage(_context.Driver);
-                }                
-            }
-            else
-            {
-                Assert.Fail("Login page is not open");
-            }
+            _context.LoginPage = new LoginPage(_context.Driver);
         }
 
         [Given(@"Main page is open")]
@@ -69,21 +53,8 @@ namespace Estore.UITests.StepDefinitions
         [Then(@"Main page should be open")]
         public void MainPageIsOpen()
         {
-            //Need to add waiter 
-            //_wait.Until(driver => !driver.Url.Contains("/login")); 
-            string pageTitle = _context.Driver.Title;
-            string expectedTitle = "EstoreBlazor";
-            if (pageTitle == expectedTitle)
-            {
-                if (_context.MainPage == null)
-                {
-                    _context.MainPage = new MainPage(_context.Driver);
-                }                                
-            }
-            else
-            {
-                Assert.Fail("Main page is not open");
-            }
+            _context.MainPage = new MainPage(_context.Driver);
+            _context.MainPage.WaitProductsLoading();
         }
 
         [Given(@"User page is open")]
@@ -91,19 +62,17 @@ namespace Estore.UITests.StepDefinitions
         [Then(@"User page should be open")]
         public void UserPageIsOpen()
         {
-            string pageTitle = _context.Driver.Title;
-            string expectedTitle = "User";
-            if (pageTitle == expectedTitle)
-            {
-                if (_context.UserPage == null)
-                {
-                    _context.UserPage = new UsersPage(_context.Driver);
-                }                
-            }
-            else
-            {
-                Assert.Fail("User page is not open");
-            }
+            _context.UserPage = new UsersPage(_context.Driver);
+            _context.UserPage.LoadUserTable();            
+        }
+
+        [Given(@"Create user modal window is open")]
+        [When(@"Create user modal window is open")]
+        [Then(@"Create user modal window should be open")]
+        public void GivenCreateUserModalWindowIsOpen()
+        {
+            _context.CreateUser = new CreateUserPage(_context.Driver);
+            _context.CreateUser.CreateUserModalIsOpen();
         }
     }
 }

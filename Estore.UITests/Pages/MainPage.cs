@@ -25,22 +25,23 @@ namespace UITests.Pages
 
         public MainPage(IWebDriver driver) : base(driver)
         {
-            Title = "EstoreBlazor";
+            Title = "Estore";
+            Wait.Until(d => d.Title == Title);
         }
 
         public void WaitProductsLoading()
-        {
-            _wait.Until((_) => _elementSection.Displayed);
+        {            
+            Wait.Until((_) => _elementSection.Displayed);
         }
 
         public void WaitSeachFieldDisplayed()
         {
-            _wait.Until((_) => _searchField.Displayed);
+            Wait.Until((_) => _searchField.Displayed);
         }
 
         public void WaitAmountOfExpectedProducts(int amount)
         {
-            _wait.Until((_) => _productNames.Count >= amount);
+            Wait.Until((_) => _productNames.Count >= amount);
         }
 
         public void FillSearchField(string searchedString)

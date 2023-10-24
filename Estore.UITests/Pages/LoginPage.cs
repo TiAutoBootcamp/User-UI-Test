@@ -1,9 +1,7 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
 using UITests.Pages;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Estore.UITests.Pages
 {
@@ -18,39 +16,48 @@ namespace Estore.UITests.Pages
         [FindsBy(How = How.CssSelector, Using = "[type='button']")]
         private IWebElement _loginButton;
 
-        [FindsBy(How = How.ClassName, Using = "mud-input-helper-text")]
-        private IList<IWebElement> _inputHelper;
-        
-        private By _loginButtonLocator = By.CssSelector("[type='button']");
+        [FindsBy(How = How.XPath, Using = "//input[@type='text']/parent::div/parent::div/following-sibling::div/p")]
+        private IWebElement _errorEmailMessage;
+
+        [FindsBy(How = How.XPath, Using = "//input[@type='password']/parent::div/parent::div/following-sibling::div/p")]
+        private IWebElement _errorPasswordMessage;
 
         public LoginPage(IWebDriver driver) : base(driver)
         {
-            Title = "Login";
+            Title = "Estore - Login";
+            Wait.Until(d => d.Title == Title);
         }
 
         public void FillEmailField(string email)
         {
             _emailInputField.Click();
             _emailInputField.SendKeys(email);
+            _emailInputField.SendKeys(Keys.Tab);
         }
 
         public void FillPasswordField(string password)
         {
             _passwordInputField.Click();
             _passwordInputField.SendKeys(password);
+            _emailInputField.SendKeys(Keys.Tab);
+        }
+
+        public void ClickLoginButton()
+        {
+            Wait.Until(ExpectedConditions.ElementToBeClickable(_loginButton)).Click();
         }
 
         public void FillEmailAndPasswordFields(string email, string password)
         {
             FillEmailField(email);
             FillPasswordField(password);
-        }
+        }       
 
-        public void ClickLoginButton()
+        public void FillEmailAndPasswordFieldsAndClickLoginButton(string email, string password)
         {
-            ClickOnSpecificPlace();
-            _wait.Until(ExpectedConditions.ElementToBeClickable(_loginButton)).Click();
-            _wait.Until(driver => !driver.Url.Contains("/login"));
+            FillEmailField(email);
+            FillPasswordField(password);
+            ClickLoginButton();
         }
 
         public bool IsLoginButtonNotClickable()
@@ -58,10 +65,14 @@ namespace Estore.UITests.Pages
             return !_loginButton.Enabled;
         }
 
-        public List<string> GetPromtMessage()
+        public string GetErrorEmailMessage()
         {
-            ClickOnSpecificPlace();
-            return _inputHelper.Select(el => el.Text).ToList();
+            return _errorEmailMessage.Text;
+        }
+
+        public string GetErrorPasswordMessage()
+        {
+            return _errorPasswordMessage.Text;
         }
     }
 }

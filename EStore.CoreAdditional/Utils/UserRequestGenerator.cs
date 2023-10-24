@@ -1,4 +1,6 @@
 ﻿using Bogus;
+using Estore.Models.DataModels.User;
+using Estore.Models.Enum;
 using Estore.Models.Request.User;
 using System.Text;
 
@@ -63,6 +65,25 @@ namespace CoreAdditional.Utils
             {
                 Email = email,
                 Password = password
+            };
+        }
+
+        public UserModel GenerateNewCustomerModel()
+        {
+            return new UserModel()
+            {
+                MainInfo = new CustomerUserMainInfo
+                {
+                    FirstName = _faker.Name.FirstName(),
+                    LastName = _faker.Name.LastName(),
+                    BirthDate = DateTime.ParseExact(GenerateValidBirthdayWithDots(), "dd.MM.yyyy", null)
+                },
+                Credentials = new UserCredentials
+                {
+                    Email = GenerateEmail(),
+                    Password = GenerateValidPassword(),
+                    Role = UserRole.Customer
+                }
             };
         }
 

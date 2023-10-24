@@ -18,18 +18,20 @@ namespace CoreAdditional.Providers
             _catalogGenerator = catalogGenerator;
         }
 
-        public async Task CreateProductWithStatusAndPrice(AddProductRequest request, ProductStatus status, decimal price)
+        public async Task CreateProductWithStatusAndPrice(AddProductRequest request, ProductStatus status, decimal price, 
+            string? token = null)
         {
-            await _catalogServiceClient.CreateProduct(request);
-            await _catalogServiceClient.UpdateProductPrice(request.Article, price);
-            await _catalogServiceClient.SetProductStatus(request.Article, status);
+            await _catalogServiceClient.CreateProduct(request, token);
+            await _catalogServiceClient.UpdateProductPrice(request.Article, price, token);
+            await _catalogServiceClient.SetProductStatus(request.Article, status, token);
         }
 
-        public async Task CreateProductWithStatusAndPrice(List<AddProductRequest> productRequests, List<ProductModel> products, decimal price)
+        public async Task CreateProductWithStatusAndPrice(List<AddProductRequest> productRequests, 
+            List<ProductModel> products, decimal price, string? token = null)
         {
             for (var i = 0; i < productRequests.Count; i++)
             {
-                await CreateProductWithStatusAndPrice(productRequests[i], products[i].ProductStatus, price);
+                await CreateProductWithStatusAndPrice(productRequests[i], products[i].ProductStatus, price, token);
             }
         }
 
