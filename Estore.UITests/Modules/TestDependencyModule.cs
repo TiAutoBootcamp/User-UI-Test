@@ -17,38 +17,50 @@ namespace UITests.Modules
 
             builder
                 .RegisterType<NavigationSteps>()
+                .SingleInstance()
                 .AsSelf();
 
             builder
                 .RegisterType<ProductSteps>()
+                .SingleInstance()
                 .AsSelf();
 
             builder
                 .RegisterType<UserSteps>()
+                .SingleInstance()
                 .AsSelf();
 
-            builder
-                .RegisterType<AdminSteps>()
+            builder.RegisterType<AdminSteps>()
+                .SingleInstance()
                 .AsSelf();
 
-            builder
-                .RegisterType<ProductStepsAssertions>()
+            builder.RegisterType<ProductStepsAssertions>()
+                .SingleInstance()
                 .AsSelf();
 
             builder
                 .RegisterType<LoginStepsAssertions>()
+                .SingleInstance()
                 .AsSelf();
 
             builder
+                .RegisterType<CreateUserStepsAssertions>()
+                .SingleInstance()
+                .AsSelf();            
+
+            builder
                 .RegisterType<CommonStepsAssertions>()
+                .SingleInstance()
                 .AsSelf(); 
 
             builder
                 .RegisterType<CommonSteps>()
+                .SingleInstance()
                 .AsSelf();
 
             builder
                 .RegisterType<Transformations>()
+                .SingleInstance()
                 .AsSelf();
         }
     }

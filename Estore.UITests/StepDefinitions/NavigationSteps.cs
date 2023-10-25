@@ -71,8 +71,20 @@ namespace Estore.UITests.StepDefinitions
         [Then(@"Create user modal window should be open")]
         public void GivenCreateUserModalWindowIsOpen()
         {
-            _context.CreateUser = new CreateUserPage(_context.Driver);
-            _context.CreateUser.CreateUserModalIsOpen();
+            if(_context.UserPage.CreateUserModalIsOpen())
+            {
+                _context.CreateUser = new CreateUserPage(_context.Driver);
+            }
+            else
+            {
+                Assert.Fail("Create user modal window is not open");
+            }           
+        }
+
+        [Then(@"Create user modal window should be close")]
+        public void ThenCreateUserModalWindowShouldBeClose()
+        {
+            Assert.IsTrue(_context.UserPage.CreateUserModalIsClosed());
         }
     }
 }

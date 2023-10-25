@@ -24,7 +24,7 @@ namespace Estore.UITests.StepDefinitions.Preconditions
             return builder;
         }
 
-        [BeforeScenario(Order = 1)]
+        [BeforeScenario(Order = 0)]
         public static async Task OneTimeSetUp(DataContext context)
         {
             context.ProductArticles = new List<string>();

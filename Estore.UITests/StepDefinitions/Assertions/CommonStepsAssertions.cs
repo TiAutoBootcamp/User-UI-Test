@@ -18,12 +18,6 @@ namespace Estore.UITests.StepDefinitions.Assertions
         public void ThenInfoMessageIsPresented(string infoMessage)
         {
             Assert.AreEqual(infoMessage, _context.CurrentPage.GetInfoMessage());
-        }
-
-        [Then(@"Create user modal should be close")]
-        public void ThenCreateUserModalShouldBeClose()
-        {
-            Assert.IsFalse(_context.CreateUser.CreateUserModalIsOpen());
-        }
+        }       
     }
 }

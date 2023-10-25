@@ -1,6 +1,9 @@
 ﻿using Estore.Models.DataModels.User;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using SeleniumExtras.PageObjects;
+using SeleniumExtras.WaitHelpers;
+using System;
 using UITests.Pages;
 
 namespace UserManagementServiceUITests.Pages
@@ -11,75 +14,101 @@ namespace UserManagementServiceUITests.Pages
         {
         }
 
-        [FindsBy(How = How.Id, Using = "add_user_button")]
-        private IWebElement _addUserButton;
-
-        [FindsBy(How = How.XPath, Using = "//label[contains(.,'First name')]")]
+        [FindsBy(How = How.XPath, Using = "//label[contains(.,'First name')]/preceding-sibling::div")]
         private IWebElement _firstNameInputField;
 
-        [FindsBy(How = How.XPath, Using = "//label[contains(.,'Last name')]")]
+        [FindsBy(How = How.XPath, Using = "//label[contains(.,'First name')]/parent::div/following-sibling::div")]
+        private IWebElement _firstNameHelpMessage;
+
+        [FindsBy(How = How.XPath, Using = "//label[contains(.,'Last name')]/preceding-sibling::div")]
         private IWebElement _lastNameInputField;
 
-        [FindsBy(How = How.XPath, Using = "//label[contains(.,'Email')]")]
+        [FindsBy(How = How.XPath, Using = "//label[contains(.,'Last name')]/parent::div/following-sibling::div")]
+        private IWebElement _lastNameHelpMessage;
+
+        [FindsBy(How = How.XPath, Using = "//label[contains(.,'Email')]/preceding-sibling::div")]
         private IWebElement _emailInputField;
 
-        [FindsBy(How = How.XPath, Using = "//label[contains(.,'Password')]")]
-        private IList<IWebElement> _passwordInputFields;
+        [FindsBy(How = How.XPath, Using = "//label[contains(.,'Email')]/parent::div/following-sibling::div")]
+        private IWebElement _emailHelpMessage;
 
-        [FindsBy(How = How.ClassName, Using = ".me-auto")]
-        private IList<IWebElement> _inputHelperText;
+        [FindsBy(How = How.XPath, Using = "(//label[contains(.,'Password')])[1]/preceding-sibling::div/parent::div")]
+        private IWebElement _passwordInputField;
+
+        [FindsBy(How = How.XPath, Using = "(//label[contains(.,'Password')]/parent::div/following-sibling::div)[1]")]
+        private IWebElement _passwordHelpMessage;
+
+        [FindsBy(How = How.XPath, Using = "(//label[contains(.,'Password')])[2]/preceding-sibling::div")]
+        private IWebElement _repeatPasswordInputField;
+
+        [FindsBy(How = How.XPath, Using = "(//label[contains(.,'Password')]/parent::div/following-sibling::div)[2]")]
+        private IWebElement _repetPasswordHelpMessage;
 
         [FindsBy(How = How.Id, Using = "birth_date_input")]
         private IWebElement _birthDate;
 
-        [FindsBy(How = How.Id, Using = ".mud-button-label")]
+        [FindsBy(How = How.ClassName, Using = "mud-button-root")]
         private IWebElement _registerButton;
 
-        [FindsBy(How = How.Id, Using = ".bm-close")]
-        private IWebElement _cancelButton;
+        [FindsBy(How = How.ClassName, Using = "bm-close")]
+        private IWebElement _closeButton;
 
-        [FindsBy(How = How.ClassName, Using = ".blazored-modal")]
-        private IWebElement _createUserModal;
+        [FindsBy(How = How.ClassName, Using = "mud-input-label")]
+        private IList<IWebElement> _labels; 
 
         public void FillFirstNameInputField(string firstName) 
         {
             _firstNameInputField.Click();
-            _firstNameInputField.SendKeys(firstName);
+            Actions actions = new Actions(Driver);
+            if (!string.IsNullOrEmpty(firstName))
+            {
+                actions.SendKeys(firstName).Perform();
+            }
+            actions.SendKeys(Keys.Tab).Perform();
         }
 
         public void FillLastNameInputField(string lastName)
         {
             _lastNameInputField.Click();
-            _lastNameInputField.SendKeys(lastName);
+            Actions actions = new Actions(Driver);
+            if (!string.IsNullOrEmpty(lastName))
+            {
+                actions.SendKeys(lastName).Perform();
+            }
+            actions.SendKeys(Keys.Tab).Perform();
         }
 
         public void FillEmailInputField(string email)
         {
             _emailInputField.Click();
-            _emailInputField.SendKeys(email);
+            Actions actions = new Actions(Driver);
+            if (!string.IsNullOrEmpty(email))
+            {
+                actions.SendKeys(email).Perform();
+            }
+            actions.SendKeys(Keys.Tab).Perform();
         }
 
         public void FillPasswordInputField(string password)
         {
-            _passwordInputFields.First().Click();
-            _passwordInputFields.First().SendKeys(password);
+            _passwordInputField.Click();
+            Actions actions = new Actions(Driver);
+            if (!string.IsNullOrEmpty(password))
+            {
+                actions.SendKeys(password).Perform();                
+            }
+            actions.SendKeys(Keys.Tab).Perform();                       
         }
 
         public void FillRepeatPasswordInputField(string password)
         {
-            _passwordInputFields.Last().Click();
-            _passwordInputFields.Last().SendKeys(password);
-        }
-
-        public void FillModalWindowAndClickRegisterButton(string firstName, string lastName, string email, 
-            string password, string? repeatPassword) 
-        {
-            FillFirstNameInputField(firstName);
-            FillLastNameInputField(lastName);
-            FillEmailInputField(email);
-            FillPasswordInputField(password);
-            FillRepeatPasswordInputField(repeatPassword ?? password);
-            ClickRegisterButton();
+            _repeatPasswordInputField.Click();
+            Actions actions = new Actions(Driver);
+            if (!string.IsNullOrEmpty(password))
+            {
+                actions.SendKeys(password).Perform();
+            }
+            actions.SendKeys(Keys.Tab).Perform();
         }
 
         public void FillModalWindowAndClickRegisterButton(UserModel user)
@@ -99,30 +128,49 @@ namespace UserManagementServiceUITests.Pages
 
         public void ClickRegisterButton() 
         {
+            Wait.Until((_) => _registerButton.Enabled);
             _registerButton.Click();
-            Wait.Until(_ => Body.GetAttribute("style").Contains("overflow: auto"));
         }
 
-        public void ClickCancelButton() 
+        public void ClickCloseButton()
         {
-            _cancelButton.Click();
+            Wait.Until((_) => _closeButton.Displayed);
+            _closeButton.Click();
         }
 
-        public void ClickAddUserButton()
+        public IList<string> GetInputFieldLabels()
         {
-            _addUserButton.Click();
+            return _labels.Select(el => el.Text).ToList();
         }
 
-        public bool CreateUserModalIsOpen() 
+        public bool IsRegisterButtonNotClickable()
         {
-            try
-            {
-                return _createUserModal.Displayed;
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
+            return !_registerButton.Enabled;
+        }
+
+        public string GetFirstNameHelpMessage()
+        {
+            return _firstNameHelpMessage.Text;
+        }
+
+        public string GetLastNameHelpMessage()
+        {
+            return _lastNameHelpMessage.Text;
+        }
+
+        public string GetEmailHelpMessage()
+        {
+            return _emailHelpMessage.Text;
+        }
+
+        public string GetPasswordHelpMessage()
+        {
+            return _passwordHelpMessage.Text;
+        }
+
+        public string GetRepeatPasswordHelpMessage()
+        {
+            return _repetPasswordHelpMessage.Text;
         }
     }
 }

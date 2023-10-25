@@ -43,6 +43,45 @@ namespace CoreAdditional.Utils
             return password.ToString();
         }
 
+        public string GenerateInvalidPasswordWith1Letter()
+        {
+            return _faker.Internet.Password(1);
+        }
+
+        public string GenerateInvalidPasswordWithMoreThan32Letters()
+        {
+            var password = _faker.Internet.Password(33);
+            return password;
+        }
+
+        public string GenerateInvalidPasswordWithoutLowerCaseLetters()
+        {
+            var password = new StringBuilder();
+            password
+                .Append(_faker.Random.String2(2, _upperСaseLetters))
+                .Append(_faker.Random.String2(2, _digits));
+            return password.ToString();
+        }
+
+        public string GenerateInvalidPasswordWithoutUpperCaseLetters()
+        {
+            var password = new StringBuilder();
+            password
+                .Append(_faker.Random.String2(2, _lowerCaseLetters))
+                .Append(_faker.Random.String2(2, _digits));
+            return password.ToString();
+        }
+
+        public string GenerateInvalidPasswordWithoutDigits()
+        {
+            var password = new StringBuilder();
+            password
+                .Append(_faker.Random.String2(3, _lowerCaseLetters))
+                .Append(_faker.Random.String2(3, _upperСaseLetters));
+            return password.ToString();
+        }
+
+
         public string GenerateValidBirthdayWithDots()
         {
             var day = _faker.Random.Int(1, 28);
@@ -74,9 +113,8 @@ namespace CoreAdditional.Utils
             {
                 MainInfo = new CustomerUserMainInfo
                 {
-                    FirstName = _faker.Name.FirstName(),
-                    LastName = _faker.Name.LastName(),
-                    BirthDate = DateTime.ParseExact(GenerateValidBirthdayWithDots(), "dd.MM.yyyy", null)
+                    FirstName = Guid.NewGuid().ToString(),
+                    LastName = Guid.NewGuid().ToString()                    
                 },
                 Credentials = new UserCredentials
                 {

@@ -13,7 +13,7 @@ Scenario: US_49_25a_Admin abserve the layout and elements on the Create user mod
 	And Create user modal window contains fields: 'First name, Last name, Email, Password, Password'
 	And Register button should be disabled
 	And Help message under 'Password' field should be 'Choose a strong password'
-	And Help message under 'Repeat Password' field should be 'Repeat the password'
+	And Help message under 'Repeat password' field should be 'Repeat the password'
 
 #US_49_25b
 @AdminLoggedIn
@@ -27,14 +27,14 @@ Scenario: US_49_25b_Admin closes Create user modal window
 
 #US_49_26
 @AdminLoggedIn
-Scenario: Empty first name
+Scenario: US_49_26_Admin adds a new customer
 	Given Admin click on the Users button
 	And User page is open
 	And Admin click on the Add User button
 	When Create user modal window is open
 	And Admin fills modal window and registers new customer
-	Then Create user modal should be close
-	And New Customer appeared in the user list
+	Then Create user modal window should be close
+	Then New customer appeared in the users list
 	And Info message 'User was added' is presented
 
 #US_49_27
@@ -44,8 +44,8 @@ Scenario: US_49_27_Admin leaves First name field empty
 	And User page is open
 	And Admin click on the Add User button
 	When Create user modal window is open
-	And Admin fills 'First name' input field: ''  
-	Then Warning message in 'First name' is 'First name is required!'
+	And Admin fills 'First name' input field: '' 
+	Then Help message under 'First name' field should be 'First name is required!'
 
 #US_49_28
 @AdminLoggedIn
@@ -55,17 +55,17 @@ Scenario: US_49_28_Admin leaves Last name field empty
 	And Admin click on the Add User button
 	When Create user modal window is open
 	And Admin fills 'Last name' input field: '' 
-	Then Warning message in 'Last name' is 'Last name is required!'
-
+	Then Help message under 'Last name' field should be 'Last name is required!'
+	
 #US_49_29
 @AdminLoggedIn
-Scenario: US_49_28_Admin leaves Email field empty
+Scenario: US_49_29_Admin leaves Email field empty
 	Given Admin click on the Users button
 	And User page is open
 	And Admin click on the Add User button
 	When Create user modal window is open
 	And Admin fills 'Email' input field: '' 
-	Then Warning message in 'Email' is 'Email is required!'
+	Then Help message under 'Email' field should be 'Email is required!'
 
 #US_49_30
 @AdminLoggedIn
@@ -75,18 +75,18 @@ Scenario: US_49_30_Admin leaves Password field empty
 	And Admin click on the Add User button
 	When Create user modal window is open
 	And Admin fills 'Password' input field: '' 
-	Then Warning message in 'Password' is 'Password is required!'
+	Then Help message under 'Password' field should be 'Password is required!'
 
-#US_49_31
+#US_49_31a
 @AdminLoggedIn
-Scenario: US_49_31_Admin leaves Repeat password field empty
+Scenario: US_49_31a_Admin leaves Repeat password field empty
 	Given Admin click on the Users button
 	And User page is open
 	And Admin click on the Add User button
 	When Create user modal window is open
 	And Admin fills 'Repeat password' input field: '' 
-	Then Warning message in 'Repeat password' is 'Repeat password is required!'
-
+	Then Help message under 'Repeat password' field should be 'Repeat password is required!'
+	
 #US_49_31b
 @AdminLoggedIn
 Scenario: US_49_31b_Admin fills Password and Repeat password fields different values
@@ -94,10 +94,10 @@ Scenario: US_49_31b_Admin fills Password and Repeat password fields different va
 	And User page is open
 	And Admin click on the Add User button
 	When Create user modal window is open
-	And Admin fills 'Password' input field: 'qweR1'
-	And Admin fills 'Repeat password' input field: 'QWEr1' 
-	Then Warning message in 'Repeat password' is 'Passwords don't match'
-
+	And Admin fills 'Password' input field: 'randomValue'
+	And Admin fills 'Repeat password' input field: 'randomValue' 
+	Then Help message under 'Repeat password' field should be 'Passwords dont match'
+	
 #US_49_32
 @AdminLoggedIn
 Scenario: US_49_32_Admin fills Password field with invalid value
@@ -105,27 +105,27 @@ Scenario: US_49_32_Admin fills Password field with invalid value
 	And User page is open
 	And Admin click on the Add User button
 	When Create user modal window is open
-	And Admin fills 'Password' input field: <'password'> 
-	Then Warning message in 'Password' is <'message'>
+	And Admin fills 'Password' input field: '<password>'
+	Then Help message under 'Password' field should be '<message>'
 	Examples: 
-	| password               | message                                           |
-	| short                  | Password must be at least of length 4             |
-	| long                   | Password must beno more than 32 characters        |
-	| withotLowerCaseLetters | Password must contain at least one capital letter |
-	| withotUpperCaseLetters | Password must contain at least one capital letter |
-	| withotDigits           | Password must contain at least one digit          |
+	| password                | message                                           |
+	| short                   | Password must be at least of length 4             |
+	| long                    | Password must beno more than 32 characters        |
+	| withoutLowerCaseLetters | Password must contain at least one capital letter |
+	| withoutUpperCaseLetters | Password must contain at least one capital letter |
+	| withoutDigits           | Password must contain at least one digit          |
 
 #US_49_33
 @AdminLoggedIn
-Scenario: US_49_33_Admin leaves Email field empty
+Scenario: US_49_33_Admin fills Email field with invalid value
 	Given Admin click on the Users button
 	And User page is open
 	And Admin click on the Add User button
 	When Create user modal window is open
-	And Admin fills 'Email' input field: <''> 
-	Then Warning message in 'Email' is 'The email address is invalid'
+	And Admin fills 'Email' input field: '<email>' 
+	Then Help message under 'Email' field should be 'The email address is invalid'
 	Examples: 
-	| emai              |
+	| email             |
 	| @example.com      |
 	| user@.com         |
 	| user@com          |
@@ -134,4 +134,3 @@ Scenario: US_49_33_Admin leaves Email field empty
 	| user@.example.com |
 	| user@example      |
 	| user.com          |
-
