@@ -81,7 +81,6 @@ namespace CoreAdditional.Utils
             return password.ToString();
         }
 
-
         public string GenerateValidBirthdayWithDots()
         {
             var day = _faker.Random.Int(1, 28);
@@ -124,6 +123,5 @@ namespace CoreAdditional.Utils
                 }
             };
         }
-
     }
 }

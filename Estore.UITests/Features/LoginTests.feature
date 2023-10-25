@@ -72,16 +72,16 @@ Scenario: US_48_20_Input fields are empty
 	Given Open login page
 	And Login page is open
 	When User fills email and password fields with 'Empty' credentials
-	Then Login button is not clickable
-	And A prompt message 'Required' for 'email' field is presented
-	And A prompt message 'Required' for 'password' field is presented
+	Then Login button is disabled
+	And A help message 'Required' for 'email' field is presented
+	And A help message 'Required' for 'password' field is presented
 
 #US_48_21
 Scenario: US_48_21_User types email in invalid format
 	Given Open login page
 	And Login page is open
 	When User fills email field with <invalidFormat>
-	Then A prompt message 'Email should be contains...' for 'email' field is presented
+	Then A help message 'Email should be contains...' for 'email' field is presented
 	Examples:
 	| invalidFormat      |
 	| @example.com       |
@@ -106,5 +106,3 @@ Scenario: US_48_22_User logins with unregistered email or(and) wrong password
 	| registered   | wrong    |
 	| unregistered | wrong    |
 	| wrong        | exist    |
-
-

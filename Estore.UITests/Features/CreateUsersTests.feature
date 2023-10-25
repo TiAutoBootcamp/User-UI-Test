@@ -96,8 +96,8 @@ Scenario: US_49_31b_Admin fills Password and Repeat password fields different va
 	When Create user modal window is open
 	And Admin fills 'Password' input field: 'randomValue'
 	And Admin fills 'Repeat password' input field: 'randomValue' 
-	Then Help message under 'Repeat password' field should be 'Passwords dont match'
-	
+	Then Help message under 'Repeat password' field should be 'Passwords don"t match'
+		
 #US_49_32
 @AdminLoggedIn
 Scenario: US_49_32_Admin fills Password field with invalid value
@@ -108,12 +108,12 @@ Scenario: US_49_32_Admin fills Password field with invalid value
 	And Admin fills 'Password' input field: '<password>'
 	Then Help message under 'Password' field should be '<message>'
 	Examples: 
-	| password                | message                                           |
-	| short                   | Password must be at least of length 4             |
-	| long                    | Password must beno more than 32 characters        |
-	| withoutLowerCaseLetters | Password must contain at least one capital letter |
-	| withoutUpperCaseLetters | Password must contain at least one capital letter |
-	| withoutDigits           | Password must contain at least one digit          |
+	| password                | message                                             |
+	| short                   | Password must be at least of length 4               |
+	| long                    | Password must beno more than 32 characters          |
+	| withoutLowerCaseLetters | Password must contain at least one lowercase letter |
+	| withoutUpperCaseLetters | Password must contain at least one capital letter   |
+	| withoutDigits           | Password must contain at least one digit            |
 
 #US_49_33
 @AdminLoggedIn

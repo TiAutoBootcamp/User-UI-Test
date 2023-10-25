@@ -3,7 +3,6 @@ using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
-using System.Xml.Linq;
 
 namespace UITests.Pages
 {
@@ -31,8 +30,7 @@ namespace UITests.Pages
         private IWebElement _infoMessageWindow;
 
         [FindsBy(How = How.CssSelector, Using = "[href='users']")]
-        private IWebElement _usersNavigationButton;
-        
+        private IWebElement _usersNavigationButton;        
 
         [FindsBy(How = How.TagName, Using = "body")]
         protected IWebElement Body { get; set; }
@@ -55,6 +53,7 @@ namespace UITests.Pages
         {
             return Wait.Until((_) => _loginLink.Displayed);            
         }
+
         public void ClickOnSpecificPlace()
         {
             Actions actions = new Actions(Driver);
@@ -73,6 +72,16 @@ namespace UITests.Pages
             Actions actions = new Actions(Driver);
             actions.MoveToElement(element);
             actions.Perform();
+        }
+
+        public void SetKeyInInputFieldUsingActions(string key)
+        {
+            Actions actions = new Actions(Driver);
+            if (!string.IsNullOrEmpty(key))
+            {
+                actions.SendKeys(key).Perform();
+            }
+            actions.SendKeys(Keys.Tab).Perform();
         }
 
         public void MoveToAccountButton()

@@ -44,9 +44,6 @@ namespace UserManagementServiceUITests.Pages
         [FindsBy(How = How.XPath, Using = "(//label[contains(.,'Password')]/parent::div/following-sibling::div)[2]")]
         private IWebElement _repetPasswordHelpMessage;
 
-        [FindsBy(How = How.Id, Using = "birth_date_input")]
-        private IWebElement _birthDate;
-
         [FindsBy(How = How.ClassName, Using = "mud-button-root")]
         private IWebElement _registerButton;
 
@@ -59,56 +56,31 @@ namespace UserManagementServiceUITests.Pages
         public void FillFirstNameInputField(string firstName) 
         {
             _firstNameInputField.Click();
-            Actions actions = new Actions(Driver);
-            if (!string.IsNullOrEmpty(firstName))
-            {
-                actions.SendKeys(firstName).Perform();
-            }
-            actions.SendKeys(Keys.Tab).Perform();
+            SetKeyInInputFieldUsingActions(firstName);
         }
 
         public void FillLastNameInputField(string lastName)
         {
             _lastNameInputField.Click();
-            Actions actions = new Actions(Driver);
-            if (!string.IsNullOrEmpty(lastName))
-            {
-                actions.SendKeys(lastName).Perform();
-            }
-            actions.SendKeys(Keys.Tab).Perform();
+            SetKeyInInputFieldUsingActions(lastName);
         }
 
         public void FillEmailInputField(string email)
         {
             _emailInputField.Click();
-            Actions actions = new Actions(Driver);
-            if (!string.IsNullOrEmpty(email))
-            {
-                actions.SendKeys(email).Perform();
-            }
-            actions.SendKeys(Keys.Tab).Perform();
+            SetKeyInInputFieldUsingActions(email);
         }
 
         public void FillPasswordInputField(string password)
         {
             _passwordInputField.Click();
-            Actions actions = new Actions(Driver);
-            if (!string.IsNullOrEmpty(password))
-            {
-                actions.SendKeys(password).Perform();                
-            }
-            actions.SendKeys(Keys.Tab).Perform();                       
+            SetKeyInInputFieldUsingActions(password);                       
         }
 
         public void FillRepeatPasswordInputField(string password)
         {
             _repeatPasswordInputField.Click();
-            Actions actions = new Actions(Driver);
-            if (!string.IsNullOrEmpty(password))
-            {
-                actions.SendKeys(password).Perform();
-            }
-            actions.SendKeys(Keys.Tab).Perform();
+            SetKeyInInputFieldUsingActions(password);
         }
 
         public void FillModalWindowAndClickRegisterButton(UserModel user)
@@ -121,11 +93,6 @@ namespace UserManagementServiceUITests.Pages
             ClickRegisterButton();
         }
 
-        public void FillBirthDateInputField(string birthDate)
-        {
-            _birthDate.SendKeys(birthDate);
-        }
-
         public void ClickRegisterButton() 
         {
             Wait.Until((_) => _registerButton.Enabled);
@@ -134,7 +101,7 @@ namespace UserManagementServiceUITests.Pages
 
         public void ClickCloseButton()
         {
-            Wait.Until((_) => _closeButton.Displayed);
+            Wait.Until((_) => _closeButton.Enabled);
             _closeButton.Click();
         }
 
@@ -143,7 +110,7 @@ namespace UserManagementServiceUITests.Pages
             return _labels.Select(el => el.Text).ToList();
         }
 
-        public bool IsRegisterButtonNotClickable()
+        public bool IsRegisterButtonDisabled()
         {
             return !_registerButton.Enabled;
         }

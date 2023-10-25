@@ -61,7 +61,10 @@ namespace UITests.Pages
         public void SearchUser(UserModel user)
         {
             _firstNameInput.SendKeys(user.MainInfo.FirstName);
-            _lastNameInput.SendKeys(user.MainInfo.LastName);                      
+            _lastNameInput.SendKeys(user.MainInfo.LastName);
+            Wait.Until((_) => _searchButton.Enabled);
+            ClickSearchButton();
+            LoadUserTable();
         }
 
         public IList<UserModel> GetSearchedUsers()
@@ -76,12 +79,6 @@ namespace UITests.Pages
                 }
             }).ToList();
             return userModels;
-        }
-
-        public void SearchUser(string firstName, string secondName)
-        {
-            _firstNameInput.SendKeys(firstName);
-            _lastNameInput.SendKeys(secondName);
         }
 
         public void ClickSearchButton()

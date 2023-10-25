@@ -59,7 +59,7 @@ namespace Estore.UITests.StepDefinitions
 
         [Given(@"User fills email and password fields with '([^']*)' credentials")]
         [When(@"User fills email and password fields with '([^']*)' credentials")]
-        public async Task WhenUserFillsEmailAndPasswordFieldsWithValidCredentialsAsA(string userRole)
+        public async Task WhenUserFillsEmailAndPasswordFieldsWithCredentials(string userRole)
         {
             switch (userRole)
             {
@@ -106,7 +106,7 @@ namespace Estore.UITests.StepDefinitions
         }
 
         [When(@"User fills (.*) and (.*) fields")]
-        public void WhenUserFillsFields(string email, string password)
+        public void WhenUserFillsEmailAndPasswordFields(string email, string password)
         {
             var adminModel = _credentials.GetAdminCredentials();
             switch (email)

@@ -60,7 +60,7 @@ namespace Estore.UITests.Pages
             ClickLoginButton();
         }
 
-        public bool IsLoginButtonNotClickable()
+        public bool IsLoginButtonDisabled()
         {
             return !_loginButton.Enabled;
         }

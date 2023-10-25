@@ -49,21 +49,12 @@ namespace CoreAdditional.Modules
                 .AsSelf();
 
             builder
-               .RegisterType<WalletServiceProvider>()
-               .SingleInstance()
-               .AsSelf();
-
-            builder
                 .RegisterType<CatalogServiceProvider>()
                 .SingleInstance()
                 .AsSelf();
 
             builder
                .RegisterType<UserRequestGenerator>()
-               .AsSelf();
-
-            builder
-               .RegisterType<WalletRequestGenerator>()
                .AsSelf();
 
             builder

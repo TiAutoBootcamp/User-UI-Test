@@ -1,5 +1,4 @@
-﻿
-using TechTalk.SpecFlow;
+﻿using TechTalk.SpecFlow;
 
 namespace Estore.UITests.StepDefinitions.Preconditions
 {
@@ -13,7 +12,7 @@ namespace Estore.UITests.StepDefinitions.Preconditions
         {
             navigationSteps.GivenOpenLoginPage();
             navigationSteps.LoginPageIsOpen();
-            await userSteps.WhenUserFillsEmailAndPasswordFieldsWithValidCredentialsAsA("Admin");
+            await userSteps.WhenUserFillsEmailAndPasswordFieldsWithCredentials("Admin");
             userSteps.WhenUserClicksLoginButton();
             navigationSteps.MainPageIsOpen();            
         }
@@ -25,7 +24,7 @@ namespace Estore.UITests.StepDefinitions.Preconditions
         {
             navigationSteps.GivenOpenLoginPage();
             navigationSteps.LoginPageIsOpen();
-            await userSteps.WhenUserFillsEmailAndPasswordFieldsWithValidCredentialsAsA("Customer");
+            await userSteps.WhenUserFillsEmailAndPasswordFieldsWithCredentials("Customer");
             userSteps.WhenUserClicksLoginButton();
             navigationSteps.MainPageIsOpen();
         }

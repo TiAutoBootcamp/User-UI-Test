@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Estore.Models.DataModels.User;
+using NUnit.Framework;
 using TechTalk.SpecFlow;
 using UITests.Context;
 
@@ -12,21 +13,21 @@ namespace Estore.UITests.StepDefinitions.Assertions
         public CreateUserStepsAssertions(DataContext context)
         {
             _context = context;
-        }
-
-        
+        }        
 
         [Then(@"Create user modal window contains fields: '([^']*)'")]
         public void ThenCreateUserModalWindowContainsFields(string fieldNames)
         {
             var expectedItems = fieldNames.Split(",").Select(item => item.Trim()).ToArray();
-            CollectionAssert.AreEquivalent(expectedItems, _context.CreateUser.GetInputFieldLabels());
+            CollectionAssert.AreEquivalent(expectedItems, _context.CreateUser.GetInputFieldLabels(),
+                "Create modal window doesn't contain all requaired fields");
         }
 
         [Then(@"Register button should be disabled")]
         public void ThenRegisterButtonShouldBeDisabled()
         {
-            Assert.IsTrue(_context.CreateUser.IsRegisterButtonNotClickable());
+            Assert.IsTrue(_context.CreateUser.IsRegisterButtonDisabled(),
+                "Register button is enabled");
         }
 
         [Then(@"Help message under '([^']*)' field should be '([^']*)'")]
@@ -35,19 +36,24 @@ namespace Estore.UITests.StepDefinitions.Assertions
             switch (fieldName)
             {
                 case "First name":
-                    Assert.AreEqual(message, _context.CreateUser.GetFirstNameHelpMessage());
+                    Assert.AreEqual(message, _context.CreateUser.GetFirstNameHelpMessage(),
+                        "Help messages are not equal");
                     break;
                 case "Last name":
-                    Assert.AreEqual(message, _context.CreateUser.GetLastNameHelpMessage());
+                    Assert.AreEqual(message, _context.CreateUser.GetLastNameHelpMessage(),
+                        "Help messages are not equal");
                     break;
                 case "Email":
-                    Assert.AreEqual(message, _context.CreateUser.GetEmailHelpMessage());
+                    Assert.AreEqual(message, _context.CreateUser.GetEmailHelpMessage(),
+                        "Help messages are not equal");
                     break;
                 case "Password":
-                    Assert.AreEqual(message, _context.CreateUser.GetPasswordHelpMessage());
+                    Assert.AreEqual(message, _context.CreateUser.GetPasswordHelpMessage(),
+                        "Help messages are not equal");
                     break;
                 case "Repeat password":
-                    Assert.AreEqual(message, _context.CreateUser.GetRepeatPasswordHelpMessage());
+                    Assert.AreEqual(message.Replace("\"", "'"), _context.CreateUser.GetRepeatPasswordHelpMessage(),
+                        "Help messages are not equal");
                     break;
                 default:
                     Assert.Fail("Unknown field name");
@@ -60,12 +66,12 @@ namespace Estore.UITests.StepDefinitions.Assertions
         {
             _context.UserPage.SearchUser(_context.CurrentUser);
             var searchedUser = _context.UserPage.GetSearchedUsers().FirstOrDefault();
-            _context.RegisteredCustomers.Add(searchedUser.Id.Value);
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(_context.CurrentUser.MainInfo.FirstName, searchedUser.MainInfo.FirstName);
-                Assert.AreEqual(_context.CurrentUser.MainInfo.LastName, searchedUser.MainInfo.LastName);
+                Assert.AreEqual(_context.CurrentUser.MainInfo.FirstName, searchedUser.MainInfo.FirstName, "User doesn't appear");
+                Assert.AreEqual(_context.CurrentUser.MainInfo.LastName, searchedUser.MainInfo.LastName, "User doesn't appear");
             });
+            
         }
     }
 }

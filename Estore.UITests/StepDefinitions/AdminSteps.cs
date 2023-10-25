@@ -76,6 +76,7 @@ namespace Estore.UITests.StepDefinitions
                     break;
             }            
         }
+
         private void FillPasswordField(string value)
         {
             switch (value)

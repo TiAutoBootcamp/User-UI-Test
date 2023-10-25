@@ -27,6 +27,7 @@ namespace UITests.Context
                 CurrentPage = value;
             }
         }
+
         public MainPage MainPage
         {
             get
@@ -39,6 +40,7 @@ namespace UITests.Context
                 CurrentPage = value;
             }
         }
+
         public LoginPage LoginPage
         {
             get
@@ -51,6 +53,7 @@ namespace UITests.Context
                 CurrentPage = value;
             }
         }
+
         public CreateUserPage CreateUser
         {
             get
@@ -63,12 +66,11 @@ namespace UITests.Context
                 CurrentPage = value;
             }
         }
-        public BasePage CurrentPage { get; private set; }
 
+        public BasePage CurrentPage { get; private set; }
         public UserModel CurrentUser { get; set; }
         public IList<int> RegisteredCustomers { get; set; }
         public AddProductRequest ProductRequest { get; set; }
-
         public List<string> ProductArticles { get; internal set; }
         public List<(AddProductRequest, ProductStatus)> ProductRequestsAndStatuses { get; internal set; } 
     }

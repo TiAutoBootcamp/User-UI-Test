@@ -31,7 +31,7 @@ namespace Estore.UITests.StepDefinitions.Preconditions
             context.RegisteredCustomers = new List<int>();
             context.ProductRequestsAndStatuses = new List<(AddProductRequest, ProductStatus)>();
             var chromeOptions = new ChromeOptions();
-            // chromeOptions.AddArgument("headless");
+            chromeOptions.AddArgument("headless");
             chromeOptions.AddArgument("--incognito");
             context.Driver = new ChromeDriver(chromeOptions);
             context.Driver.Manage().Window.Maximize();
@@ -47,7 +47,7 @@ namespace Estore.UITests.StepDefinitions.Preconditions
         [AfterScenario]
         public static async Task CleanUp(DataContext context,
             CatalogClient catalogClient, 
-            UserClient userClient,
+            UserServiceProvider userProvider,
             TokenManager tokenManager)
         {
             var adminToken = await tokenManager.GetValidAdminToken();
@@ -69,7 +69,7 @@ namespace Estore.UITests.StepDefinitions.Preconditions
             {
                 foreach (var userId in context.RegisteredCustomers)
                 {
-                    await userClient.DeleteUser(userId, adminToken);
+                    await userProvider.DeleteExistUser(userId, adminToken);
                 }
             }
         }
