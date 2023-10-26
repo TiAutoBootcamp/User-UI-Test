@@ -28,18 +28,21 @@ namespace Estore.UITests.Pages
             Wait.Until(d => d.Title == Title);
         }
 
+        public bool LoginPageIsClosed()
+        {
+            return Wait.Until(d => d.Title != Title);
+        }
+
         public void FillEmailField(string email)
         {
             _emailInputField.Click();
             _emailInputField.SendKeys(email);
-            _emailInputField.SendKeys(Keys.Tab);
         }
 
         public void FillPasswordField(string password)
         {
             _passwordInputField.Click();
             _passwordInputField.SendKeys(password);
-            _emailInputField.SendKeys(Keys.Tab);
         }
 
         public void ClickLoginButton()

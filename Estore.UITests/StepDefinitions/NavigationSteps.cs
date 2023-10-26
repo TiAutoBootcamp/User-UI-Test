@@ -23,19 +23,19 @@ namespace Estore.UITests.StepDefinitions
         }
 
         [Given(@"Open users page")]
-        public void GivenOpenUsersPage()
+        public void OpenUsersPage()
         {
             _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:users"]}");            
         }
 
         [Given(@"Open main page")]
-        public void GivenOpenMainPage()
+        public void OpenMainPage()
         {
             _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:main"]}");            
         }
 
         [Given(@"Open login page")]
-        public void GivenOpenLoginPage()
+        public void OpenLoginPage()
         {
             _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:login"]}");                                    
         }
@@ -69,7 +69,7 @@ namespace Estore.UITests.StepDefinitions
         [Given(@"Create user modal window is open")]
         [When(@"Create user modal window is open")]
         [Then(@"Create user modal window should be open")]
-        public void GivenCreateUserModalWindowIsOpen()
+        public void CreateUserModalWindowIsOpen()
         {
             if(_context.UserPage.CreateUserModalIsOpen())
             {
@@ -82,7 +82,7 @@ namespace Estore.UITests.StepDefinitions
         }
 
         [Then(@"Create user modal window should be close")]
-        public void ThenCreateUserModalWindowShouldBeClose()
+        public void CreateUserModalWindowShouldBeClose()
         {
             Assert.IsTrue(_context.UserPage.CreateUserModalIsClosed());
         }

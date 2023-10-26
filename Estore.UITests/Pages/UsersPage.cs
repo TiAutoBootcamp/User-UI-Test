@@ -48,6 +48,7 @@ namespace UITests.Pages
         {
             return Wait.Until(_ => Body.GetAttribute("style").Contains("overflow: hidden"));             
         }
+
         public bool CreateUserModalIsClosed()
         {
             return Wait.Until(_ => Body.GetAttribute("style").Contains("overflow: auto"));

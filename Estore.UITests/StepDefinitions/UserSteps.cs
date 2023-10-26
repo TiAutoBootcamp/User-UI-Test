@@ -3,7 +3,7 @@ using TechTalk.SpecFlow;
 using UITests.Context;
 using CoreAdditional.Providers;
 using NUnit.Framework;
-using Bogus;
+using CoreAdditional.Utils;
 
 namespace Estore.UITests.StepDefinitions
 {
@@ -13,7 +13,7 @@ namespace Estore.UITests.StepDefinitions
         private readonly DataContext _context;
         private readonly UserServiceProvider _userProvider;
         private readonly TokenManager _credentials;
-        private readonly Faker _faker;
+        private readonly UserRequestGenerator _userInfoGenerator;
 
         public UserSteps(DataContext context,
             UserServiceProvider userProvider,
@@ -26,7 +26,7 @@ namespace Estore.UITests.StepDefinitions
 
         [Given(@"User search product by '(.*)'")]
         [When(@"User search product by '(.*)'")]
-        public void WhenUserSearchProductBy(string searchedString)
+        public void UserSearchProductBy(string searchedString)
         {
             switch (searchedString)
             {
@@ -51,15 +51,15 @@ namespace Estore.UITests.StepDefinitions
             _context.MainPage.ClickSearchButton();
         }
 
-        [Given(@"User opens login page clicking on the Login button")]
-        public void GivenUserOpensLoginPageClickingOnTheLoginButton()
+        [Given(@"User clicks on the Login link")]
+        public void UserClicksOnTheLoginLink()
         {
             _context.CurrentPage.ClickLoginLink();                        
         }
 
         [Given(@"User fills email and password fields with '([^']*)' credentials")]
         [When(@"User fills email and password fields with '([^']*)' credentials")]
-        public async Task WhenUserFillsEmailAndPasswordFieldsWithCredentials(string userRole)
+        public async Task UserFillsEmailAndPasswordFieldsWithCredentials(string userRole)
         {
             switch (userRole)
             {
@@ -82,31 +82,31 @@ namespace Estore.UITests.StepDefinitions
 
         [Given(@"User clicks Login button")]
         [When(@"User clicks Login button")]
-        public void WhenUserClicksLoginButton()
+        public void UserClicksLoginButton()
         {
             _context.LoginPage.ClickLoginButton();
         }
 
         [When(@"User moves to Welcome message")]
-        public void WhenUserMovesToWelcomeMessage()
+        public void UserMovesToWelcomeMessage()
         {
             _context.CurrentPage.MoveToAccountButton();
         }
 
         [When(@"User clicks Sign out button")]
-        public void WhenClickSignOutButtonInTheDropDownList()
+        public void ClickSignOutButtonInTheDropDownList()
         {
             _context.CurrentPage.ClickSignOutButton();
         }
 
         [When(@"User fills email field with (.*)")]
-        public void WhenUserFillsEmailFieldWithInvalidFormat(string invalidEmail)
+        public void UserFillsEmailFieldWithInvalidFormat(string invalidEmail)
         {
             _context.LoginPage.FillEmailField(invalidEmail);
         }
 
         [When(@"User fills (.*) and (.*) fields")]
-        public void WhenUserFillsEmailAndPasswordFields(string email, string password)
+        public void UserFillsEmailAndPasswordFields(string email, string password)
         {
             var adminModel = _credentials.GetAdminCredentials();
             switch (email)
@@ -115,7 +115,7 @@ namespace Estore.UITests.StepDefinitions
                     _context.LoginPage.FillEmailField(adminModel.Credentials.Email);
                     break;
                 case "unregistered":
-                    _context.LoginPage.FillEmailField(_faker.Internet.Email());
+                    _context.LoginPage.FillEmailField(_userInfoGenerator.GenerateEmail());
                     break;
                 case "wrong":
                     _context.LoginPage.FillEmailField(adminModel.Credentials.Email.Substring(1));

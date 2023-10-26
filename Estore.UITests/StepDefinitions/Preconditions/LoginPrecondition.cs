@@ -10,10 +10,10 @@ namespace Estore.UITests.StepDefinitions.Preconditions
         public static async Task LogInAsAdmin(NavigationSteps navigationSteps,
             UserSteps userSteps)
         {
-            navigationSteps.GivenOpenLoginPage();
+            navigationSteps.OpenLoginPage();
             navigationSteps.LoginPageIsOpen();
-            await userSteps.WhenUserFillsEmailAndPasswordFieldsWithCredentials("Admin");
-            userSteps.WhenUserClicksLoginButton();
+            await userSteps.UserFillsEmailAndPasswordFieldsWithCredentials("Admin");
+            userSteps.UserClicksLoginButton();
             navigationSteps.MainPageIsOpen();            
         }
 
@@ -22,10 +22,10 @@ namespace Estore.UITests.StepDefinitions.Preconditions
         public static async Task LogInAsCustomer(NavigationSteps navigationSteps,
             UserSteps userSteps)
         {
-            navigationSteps.GivenOpenLoginPage();
+            navigationSteps.OpenLoginPage();
             navigationSteps.LoginPageIsOpen();
-            await userSteps.WhenUserFillsEmailAndPasswordFieldsWithCredentials("Customer");
-            userSteps.WhenUserClicksLoginButton();
+            await userSteps.UserFillsEmailAndPasswordFieldsWithCredentials("Customer");
+            userSteps.UserClicksLoginButton();
             navigationSteps.MainPageIsOpen();
         }
     }

@@ -19,33 +19,33 @@ namespace Estore.UITests.StepDefinitions
         }
 
         [Given(@"Admin click on the Users button")]
-        public void GivenAdminClickOnTheUsersButton()
+        public void AdminClickOnTheUsersButton()
         {
             _context.CurrentPage.ClickUsersNavigationButton();
         }
 
         [Given(@"Admin click on the Add User button")]
         [When(@"Admin click on the Add User button")]
-        public void GivenAdminClickOnTheAddUserButton()
+        public void AdminClickOnTheAddUserButton()
         {
             _context.UserPage.ClickAddUserButton();
         }
 
         [When(@"Admin fills modal window and registers new customer")]
-        public void WhenAdminFillsModalWindowAndRegistersNewCustomer()
+        public void AdminFillsModalWindowAndRegistersNewCustomer()
         {
             _context.CurrentUser = _usergenerator.GenerateNewCustomerModel();
             _context.CreateUser.FillModalWindowAndClickRegisterButton(_context.CurrentUser);
         }
 
         [When(@"Admin click on the Cancel button")]
-        public void WhenAdminClickOnTheCancelButton()
+        public void AdminClickOnTheCancelButton()
         {
             _context.CreateUser.ClickCloseButton();
         }
 
         [When(@"Admin fills '([^']*)' input field: '([^']*)'")]
-        public void WhenAdminFillsInputField(string fieldName, string value)
+        public void AdminFillsInputField(string fieldName, string value)
         {
             switch (fieldName)
             {

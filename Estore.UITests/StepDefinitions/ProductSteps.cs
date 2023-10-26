@@ -28,7 +28,7 @@ namespace Estore.UITests.StepDefinitions
         }
 
         [Given(@"Valid product is created")]
-        public async Task GivenValidProductIsCreated()
+        public async Task ValidProductIsCreated()
         {
             var adminToken = await _tokenManager.GetValidAdminToken();
             var productRequest = _productGenerator.GenerateNewProduct();
@@ -39,7 +39,7 @@ namespace Estore.UITests.StepDefinitions
 
         [Given(@"Valid products are created")]
         [Given(@"Products with diffrent status are created")]
-        public async Task GivenProductsWithDiffrentStatusAreCreated(List<ProductModel> products)
+        public async Task ProductsWithDiffrentStatusAreCreated(List<ProductModel> products)
         {
             var adminToken = await _tokenManager.GetValidAdminToken();
             var productRequests = _catalogProvider.CreateProductsList(products);

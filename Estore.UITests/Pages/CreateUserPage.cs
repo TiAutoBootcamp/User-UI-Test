@@ -1,9 +1,6 @@
 ﻿using Estore.Models.DataModels.User;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
 using SeleniumExtras.PageObjects;
-using SeleniumExtras.WaitHelpers;
-using System;
 using UITests.Pages;
 
 namespace UserManagementServiceUITests.Pages

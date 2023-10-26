@@ -15,29 +15,28 @@ namespace Estore.UITests.StepDefinitions.Assertions
             _context = context;
         }
 
-        [Then(@"Info message '([^']*)' is presented")]
-        public void ThenInfoMessageIsPresented(string infoMessage)
+        [Then(@"Info message '(.*)' is presented")]
+        public void InfoMessageIsPresented(string infoMessage)
         {
             Assert.AreEqual(infoMessage, _context.CurrentPage.GetInfoMessage(), "Info messages are not equal");
         }
 
         [Then(@"Login button is displayed")]
-        public void ThenLoginButtonIsDisplayed()
+        public void LoginButtonIsDisplayed()
         {
             Assert.IsTrue(_context.CurrentPage.WaitLoginLinkLoading(),
                 "Login button is not displayed");
         }
 
-        [Then(@"Navigation bar has next items called (.*)")]
-        public void ThenNavigationBarHasNextItems(string names)
+        [Then(@"Navigation bar has next items called")]
+        public void NavigationBarHasNextItems(IList<string> itemNames)
         {
-            var expectedItems = names.Split(" - ").ToArray();
-            CollectionAssert.AreEquivalent(expectedItems, _context.CurrentPage.GetNavigationBarTextItems(),
+            CollectionAssert.AreEquivalent(itemNames, _context.CurrentPage.GetNavigationBarTextItems(),
                 "Navigation bar doesn't contain all requaired items");
         }
 
         [Then(@"Welcome message is correct")]
-        public void ThenWelcomeMessageIsCorrect()
+        public void WelcomeMessageIsCorrect()
         {
             var expectedWelcomMessage = _context.CurrentUser.Credentials.Role == UserRole.Admin
                 ? $"Welcome, {_context.CurrentUser.Credentials.Email}! (Admin)"

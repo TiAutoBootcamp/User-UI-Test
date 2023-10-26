@@ -4,48 +4,48 @@ As a User
 I would like to login via UI
 In order to access to the functionality of the site depending on the user’s role in the system
 
-#US_48_5
-Scenario: US_48_5_User login with valid credentials as a customer
+#US48_5
+Scenario: US48_5_User login with valid credentials as a customer
 	Given Open main page
 	And Main page is open
-	And User opens login page clicking on the Login button
+	And User clicks on the Login link
 	When Login page is open
 	And User fills email and password fields with 'Customer' credentials
 	And User clicks Login button
 	Then Main page should be open
 	And Welcome message is correct
-	And Navigation bar has next items called <name>
-	Examples:
-	| name |
-	| Main |
-	
-#US_48_6
-Scenario: US_48_6_User login with valid credentials as a admin
+	And Navigation bar has next items called
+	| itemNames |
+	| Main      |
+		
+#US48_6
+Scenario: US48_6_User login with valid credentials as a admin
 	Given Open main page
 	And Main page is open
-	And User opens login page clicking on the Login button
+	And User clicks on the Login link
 	When Login page is open
 	And User fills email and password fields with 'Admin' credentials
 	And User clicks Login button
 	Then Main page should be open
 	And Welcome message is correct
-	And Navigation bar has next items called <names>
-	Examples:
-	| names                         |
-	| Main - Catalog - Users - Home |
-
-#US_48_7
-Scenario: US_48_7_Check the unauthorized view  without login
+	And Navigation bar has next items called 
+	| itemNames |
+	| Main      |
+	| Catalog   |
+	| Users     |
+	| Home      |
+	
+#US48_7
+Scenario: US48_7_Check the unauthorized view  without login
 	Given Open main page
 	When Main page is open
 	Then Login button is displayed
-	And Navigation bar has next items called <name>
-	Examples:
-	| name |
-	| Main |
+	And Navigation bar has next items called
+	| itemNames |
+	| Main      |
 	
-#US_48_8
-Scenario: US_48_8_Authorized user signs out
+#US48_8
+Scenario: US48_8_Authorized user signs out
 	Given Open login page
 	And Login page is open
 	And User fills email and password fields with 'Admin' credentials
@@ -54,21 +54,20 @@ Scenario: US_48_8_Authorized user signs out
 	When User moves to Welcome message
 	And User clicks Sign out button
 	Then Login button is displayed
-	And Navigation bar has next items called <name>
-	Examples:
-	| name |
-	| Main |
-
-#US_48_19
-Scenario: US_48_19_Login page closes after sending existing credentials
+	And Navigation bar has next items called
+	| itemNames |
+	| Main      |
+	
+#US48_19
+Scenario: US48_19_Login page closes after sending existing credentials
 	Given Open login page
 	And Login page is open
 	When User fills email and password fields with 'Admin' credentials
 	And User clicks Login button
 	Then Login page is closed
 
-#US_48_20
-Scenario: US_48_20_Input fields are empty
+#US48_20
+Scenario: US48_20_Input fields are empty
 	Given Open login page
 	And Login page is open
 	When User fills email and password fields with 'Empty' credentials
@@ -76,12 +75,12 @@ Scenario: US_48_20_Input fields are empty
 	And A help message 'Required' for 'email' field is presented
 	And A help message 'Required' for 'password' field is presented
 
-#US_48_21
-Scenario: US_48_21_User types email in invalid format
+#US48_21
+Scenario Outline: US48_21_User types email in invalid format
 	Given Open login page
 	And Login page is open
 	When User fills email field with <invalidFormat>
-	Then A help message 'Email should be contains...' for 'email' field is presented
+	Then A help message 'Invalid email format.' for 'email' field is presented
 	Examples:
 	| invalidFormat      |
 	| @example.com       |
@@ -93,14 +92,14 @@ Scenario: US_48_21_User types email in invalid format
 	| admin@example      |
 	| admin.com          |
 
-#US_48_22
-Scenario: US_48_22_User logins with unregistered email or(and) wrong password
+#US48_22
+Scenario Outline: US48_22_User logins with unregistered email or(and) wrong password
 	Given Open login page
 	And Login page is open
 	When User fills <email> and <password> fields
 	And User clicks Login button
 	Then Login page should be open
-	And Info message 'Incorrect login or password' is presented
+	And Info message 'Wrong credentials' is presented
 	Examples:
 	| email        | password |
 	| registered   | wrong    |

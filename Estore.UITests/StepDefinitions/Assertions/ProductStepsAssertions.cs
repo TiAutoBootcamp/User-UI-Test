@@ -17,7 +17,7 @@ namespace Estore.UITests.StepDefinitions.Assertions
 
         [StepDefinition(@"Products with a certain data are displayed on the page")]
         [StepDefinition(@"The product with a certain data is displayed on the page")]
-        public void ThenProductsWithACertainDataAreDisplayedOnThePage(List<ProductModel> productsInfo)
+        public void ProductsWithACertainDataAreDisplayedOnThePage(List<ProductModel> productsInfo)
         {
             _context.MainPage.WaitPageLoading();
             var actualNames = _context.MainPage.GetProductNamesText();
@@ -32,7 +32,7 @@ namespace Estore.UITests.StepDefinitions.Assertions
 
         [Then(@"One created product is existed others not")]
         [Then(@"Some created product are existed one not")]
-        public void ThenCreatedProductExistSomeNot(List<ProductModel> productsInfo)
+        public void CreatedProductExistSomeNot(List<ProductModel> productsInfo)
         {
             _context.MainPage.WaitPageLoading();
             var actualNames = _context.MainPage.GetProductNamesText();
@@ -60,13 +60,13 @@ namespace Estore.UITests.StepDefinitions.Assertions
         }
 
         [Then(@"Search button is disabled")]
-        public void ThenSearchButtonIsDisabled()
+        public void SearchButtonIsDisabled()
         {
             Assert.IsFalse(_context.MainPage.IsSearchButtonEnabled());
         }
         
         [Then(@"The order of products on the main page are correct")]
-        public void ThenTheOrderOfProductsOnTheMainPageAreCorrect()
+        public void TheOrderOfProductsOnTheMainPageAreCorrect()
         {
             _context.MainPage.WaitPageLoading();
             var expectedList = _context.ProductRequestsAndStatuses
@@ -79,7 +79,7 @@ namespace Estore.UITests.StepDefinitions.Assertions
         }
 
         [Then(@"Error message '([^']*)' is presented")]
-        public void ThenErrorMessageIsPresented(string errorMessage)
+        public void ErrorMessageIsPresented(string errorMessage)
         {
             Assert.AreEqual(errorMessage, _context.MainPage.GetErrorMessage());
         }

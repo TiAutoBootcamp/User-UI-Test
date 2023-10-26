@@ -1,5 +1,4 @@
-﻿using Estore.Models.Enum;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using TechTalk.SpecFlow;
 using UITests.Context;
 
@@ -16,21 +15,21 @@ namespace Estore.UITests.StepDefinitions.Assertions
         }
 
         [Then(@"Login page is closed")]
-        public void ThenLoginPageIsClosed()
+        public void LoginPageIsClosed()
         {
-            Assert.AreNotEqual(_context.LoginPage.Title, _context.Driver.Title,
+            Assert.IsTrue(_context.LoginPage.LoginPageIsClosed(),
                 "Login page is not closed");
         }
 
         [Then(@"Login button is disabled")]
-        public void ThenLoginButtonIsNotClickable()
+        public void LoginButtonIsDisabled()
         {
             Assert.IsTrue(_context.LoginPage.IsLoginButtonDisabled(),
                 "LoginButtonIsEnabled");
         }        
 
         [Then(@"A help message '([^']*)' for '([^']*)' field is presented")]
-        public void ThenAHelpMessageIsPresented(string message, string fieldName)
+        public void AHelpMessageIsPresented(string message, string fieldName)
         {
             switch (fieldName)
             {

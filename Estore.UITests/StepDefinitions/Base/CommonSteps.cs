@@ -16,7 +16,7 @@ namespace Estore.UITests.StepDefinitions.Base
         }
 
         [When(@"press the Esc key")]
-        public void WhenPressTheEscKey()
+        public void PressTheEscKey()
         {
             Actions actions = new Actions(_context.Driver);
             actions.SendKeys(Keys.Escape);

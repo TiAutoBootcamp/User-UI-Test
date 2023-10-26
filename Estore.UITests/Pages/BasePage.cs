@@ -119,6 +119,7 @@ namespace UITests.Pages
 
         public string GetInfoMessage()
         {
+            Wait.Until ((_) => _infoMessageWindow.Displayed);
             return _infoMessageWindow.Text;
         }
     }
