@@ -28,8 +28,7 @@ namespace Estore.UITests.StepDefinitions
             _context.CurrentPage.ClickUsersNavigationButton();
         }
 
-        [Given(@"Admin click on the Add User button")]
-        [When(@"Admin click on the Add User button")]
+        [StepDefinition(@"Admin click on the Add User button")]
         public void AdminClickOnTheAddUserButton()
         {
             _context.UserPage.ClickAddUserButton();

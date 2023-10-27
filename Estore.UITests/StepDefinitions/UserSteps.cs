@@ -24,8 +24,7 @@ namespace Estore.UITests.StepDefinitions
             _credentials = credentials;
         }
 
-        [Given(@"User search product by '(.*)'")]
-        [When(@"User search product by '(.*)'")]
+        [StepDefinition(@"User search product by '(.*)'")]
         public void UserSearchProductBy(string searchedString)
         {
             switch (searchedString)
@@ -57,8 +56,7 @@ namespace Estore.UITests.StepDefinitions
             _context.CurrentPage.ClickLoginLink();                        
         }
 
-        [Given(@"User fills email and password fields with '([^']*)' credentials")]
-        [When(@"User fills email and password fields with '([^']*)' credentials")]
+        [StepDefinition(@"User fills email and password fields with '([^']*)' credentials")]
         public async Task UserFillsEmailAndPasswordFieldsWithCredentials(string userRole)
         {
             switch (userRole)
@@ -80,8 +78,7 @@ namespace Estore.UITests.StepDefinitions
             }
         }
 
-        [Given(@"User clicks Login button")]
-        [When(@"User clicks Login button")]
+        [StepDefinition(@"User clicks Login button")]
         public void UserClicksLoginButton()
         {
             _context.LoginPage.ClickLoginButton();
