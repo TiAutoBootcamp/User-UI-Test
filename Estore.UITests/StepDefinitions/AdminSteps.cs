@@ -42,7 +42,7 @@ namespace Estore.UITests.StepDefinitions
         }
 
         [When(@"Admin fills modal window with existing email and clicks register button")]
-        public async void WhenAdminFillsModalWindowWithExistingEmailAndClicksRegisterButton()
+        public async void AdminFillsModalWindowWithExistingEmailAndClicksRegisterButton()
         {
             var newCustomer = _userGenerator.GenerateNewCustomerModel();
             newCustomer.Credentials.Email = _credentials.GetAdminCredentials().Credentials.Email;

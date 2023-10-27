@@ -38,7 +38,7 @@ namespace UITests.Pages
         public BasePage(IWebDriver driver)
         {
             Driver = driver;
-            Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(50));
+            Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(30));
             PageFactory.InitElements(driver, this);            
         }
 
