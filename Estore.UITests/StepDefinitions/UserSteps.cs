@@ -108,6 +108,12 @@ namespace Estore.UITests.StepDefinitions
         [When(@"User fills (.*) and (.*) fields")]
         public void UserFillsEmailAndPasswordFields(string email, string password)
         {
+            FillEmailFiled(email);
+            FillPasswordFiled(password);            
+        }
+
+        private void FillEmailFiled(string email)
+        {
             var adminModel = _credentials.GetAdminCredentials();
             switch (email)
             {
@@ -124,14 +130,18 @@ namespace Estore.UITests.StepDefinitions
                     Assert.Fail("Unknown option for email field");
                     break;
             }
+        }
 
+        private void FillPasswordFiled(string password)
+        {
+            var adminModel = _credentials.GetAdminCredentials();
             switch (password)
             {
                 case "wrong":
                     _context.LoginPage.FillPasswordField(adminModel.Credentials.Password.ToLower());
                     break;
                 case "exist":
-                    _context.LoginPage.FillPasswordField(adminModel.Credentials.Password);                    
+                    _context.LoginPage.FillPasswordField(adminModel.Credentials.Password);
                     break;
                 default:
                     Assert.Fail("Unknown option for password field");

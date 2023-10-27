@@ -28,7 +28,7 @@ namespace Estore.UITests.StepDefinitions.Assertions
                 "Register button is enabled");
         }
 
-        [Then(@"Help message under ""(.*)"" field should be ""(.*)""")]
+        [Then("Help message under '(.*)' field should be '(.*)'")]
         public void HelpMessageUnderFieldShouldBe(string fieldName, string message)
         {
             switch (fieldName)
@@ -63,12 +63,20 @@ namespace Estore.UITests.StepDefinitions.Assertions
         public void NewCustomerAppearedInTheUsersList()
         {
             _context.UserPage.SearchUser(_context.CurrentUser);
+            Thread.Sleep(5000);
             var searchedUser = _context.UserPage.GetSearchedUsers().FirstOrDefault();
+            _context.RegisteredCustomers.Add(searchedUser.Id.Value);
             Assert.Multiple(() =>
             {
                 Assert.AreEqual(_context.CurrentUser.MainInfo.FirstName, searchedUser.MainInfo.FirstName, "User doesn't appear");
                 Assert.AreEqual(_context.CurrentUser.MainInfo.LastName, searchedUser.MainInfo.LastName, "User doesn't appear");
             });            
+        }
+
+        [Then(@"Create user modal window is closed")]
+        public void CreateUserModalWindowShouldBeClose()
+        {
+            Assert.IsTrue(_context.UserPage.CreateUserModalIsClosed());
         }
     }
 }

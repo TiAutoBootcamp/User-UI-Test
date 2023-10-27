@@ -40,35 +40,27 @@ namespace Estore.UITests.StepDefinitions
             _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:login"]}");                                    
         }
 
-        [Given(@"Login page is open")]
-        [When(@"Login page is open")]
-        [Then(@"Login page should be open")]
+        [StepDefinition(@"Login page is opened")]
         public void LoginPageIsOpen()
         {
             _context.LoginPage = new LoginPage(_context.Driver);
         }
 
-        [Given(@"Main page is open")]
-        [When(@"Main page is open")]
-        [Then(@"Main page should be open")]
+        [StepDefinition(@"Main page is opened")]
         public void MainPageIsOpen()
         {
             _context.MainPage = new MainPage(_context.Driver);
             _context.MainPage.WaitProductsLoading();
         }
 
-        [Given(@"User page is open")]
-        [When(@"User page is open")]
-        [Then(@"User page should be open")]
+        [StepDefinition(@"User page is opened")]
         public void UserPageIsOpen()
         {
             _context.UserPage = new UsersPage(_context.Driver);
             _context.UserPage.LoadUserTable();            
         }
 
-        [Given(@"Create user modal window is open")]
-        [When(@"Create user modal window is open")]
-        [Then(@"Create user modal window should be open")]
+        [StepDefinition(@"Create user modal window is opened")]
         public void CreateUserModalWindowIsOpen()
         {
             if(_context.UserPage.CreateUserModalIsOpen())
@@ -79,12 +71,6 @@ namespace Estore.UITests.StepDefinitions
             {
                 Assert.Fail("Create user modal window is not open");
             }           
-        }
-
-        [Then(@"Create user modal window should be close")]
-        public void CreateUserModalWindowShouldBeClose()
-        {
-            Assert.IsTrue(_context.UserPage.CreateUserModalIsClosed());
         }
     }
 }

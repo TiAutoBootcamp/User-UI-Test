@@ -6,7 +6,7 @@ In order to find correct products based on that.
 
 Background:
 	Given Open main page
-	Given Main page is open
+	Given Main page is opened
 
 Scenario: MP001_1_Searching for a product using an existing article
 	Given Valid product is created
