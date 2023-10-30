@@ -17,11 +17,13 @@ namespace Estore.UITests.StepDefinitions
 
         public UserSteps(DataContext context,
             UserServiceProvider userProvider,
-            TokenManager credentials)
+            TokenManager credentials,
+            UserRequestGenerator userInfoGenerator)
         {
             _context = context;
             _userProvider = userProvider;
             _credentials = credentials;
+            _userInfoGenerator = userInfoGenerator;
         }
 
         [StepDefinition(@"User search product by '(.*)'")]
@@ -105,11 +107,11 @@ namespace Estore.UITests.StepDefinitions
         [When(@"User fills (.*) and (.*) fields")]
         public void UserFillsEmailAndPasswordFields(string email, string password)
         {
-            FillEmailFiled(email);
-            FillPasswordFiled(password);            
+            FillEmailField(email);
+            FillPasswordField(password);            
         }
 
-        private void FillEmailFiled(string email)
+        private void FillEmailField(string email)
         {
             var adminModel = _credentials.GetAdminCredentials();
             switch (email)
@@ -129,7 +131,7 @@ namespace Estore.UITests.StepDefinitions
             }
         }
 
-        private void FillPasswordFiled(string password)
+        private void FillPasswordField(string password)
         {
             var adminModel = _credentials.GetAdminCredentials();
             switch (password)
