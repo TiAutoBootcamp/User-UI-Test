@@ -38,7 +38,7 @@ namespace UITests.Pages
         public BasePage(IWebDriver driver)
         {
             Driver = driver;
-            Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(50));
+            Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(30));
             PageFactory.InitElements(driver, this);            
         }
 
@@ -46,7 +46,7 @@ namespace UITests.Pages
         {
             Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(0);
             Wait.Until(ExpectedConditions.InvisibilityOfElementLocated(_pageLoaderLocator));
-            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(50);
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
         }
 
         public bool WaitLoginLinkLoading()
