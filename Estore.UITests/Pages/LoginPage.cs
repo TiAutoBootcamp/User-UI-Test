@@ -7,7 +7,7 @@ namespace Estore.UITests.Pages
 {
     public class LoginPage : BasePage
     {
-        [FindsBy(How = How.CssSelector, Using = "input[type = 'text']")]
+        [FindsBy(How = How.CssSelector, Using = "input[type = 'email']")]
         private IWebElement _emailInputField;
 
         [FindsBy(How = How.CssSelector, Using = "input[type = 'password']")]
@@ -16,7 +16,7 @@ namespace Estore.UITests.Pages
         [FindsBy(How = How.CssSelector, Using = "[type='button']")]
         private IWebElement _loginButton;
 
-        [FindsBy(How = How.XPath, Using = "//input[@type='text']/parent::div/parent::div/following-sibling::div/p")]
+        [FindsBy(How = How.XPath, Using = "//input[@type='email']/parent::div/parent::div/following-sibling::div/p")]
         private IWebElement _errorEmailMessage;
 
         [FindsBy(How = How.XPath, Using = "//input[@type='password']/parent::div/parent::div/following-sibling::div/p")]
@@ -75,6 +75,7 @@ namespace Estore.UITests.Pages
 
         public string GetErrorPasswordMessage()
         {
+            ClickOnSpecificPlace();
             return _errorPasswordMessage.Text;
         }
     }

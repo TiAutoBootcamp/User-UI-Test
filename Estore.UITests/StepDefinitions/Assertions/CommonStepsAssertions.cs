@@ -39,8 +39,8 @@ namespace Estore.UITests.StepDefinitions.Assertions
         public void WelcomeMessageIsCorrect()
         {
             var expectedWelcomMessage = _context.CurrentUser.Credentials.Role == UserRole.Admin
-                ? $"Welcome, {_context.CurrentUser.Credentials.Email}! (Admin)"
-                : $"Welcome, {_context.CurrentUser.MainInfo.FirstName} {_context.CurrentUser.MainInfo.LastName}! (Customer)";
+                ? $"Welcome, {_context.CurrentUser.Credentials.Email} (Admin)"
+                : $"Welcome, {_context.CurrentUser.MainInfo.FirstName} {_context.CurrentUser.MainInfo.LastName} (Customer)";
 
             Assert.AreEqual(expectedWelcomMessage, _context.CurrentPage.GetWelcomeMessage(),
                 "Welcome message is not correct");

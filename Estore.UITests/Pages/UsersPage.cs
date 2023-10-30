@@ -65,7 +65,7 @@ namespace UITests.Pages
             _lastNameInput.SendKeys(user.MainInfo.LastName);
             Wait.Until((_) => _searchButton.Enabled);
             ClickSearchButton();
-            LoadUserTable();
+            WaitPageLoading();
         }
 
         public IList<UserModel> GetSearchedUsers()

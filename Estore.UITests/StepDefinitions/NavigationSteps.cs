@@ -57,7 +57,7 @@ namespace Estore.UITests.StepDefinitions
         public void UserPageIsOpen()
         {
             _context.UserPage = new UsersPage(_context.Driver);
-            _context.UserPage.LoadUserTable();            
+            _context.UserPage.WaitPageLoading();            
         }
 
         [StepDefinition(@"Create user modal window is opened")]

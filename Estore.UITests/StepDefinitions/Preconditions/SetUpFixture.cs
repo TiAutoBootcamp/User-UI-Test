@@ -32,7 +32,6 @@ namespace Estore.UITests.StepDefinitions.Preconditions
             context.ProductRequestsAndStatuses = new List<(AddProductRequest, ProductStatus)>();
             var chromeOptions = new ChromeOptions();
             chromeOptions.AddArgument("headless");
-            chromeOptions.AddArgument("--incognito");
             context.Driver = new ChromeDriver(chromeOptions);
             context.Driver.Manage().Window.Maximize();
             context.Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);

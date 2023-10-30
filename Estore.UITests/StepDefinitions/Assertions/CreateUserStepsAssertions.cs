@@ -63,7 +63,7 @@ namespace Estore.UITests.StepDefinitions.Assertions
         public void NewCustomerAppearedInTheUsersList()
         {
             _context.UserPage.SearchUser(_context.CurrentUser);
-            Thread.Sleep(5000);
+            _context.UserPage.WaitPageLoading();
             var searchedUser = _context.UserPage.GetSearchedUsers().FirstOrDefault();
             _context.RegisteredCustomers.Add(searchedUser.Id.Value);
             Assert.Multiple(() =>
