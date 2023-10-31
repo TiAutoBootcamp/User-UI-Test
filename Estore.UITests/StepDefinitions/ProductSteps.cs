@@ -13,33 +13,38 @@ namespace Estore.UITests.StepDefinitions
         private readonly DataContext _context;
         private readonly CatalogRequestGenerator _productGenerator;
         private readonly CatalogServiceProvider _catalogProvider;
-        private readonly Random rnd = new Random();
+        private readonly TokenManager _tokenManager;
+        private readonly Random _rnd = new Random();
 
         public ProductSteps(DataContext context,
             CatalogServiceProvider catalogProvider,
-            CatalogRequestGenerator productGenerator)
+            CatalogRequestGenerator productGenerator,
+            TokenManager tokenManager)
         {
             _context = context;
             _catalogProvider = catalogProvider;
             _productGenerator = productGenerator;
+            _tokenManager = tokenManager;
         }
 
         [Given(@"Valid product is created")]
-        public async Task GivenValidProductIsCreated()
+        public async Task ValidProductIsCreated()
         {
+            var adminToken = await _tokenManager.GetValidAdminToken();
             var productRequest = _productGenerator.GenerateNewProduct();
             _context.ProductRequest = productRequest;
-            await _catalogProvider.CreateProductWithStatusAndPrice(productRequest, ProductStatus.Active, rnd.Next(100, 500));
+            await _catalogProvider.CreateProductWithStatusAndPrice(productRequest, ProductStatus.Active, _rnd.Next(100, 500), adminToken);
             _context.ProductArticles.Add(productRequest.Article);
         }
 
         [Given(@"Valid products are created")]
         [Given(@"Products with diffrent status are created")]
-        public async Task GivenProductsWithDiffrentStatusAreCreated(List<ProductModel> products)
+        public async Task ProductsWithDiffrentStatusAreCreated(List<ProductModel> products)
         {
+            var adminToken = await _tokenManager.GetValidAdminToken();
             var productRequests = _catalogProvider.CreateProductsList(products);
             _context.ProductRequest = productRequests.First();
-            await _catalogProvider.CreateProductWithStatusAndPrice(productRequests, products, rnd.Next(100, 500));
+            await _catalogProvider.CreateProductWithStatusAndPrice(productRequests, products, _rnd.Next(100, 500), adminToken);
             _context.ProductRequestsAndStatuses
                 .AddRange(productRequests
                     .Zip(products, (request, product) => (request, product.ProductStatus))

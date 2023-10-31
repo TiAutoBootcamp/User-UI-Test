@@ -8,6 +8,7 @@ using SpecFlow.Autofac;
 using UITests.Modules;
 using UITests.Context;
 using Estore.Clients.Clients;
+using CoreAdditional.Providers;
 
 namespace Estore.UITests.StepDefinitions.Preconditions
 {
@@ -23,10 +24,11 @@ namespace Estore.UITests.StepDefinitions.Preconditions
             return builder;
         }
 
-        [BeforeScenario]
+        [BeforeScenario(Order = 0)]
         public static async Task OneTimeSetUp(DataContext context)
         {
             context.ProductArticles = new List<string>();
+            context.RegisteredCustomers = new List<int>();
             context.ProductRequestsAndStatuses = new List<(AddProductRequest, ProductStatus)>();
             var chromeOptions = new ChromeOptions();
             chromeOptions.AddArgument("headless");
@@ -42,20 +44,31 @@ namespace Estore.UITests.StepDefinitions.Preconditions
         }
 
         [AfterScenario]
-        public static async Task CleanUp(DataContext context, CatalogClient catalogClient)
+        public static async Task CleanUp(DataContext context,
+            CatalogClient catalogClient, 
+            UserServiceProvider userProvider,
+            TokenManager tokenManager)
         {
+            var adminToken = await tokenManager.GetValidAdminToken();
             if (context.ProductArticles != null)
             {
                 foreach (var article in context.ProductArticles)
                 {
-                    await catalogClient.DeleteProduct(article);
+                    await catalogClient.DeleteProduct(article, adminToken);
                 }
             }
             if (context.ProductRequestsAndStatuses != null)
             {
                 foreach (var element in context.ProductRequestsAndStatuses)
                 {
-                    await catalogClient.DeleteProduct(element.Item1.Article);
+                    await catalogClient.DeleteProduct(element.Item1.Article, adminToken);
+                }
+            }
+            if (context.RegisteredCustomers != null)
+            {
+                foreach (var userId in context.RegisteredCustomers)
+                {
+                    await userProvider.DeleteExistUser(userId, adminToken);
                 }
             }
         }

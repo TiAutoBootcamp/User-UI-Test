@@ -1,7 +1,10 @@
+using Estore.UITests.Pages;
 using Microsoft.Extensions.Configuration;
+using NUnit.Framework;
 using TechTalk.SpecFlow;
 using UITests.Context;
 using UITests.Pages;
+using UserManagementServiceUITests.Pages;
 
 namespace Estore.UITests.StepDefinitions
 {
@@ -19,22 +22,55 @@ namespace Estore.UITests.StepDefinitions
             _configuration = configuration;
         }
 
-        [Given(@"open users page")]
-        public void GivenOpenUsersPage()
+        [Given(@"Open users page")]
+        public void OpenUsersPage()
         {
-            _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:users"]}");
-            _context.UserPage = new UsersPage(_context.Driver);
-            _context.CurrentPage = _context.UserPage;
-            _context.UserPage.LoadUserTable();
+            _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:users"]}");            
         }
 
-        [Given(@"open main page")]
-        public void GivenOpenMainPage()
+        [Given(@"Open main page")]
+        public void OpenMainPage()
         {
-            _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:main"]}");
+            _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:main"]}");            
+        }
+
+        [Given(@"Open login page")]
+        public void OpenLoginPage()
+        {
+            _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:login"]}");                                    
+        }
+
+        [StepDefinition(@"Login page is opened")]
+        public void LoginPageIsOpen()
+        {
+            _context.LoginPage = new LoginPage(_context.Driver);
+        }
+
+        [StepDefinition(@"Main page is opened")]
+        public void MainPageIsOpen()
+        {
             _context.MainPage = new MainPage(_context.Driver);
-            _context.CurrentPage = _context.MainPage;
             _context.MainPage.WaitProductsLoading();
+        }
+
+        [StepDefinition(@"User page is opened")]
+        public void UserPageIsOpen()
+        {
+            _context.UserPage = new UsersPage(_context.Driver);
+            _context.UserPage.WaitPageLoading();            
+        }
+
+        [StepDefinition(@"Create user modal window is opened")]
+        public void CreateUserModalWindowIsOpen()
+        {
+            if(_context.UserPage.CreateUserModalIsOpen())
+            {
+                _context.CreateUser = new CreateUserPage(_context.Driver);
+            }
+            else
+            {
+                Assert.Fail("Create user modal window is not open");
+            }           
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using CoreAdditional.Utils;
 using Estore.Clients.Clients;
+using Estore.Models.DataModels.User;
+using Estore.Models.Enum;
 using Microsoft.Extensions.Configuration;
 
 namespace CoreAdditional.Providers
@@ -58,6 +60,19 @@ namespace CoreAdditional.Providers
             {
                 throw new Exception($"Failed to get token: Status code: {response.StatusCode}; Content: {response.Content}");
             }
+        }
+
+        public UserModel GetAdminCredentials()
+        {
+            return new UserModel
+            {
+                Credentials = new UserCredentials
+                {
+                    Email = _configuration["AdminCredentials:email"],
+                    Password = _configuration["AdminCredentials:password"],
+                    Role = UserRole.Admin
+                }
+            };
         }
     }
 }

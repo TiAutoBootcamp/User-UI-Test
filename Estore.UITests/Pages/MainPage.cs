@@ -1,7 +1,5 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
-using SeleniumExtras.WaitHelpers;
 
 namespace UITests.Pages
 {
@@ -22,24 +20,28 @@ namespace UITests.Pages
         [FindsBy(How = How.XPath, Using = "//b/ancestor::h4/preceding-sibling::h4")]
         private IList<IWebElement> _productManufactors;
 
-        [FindsBy(How = How.ClassName, Using = "mud-snackbar-content-message")]
-        private IWebElement _infoMessageWindow;
-
         [FindsBy(How = How.ClassName, Using = "me-auto")]
-        private IWebElement _errorMessage;                
+        private IWebElement _errorMessage;                      
 
         public MainPage(IWebDriver driver) : base(driver)
-        {            
+        {
+            Title = "Estore";
+            Wait.Until(d => d.Title == Title);
         }
 
         public void WaitProductsLoading()
+        {            
+            Wait.Until((_) => _elementSection.Displayed);
+        }
+
+        public void WaitSeachFieldDisplayed()
         {
-            _wait.Until((_) => _elementSection.Displayed);
+            Wait.Until((_) => _searchField.Displayed);
         }
 
         public void WaitAmountOfExpectedProducts(int amount)
         {
-            _wait.Until((_) => _productNames.Count >= amount);
+            Wait.Until((_) => _productNames.Count >= amount);
         }
 
         public void FillSearchField(string searchedString)
@@ -66,11 +68,6 @@ namespace UITests.Pages
         public bool IsSearchButtonEnabled()
         {
             return _searchButton.Enabled;
-        }
-
-        public string GetInfoMessage()
-        {
-            return _infoMessageWindow.Text;
         }
 
         public string GetErrorMessage()

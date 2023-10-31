@@ -1,5 +1,5 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
+﻿using Estore.Models.DataModels.User;
+using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 using UITests.Pages;
 
@@ -11,67 +11,130 @@ namespace UserManagementServiceUITests.Pages
         {
         }
 
-        [FindsBy(How = How.Id, Using = "first_name_input")]
-        private IWebElement _firstName;
+        [FindsBy(How = How.XPath, Using = "//label[contains(.,'First name')]/preceding-sibling::div")]
+        private IWebElement _firstNameInputField;
 
-        [FindsBy(How = How.Id, Using = "last_name_input")]
-        private IWebElement _lastName;
+        [FindsBy(How = How.XPath, Using = "//label[contains(.,'First name')]/parent::div/following-sibling::div")]
+        private IWebElement _firstNameHelpMessage;
 
-        [FindsBy(How = How.Id, Using = "birth_date_input")]
-        private IWebElement _birthDate;
+        [FindsBy(How = How.XPath, Using = "//label[contains(.,'Last name')]/preceding-sibling::div")]
+        private IWebElement _lastNameInputField;
 
-        [FindsBy(How = How.Id, Using = "save_button")]
-        private IWebElement _saveButton;
+        [FindsBy(How = How.XPath, Using = "//label[contains(.,'Last name')]/parent::div/following-sibling::div")]
+        private IWebElement _lastNameHelpMessage;
 
-        [FindsBy(How = How.Id, Using = "cancel_button")]
-        private IWebElement _cancelButton;
+        [FindsBy(How = How.XPath, Using = "//label[contains(.,'Email')]/preceding-sibling::div")]
+        private IWebElement _emailInputField;
 
-        [FindsBy(How = How.ClassName, Using = ".size-medium")]
-        private IWebElement _createUserModal;
+        [FindsBy(How = How.XPath, Using = "//label[contains(.,'Email')]/parent::div/following-sibling::div")]
+        private IWebElement _emailHelpMessage;
 
-        public void SetFirstName(string firstName) 
+        [FindsBy(How = How.XPath, Using = "(//label[contains(.,'Password')])[1]/preceding-sibling::div/parent::div")]
+        private IWebElement _passwordInputField;
+
+        [FindsBy(How = How.XPath, Using = "(//label[contains(.,'Password')]/parent::div/following-sibling::div)[1]")]
+        private IWebElement _passwordHelpMessage;
+
+        [FindsBy(How = How.XPath, Using = "(//label[contains(.,'Password')])[2]/preceding-sibling::div")]
+        private IWebElement _repeatPasswordInputField;
+
+        [FindsBy(How = How.XPath, Using = "(//label[contains(.,'Password')]/parent::div/following-sibling::div)[2]")]
+        private IWebElement _repetPasswordHelpMessage;
+
+        [FindsBy(How = How.ClassName, Using = "mud-button-root")]
+        private IWebElement _registerButton;
+
+        [FindsBy(How = How.ClassName, Using = "bm-close")]
+        private IWebElement _closeButton;
+
+        [FindsBy(How = How.ClassName, Using = "mud-input-label")]
+        private IList<IWebElement> _labels; 
+
+        public void FillFirstNameInputField(string firstName) 
         {
-            _firstName.SendKeys(firstName);
+            _firstNameInputField.Click();
+            SetKeyInInputFieldUsingActions(firstName);
         }
 
-        public void SetLastName(string lastName)
+        public void FillLastNameInputField(string lastName)
         {
-            _lastName.SendKeys(lastName);
+            _lastNameInputField.Click();
+            SetKeyInInputFieldUsingActions(lastName);
         }
 
-        public void SetNameOnModal(string firstName, string lastName) 
-        { 
-            SetFirstName(firstName); 
-            SetLastName(lastName);
+        public void FillEmailInputField(string email)
+        {
+            _emailInputField.Click();
+            SetKeyInInputFieldUsingActions(email);
         }
 
-        public void SetBirthDate(string birthDate)
+        public void FillPasswordInputField(string password)
         {
-            _birthDate.SendKeys(birthDate);
+            _passwordInputField.Click();
+            SetKeyInInputFieldUsingActions(password);                       
         }
 
-        public void ClickSaveButton() 
+        public void FillRepeatPasswordInputField(string password)
         {
-            _saveButton.Click();
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(3));
-            wait.Until(_ => Body.GetAttribute("style").Contains("overflow: auto"));
+            _repeatPasswordInputField.Click();
+            SetKeyInInputFieldUsingActions(password);
         }
 
-        public void ClickCancelButton() 
+        public void FillModalWindowAndClickRegisterButton(UserModel user)
         {
-            _cancelButton.Click();
+            FillFirstNameInputField(user.MainInfo.FirstName);
+            FillLastNameInputField(user.MainInfo.LastName);
+            FillEmailInputField(user.Credentials.Email);
+            FillPasswordInputField(user.Credentials.Password);
+            FillRepeatPasswordInputField(user.Credentials.Password);
+            ClickRegisterButton();
         }
 
-        public bool CheckModalIsOpen() 
+        public void ClickRegisterButton() 
         {
-            try
-            {
-                return _createUserModal.Displayed;
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
+            Wait.Until((_) => _registerButton.Enabled);
+            _registerButton.Click();
+        }
+
+        public void ClickCloseButton()
+        {
+            Wait.Until((_) => _closeButton.Enabled);
+            _closeButton.Click();
+        }
+
+        public IList<string> GetInputFieldLabels()
+        {
+            return _labels.Select(el => el.Text).ToList();
+        }
+
+        public bool IsRegisterButtonDisabled()
+        {
+            return !_registerButton.Enabled;
+        }
+
+        public string GetFirstNameHelpMessage()
+        {
+            return _firstNameHelpMessage.Text;
+        }
+
+        public string GetLastNameHelpMessage()
+        {
+            return _lastNameHelpMessage.Text;
+        }
+
+        public string GetEmailHelpMessage()
+        {
+            return _emailHelpMessage.Text;
+        }
+
+        public string GetPasswordHelpMessage()
+        {
+            return _passwordHelpMessage.Text;
+        }
+
+        public string GetRepeatPasswordHelpMessage()
+        {
+            return _repetPasswordHelpMessage.Text;
         }
     }
 }
