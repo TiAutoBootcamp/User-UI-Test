@@ -38,7 +38,8 @@ Scenario: US49_26_Admin adds a new customer
 	And User page is opened
 	And Admin click on the Add User button
 	When Create user modal window is opened
-	And Admin fills modal window and registers new customer
+	And Admin fills create user modal window valid data
+	And Admin click on the Register button
 	Then Create user modal window is closed
 	Then New customer appeared in the users list
 	And Info message 'User succesfully created' is presented
@@ -49,7 +50,7 @@ Scenario: US49_26_Admin adds a new customer
 #US49_30
 #US49_31a
 @AdminLoggedIn
-Scenario Outline: US49_27_28_29_30_Admin leaves one of the input field empty
+Scenario Outline: US49_27_28_29_30_31a_Admin leaves one of the input field empty
 	Given Admin click on the Users button
 	And User page is opened
 	And Admin click on the Add User button
@@ -67,7 +68,7 @@ Scenario Outline: US49_27_28_29_30_Admin leaves one of the input field empty
 	#US49_30
 	| Password        | Password is required!        |
 	#US49_31a
-	#| Repeat password | Repeat password is required! |
+	| Repeat password | Repeat password is required! |
 
 #US49_31b
 @AdminLoggedIn
@@ -124,6 +125,38 @@ Scenario: US49_33a_Admin create customer with existing email
 	And User page is opened
 	And Admin click on the Add User button
 	When Create user modal window is opened
-	And Admin fills modal window with existing email and clicks register button 
+	And Admin fills create user modal window with existing email 
+	And Admin click on the Register button
 	Then Create user modal window is opened
 	And Info message 'Error: Ambiguous match found.' is presented
+
+#
+@AdminLoggedIn
+Scenario: US_Register button disabled when one of input field is empty
+	Given Admin click on the Users button
+	And User page is opened
+	And Admin click on the Add User button
+	When Create user modal window is opened
+	And Admin fills create user modal window valid data
+	And Admin clears '<fieldName>' field
+	Then Help message under '<fieldName>' field should be '<message>'
+	And Register button should be disabled
+	Examples: 
+	| fieldName       | message                 |
+	| First name      | First name is required! |
+	| Last name       | Last name is required!  |
+	| Email           | Email is required!      |
+	| Password        | Password is required!   |
+	| Repeat password | Passwords don't match   |
+
+@AdminLoggedIn
+Scenario: US_After the forms is entered change password
+	Given Admin click on the Users button
+	And User page is opened
+	And Admin click on the Add User button
+	When Create user modal window is opened
+	And Admin fills create user modal window valid data
+	And Admin clears 'Password' field
+	And Admin fills 'Password' input field: 'randomValue'
+	Then Register button should be disabled
+	

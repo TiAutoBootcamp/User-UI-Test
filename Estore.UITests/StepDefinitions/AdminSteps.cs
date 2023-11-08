@@ -34,19 +34,25 @@ namespace Estore.UITests.StepDefinitions
             _context.UserPage.ClickAddUserButton();
         }
 
-        [When(@"Admin fills modal window and registers new customer")]
-        public void AdminFillsModalWindowAndRegistersNewCustomer()
+        [When(@"Admin fills create user modal window valid data")]
+        public void AdminFillsCreateUserModalWindow()
         {
             _context.CurrentUser = _userGenerator.GenerateNewCustomerModel();
-            _context.CreateUser.FillModalWindowAndClickRegisterButton(_context.CurrentUser);
+            _context.CreateUser.FillModalWindow(_context.CurrentUser);
         }
 
-        [When(@"Admin fills modal window with existing email and clicks register button")]
-        public async void AdminFillsModalWindowWithExistingEmailAndClicksRegisterButton()
+        [When(@"Admin fills create user modal window with existing email")]
+        public async void AdminFillsCreateUserModalWindowWithExistingEmail()
         {
             var newCustomer = _userGenerator.GenerateNewCustomerModel();
             newCustomer.Credentials.Email = _credentials.GetAdminCredentials().Credentials.Email;
-            _context.CreateUser.FillModalWindowAndClickRegisterButton(newCustomer);
+            _context.CreateUser.FillModalWindow(newCustomer);
+        }
+
+        [When(@"Admin click on the Register button")]
+        public void AdminClickOnTheRegisterButton()
+        {
+            _context.CreateUser.ClickRegisterButton();
         }
 
         [When(@"Admin click on the Cancel button")]
@@ -112,6 +118,32 @@ namespace Estore.UITests.StepDefinitions
                     break;
                 default:
                     _context.CreateUser.FillPasswordInputField(value);
+                    break;
+            }
+        }
+
+        [When(@"Admin clears '([^']*)' field")]
+        public void AdminClearsField(string fieldName)
+        {
+            switch (fieldName)
+            {
+                case "First name":
+                    _context.CreateUser.ClearFirstNameField();
+                    break;
+                case "Last name":
+                    _context.CreateUser.ClearLastNameField();
+                    break;
+                case "Email":
+                    _context.CreateUser.ClearEmailField();
+                    break;
+                case "Password":
+                    _context.CreateUser.ClearPasswordField();
+                    break;
+                case "Repeat password":
+                    _context.CreateUser.ClearRepeatPasswordField();
+                    break;
+                default:
+                    Assert.Fail("Unknown field name");
                     break;
             }
         }

@@ -38,7 +38,7 @@ namespace UITests.Pages
         public BasePage(IWebDriver driver)
         {
             Driver = driver;
-            Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(30));
+            Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(50));
             PageFactory.InitElements(driver, this);            
         }
 
@@ -62,10 +62,10 @@ namespace UITests.Pages
             actions.Perform();
         }
 
-        public void RefreshPage()
-        {
-            Driver.Navigate().Refresh();
-        }
+        //public void RefreshPage()
+        //{
+        //    Driver.Navigate().Refresh();
+        //}
 
         public void MoveTo(IWebElement element)
         {
@@ -74,15 +74,15 @@ namespace UITests.Pages
             actions.Perform();
         }
 
-        public void SetKeyInInputFieldUsingActions(string key)
-        {
-            Actions actions = new Actions(Driver);
-            if (!string.IsNullOrEmpty(key))
-            {
-                actions.SendKeys(key).Perform();
-            }
-            actions.SendKeys(Keys.Tab).Perform();
-        }
+        //public void SetKeyInInputFieldUsingActions(string key)
+        //{
+        //    Actions actions = new Actions(Driver);
+        //    if (!string.IsNullOrEmpty(key))
+        //    {
+        //        actions.SendKeys(key).Perform();
+        //    }
+        //    //actions.SendKeys(Keys.Tab).Perform();
+        //}
 
         public void MoveToAccountButton()
         {

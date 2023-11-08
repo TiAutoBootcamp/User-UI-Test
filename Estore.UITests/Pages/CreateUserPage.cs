@@ -1,5 +1,7 @@
-﻿using Estore.Models.DataModels.User;
+﻿using Estore.CoreAdditional.Extensions;
+using Estore.Models.DataModels.User;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using SeleniumExtras.PageObjects;
 using UITests.Pages;
 
@@ -52,42 +54,36 @@ namespace UserManagementServiceUITests.Pages
 
         public void FillFirstNameInputField(string firstName) 
         {
-            _firstNameInputField.Click();
-            SetKeyInInputFieldUsingActions(firstName);
+            _firstNameInputField.ClickAndSendKeysViaActions(Driver, firstName);
         }
 
         public void FillLastNameInputField(string lastName)
         {
-            _lastNameInputField.Click();
-            SetKeyInInputFieldUsingActions(lastName);
+            _lastNameInputField.ClickAndSendKeysViaActions(Driver, lastName);
         }
 
         public void FillEmailInputField(string email)
         {
-            _emailInputField.Click();
-            SetKeyInInputFieldUsingActions(email);
+            _emailInputField.ClickAndSendKeysViaActions(Driver, email);
         }
 
         public void FillPasswordInputField(string password)
         {
-            _passwordInputField.Click();
-            SetKeyInInputFieldUsingActions(password);                       
+            _passwordInputField.ClickAndSendKeysViaActions(Driver, password);                       
         }
 
         public void FillRepeatPasswordInputField(string password)
         {
-            _repeatPasswordInputField.Click();
-            SetKeyInInputFieldUsingActions(password);
+            _repeatPasswordInputField.ClickAndSendKeysViaActions(Driver, password);
         }
 
-        public void FillModalWindowAndClickRegisterButton(UserModel user)
+        public void FillModalWindow(UserModel user)
         {
             FillFirstNameInputField(user.MainInfo.FirstName);
             FillLastNameInputField(user.MainInfo.LastName);
             FillEmailInputField(user.Credentials.Email);
             FillPasswordInputField(user.Credentials.Password);
-            FillRepeatPasswordInputField(user.Credentials.Password);
-            ClickRegisterButton();
+            FillRepeatPasswordInputField(user.Credentials.Password);            
         }
 
         public void ClickRegisterButton() 
@@ -109,7 +105,8 @@ namespace UserManagementServiceUITests.Pages
 
         public bool IsRegisterButtonDisabled()
         {
-            return !_registerButton.Enabled;
+            return Wait.Until(_ => !_registerButton.Enabled);
+            //return !_registerButton.Enabled;
         }
 
         public string GetFirstNameHelpMessage()
@@ -135,6 +132,31 @@ namespace UserManagementServiceUITests.Pages
         public string GetRepeatPasswordHelpMessage()
         {
             return _repetPasswordHelpMessage.Text;
+        }
+
+        public void ClearFirstNameField()
+        {
+            _firstNameInputField.ClearViaActions(Driver);
+        }
+
+        public void ClearLastNameField()
+        {
+            _lastNameInputField.ClearViaActions(Driver);
+        }
+
+        public void ClearEmailField()
+        {
+            _emailInputField.ClearViaActions(Driver);
+        }
+
+        public void ClearPasswordField()
+        {
+            _passwordInputField.ClearViaActions(Driver);
+        }
+
+        public void ClearRepeatPasswordField()
+        {
+            _repeatPasswordInputField.ClearViaActions(Driver);
         }
     }
 }
