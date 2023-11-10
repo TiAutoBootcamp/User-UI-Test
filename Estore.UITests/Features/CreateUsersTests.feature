@@ -162,6 +162,7 @@ Scenario: US147_3_Admin fills in fields of valid data, clear one of the field an
 	Then Create user modal window is opened
 	And Help message under '<fieldName>' field should be '<message>'
 	And Register button should be disabled
+	And Info message is not presented
 	Examples: 
 	| fieldName       | message                 |
 	| First name      | First name is required! |
@@ -184,6 +185,7 @@ Scenario: US147_4_Admin fills in fields of valid data, changes password to a new
 	Then Create user modal window is opened
 	And Help message under 'Repeat password' field should be 'Passwords don't match'
 	And Register button should be disabled
+	And Info message is not presented
 
 #US147_5
 @AdminLoggedIn
@@ -200,6 +202,7 @@ Scenario: US147_5_Admin fills in fields of valid data, changes password to an in
 	And Help message under 'Password' field should be 'Password must be at least of length 4'
 	And Help message under 'Repeat password' field should be 'Passwords don't match'
 	And Register button should be disabled
+	And Info message is not presented
 
 #US147_6
 @AdminLoggedIn
@@ -215,3 +218,4 @@ Scenario: US147_6_Admin fills in fields of valid data, changes email to an inval
 	Then Create user modal window is opened
 	And Help message under 'Email' field should be 'Invalid email format'
 	And Register button should be disabled
+	And Info message is not presented

@@ -62,27 +62,12 @@ namespace UITests.Pages
             actions.Perform();
         }
 
-        //public void RefreshPage()
-        //{
-        //    Driver.Navigate().Refresh();
-        //}
-
         public void MoveTo(IWebElement element)
         {
             Actions actions = new Actions(Driver);
             actions.MoveToElement(element);
             actions.Perform();
         }
-
-        //public void SetKeyInInputFieldUsingActions(string key)
-        //{
-        //    Actions actions = new Actions(Driver);
-        //    if (!string.IsNullOrEmpty(key))
-        //    {
-        //        actions.SendKeys(key).Perform();
-        //    }
-        //    //actions.SendKeys(Keys.Tab).Perform();
-        //}
 
         public void MoveToAccountButton()
         {
@@ -121,6 +106,11 @@ namespace UITests.Pages
         {
             Wait.Until ((_) => _infoMessageWindow.Displayed);
             return _infoMessageWindow.Text;
+        }
+
+        public bool IsInfoMessageDisplayed()
+        {
+            return Wait.Until((_) => _infoMessageWindow.Displayed);
         }
     }
 }
