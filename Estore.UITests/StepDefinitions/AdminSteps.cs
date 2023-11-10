@@ -49,8 +49,8 @@ namespace Estore.UITests.StepDefinitions
             _context.CreateUser.FillModalWindow(newCustomer);
         }
 
-        [When(@"Admin click on the Register button")]
-        public void AdminClickOnTheRegisterButton()
+        [When(@"Admin clicks on the Register button")]
+        public void AdminClicksOnTheRegisterButton()
         {
             _context.CreateUser.ClickRegisterButton();
         }
@@ -122,6 +122,67 @@ namespace Estore.UITests.StepDefinitions
             }
         }
 
+        [When(@"Admin fills '([^']*)' input field '([^']*)' and move focus")]
+        public void AdminFillsInputFieldAndMoveFocus(string fieldName, string value)
+        {
+            switch (fieldName)
+            {
+                case "First name":
+                    _context.CreateUser.FillFirstNameInputField(value, true);
+                    break;
+                case "Last name":
+                    _context.CreateUser.FillLastNameInputField(value, true);
+                    break;
+                case "Email":
+                    _context.CreateUser.FillEmailInputField(value, true);
+                    break;
+                case "Password":
+                    FillPasswordFieldAndMoveFocus(value, true);
+                    break;
+                case "Repeat password":
+                    if (value == "randomValue")
+                    {
+                        _context.CreateUser.FillRepeatPasswordInputField(_userGenerator.GenerateValidPassword(), true);
+                    }
+                    else
+                    {
+                        _context.CreateUser.FillRepeatPasswordInputField(value, true);
+                    }
+                    break;
+                default:
+                    Assert.Fail("Unknown field name");
+                    break;
+            }
+        }
+
+        private void FillPasswordFieldAndMoveFocus(string value, bool isMoveFocus)
+        {
+            switch (value)
+            {
+                case "short":
+                    _context.CreateUser.FillPasswordInputField(_userGenerator.GenerateInvalidPasswordWith1Letter(), isMoveFocus);
+                    break;
+                case "long":
+                    _context.CreateUser.FillPasswordInputField(_userGenerator.GenerateInvalidPasswordWithMoreThan32Letters(), isMoveFocus);
+                    break;
+                case "withoutLowerCaseLetters":
+                    _context.CreateUser.FillPasswordInputField(_userGenerator.GenerateInvalidPasswordWithoutLowerCaseLetters(), isMoveFocus);
+                    break;
+                case "withoutUpperCaseLetters":
+                    _context.CreateUser.FillPasswordInputField(_userGenerator.GenerateInvalidPasswordWithoutUpperCaseLetters(), isMoveFocus);
+                    break;
+                case "withoutDigits":
+                    _context.CreateUser.FillPasswordInputField(_userGenerator.GenerateInvalidPasswordWithoutDigits(), isMoveFocus);
+                    break;
+                case "randomValue":
+                    _context.CreateUser.FillPasswordInputField(_userGenerator.GenerateValidPassword(), isMoveFocus);
+                    break;
+                default:
+                    _context.CreateUser.FillPasswordInputField(value, isMoveFocus);
+                    break;
+            }
+        }
+
         [When(@"Admin clears '([^']*)' field")]
         public void AdminClearsField(string fieldName)
         {
@@ -141,6 +202,32 @@ namespace Estore.UITests.StepDefinitions
                     break;
                 case "Repeat password":
                     _context.CreateUser.ClearRepeatPasswordField();
+                    break;
+                default:
+                    Assert.Fail("Unknown field name");
+                    break;
+            }
+        }
+
+        [When(@"Admin clears '([^']*)' field and move focus")]
+        public void AdminClearsFieldAndMoveFocus(string fieldName)
+        {
+            switch (fieldName)
+            {
+                case "First name":
+                    _context.CreateUser.ClearFirstNameField(true);
+                    break;
+                case "Last name":
+                    _context.CreateUser.ClearLastNameField(true);
+                    break;
+                case "Email":
+                    _context.CreateUser.ClearEmailField(true);
+                    break;
+                case "Password":
+                    _context.CreateUser.ClearPasswordField(true);
+                    break;
+                case "Repeat password":
+                    _context.CreateUser.ClearRepeatPasswordField(true);
                     break;
                 default:
                     Assert.Fail("Unknown field name");

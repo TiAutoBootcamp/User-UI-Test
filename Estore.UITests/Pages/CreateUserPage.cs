@@ -3,6 +3,7 @@ using Estore.Models.DataModels.User;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using SeleniumExtras.PageObjects;
+using System;
 using UITests.Pages;
 
 namespace UserManagementServiceUITests.Pages
@@ -12,6 +13,9 @@ namespace UserManagementServiceUITests.Pages
         public CreateUserPage(IWebDriver driver) : base(driver)
         {
         }
+
+        [FindsBy(How = How.ClassName, Using = "bm-title")]
+        private IWebElement _title;
 
         [FindsBy(How = How.XPath, Using = "//label[contains(.,'First name')]/preceding-sibling::div")]
         private IWebElement _firstNameInputField;
@@ -52,29 +56,34 @@ namespace UserManagementServiceUITests.Pages
         [FindsBy(How = How.ClassName, Using = "mud-input-label")]
         private IList<IWebElement> _labels; 
 
-        public void FillFirstNameInputField(string firstName) 
+        public void FillFirstNameInputField(string firstName, bool isMoveFocus = false) 
         {
-            _firstNameInputField.ClickAndSendKeysViaActions(Driver, firstName);
+            _firstNameInputField.ClickAndSendKeysViaActions(firstName);
+            MoveFocus(isMoveFocus);
         }
 
-        public void FillLastNameInputField(string lastName)
+        public void FillLastNameInputField(string lastName, bool isMoveFocus = false)
         {
-            _lastNameInputField.ClickAndSendKeysViaActions(Driver, lastName);
+            _lastNameInputField.ClickAndSendKeysViaActions(lastName);
+            MoveFocus(isMoveFocus);
         }
 
-        public void FillEmailInputField(string email)
+        public void FillEmailInputField(string email, bool isMoveFocus = false)
         {
-            _emailInputField.ClickAndSendKeysViaActions(Driver, email);
+            _emailInputField.ClickAndSendKeysViaActions(email);
+            MoveFocus(isMoveFocus);
         }
 
-        public void FillPasswordInputField(string password)
+        public void FillPasswordInputField(string password, bool isMoveFocus = false)
         {
-            _passwordInputField.ClickAndSendKeysViaActions(Driver, password);                       
+            _passwordInputField.ClickAndSendKeysViaActions(password);
+            MoveFocus(isMoveFocus);
         }
 
-        public void FillRepeatPasswordInputField(string password)
+        public void FillRepeatPasswordInputField(string password, bool isMoveFocus = false)
         {
-            _repeatPasswordInputField.ClickAndSendKeysViaActions(Driver, password);
+            _repeatPasswordInputField.ClickAndSendKeysViaActions(password);
+            MoveFocus(isMoveFocus);
         }
 
         public void FillModalWindow(UserModel user)
@@ -83,13 +92,14 @@ namespace UserManagementServiceUITests.Pages
             FillLastNameInputField(user.MainInfo.LastName);
             FillEmailInputField(user.Credentials.Email);
             FillPasswordInputField(user.Credentials.Password);
-            FillRepeatPasswordInputField(user.Credentials.Password);            
+            FillRepeatPasswordInputField(user.Credentials.Password, true);            
         }
 
         public void ClickRegisterButton() 
         {
             Wait.Until((_) => _registerButton.Enabled);
             _registerButton.Click();
+            Thread.Sleep(3000);
         }
 
         public void ClickCloseButton()
@@ -134,29 +144,42 @@ namespace UserManagementServiceUITests.Pages
             return _repetPasswordHelpMessage.Text;
         }
 
-        public void ClearFirstNameField()
+        public void ClearFirstNameField(bool isMoveFocus = false)
         {
-            _firstNameInputField.ClearViaActions(Driver);
+            _firstNameInputField.ClearViaActions();
+            MoveFocus(isMoveFocus);            
         }
 
-        public void ClearLastNameField()
+        public void ClearLastNameField(bool isMoveFocus = false)
         {
-            _lastNameInputField.ClearViaActions(Driver);
+            _lastNameInputField.ClearViaActions();
+            MoveFocus(isMoveFocus);
         }
 
-        public void ClearEmailField()
+        public void ClearEmailField(bool isMoveFocus = false)
         {
-            _emailInputField.ClearViaActions(Driver);
+            _emailInputField.ClearViaActions();
+            MoveFocus(isMoveFocus);
         }
 
-        public void ClearPasswordField()
+        public void ClearPasswordField(bool isMoveFocus = false)
         {
-            _passwordInputField.ClearViaActions(Driver);
+            _passwordInputField.ClearViaActions();
+            MoveFocus(isMoveFocus);
         }
 
-        public void ClearRepeatPasswordField()
+        public void ClearRepeatPasswordField(bool isMoveFocus = false)
         {
-            _repeatPasswordInputField.ClearViaActions(Driver);
+            _repeatPasswordInputField.ClearViaActions();
+            MoveFocus(isMoveFocus);
+        }
+
+        public void MoveFocus(bool isMoveFocus = false)
+        {
+            if (isMoveFocus)
+            {
+                _title.Click();
+            }
         }
     }
 }
