@@ -115,8 +115,7 @@ namespace UserManagementServiceUITests.Pages
 
         public bool IsRegisterButtonDisabled()
         {
-            return Wait.Until(_ => !_registerButton.Enabled);
-            //return !_registerButton.Enabled;
+            return Wait.Until(_ => !_registerButton.Enabled);            
         }
 
         public string GetFirstNameHelpMessage()
