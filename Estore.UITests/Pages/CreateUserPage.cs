@@ -99,7 +99,7 @@ namespace UserManagementServiceUITests.Pages
         {
             Wait.Until((_) => _registerButton.Enabled);
             _registerButton.Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(2000);
         }
 
         public void ClickCloseButton()

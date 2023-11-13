@@ -38,7 +38,7 @@ namespace UITests.Pages
         public BasePage(IWebDriver driver)
         {
             Driver = driver;
-            Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(50));
+            Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(30));
             PageFactory.InitElements(driver, this);            
         }
 
@@ -106,11 +106,6 @@ namespace UITests.Pages
         {
             Wait.Until ((_) => _infoMessageWindow.Displayed);
             return _infoMessageWindow.Text;
-        }
-
-        public bool IsInfoMessageDisplayed()
-        {
-            return Wait.Until((_) => _infoMessageWindow.Displayed);
-        }
+        }        
     }
 }

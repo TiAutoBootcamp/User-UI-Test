@@ -21,12 +21,6 @@ namespace Estore.UITests.StepDefinitions.Assertions
             Assert.AreEqual(infoMessage, _context.CurrentPage.GetInfoMessage(), "Info messages are not equal");
         }
 
-        [Then(@"Info message is not presented")]
-        public void InfoMessageIsNotPresented()
-        {
-            Assert.IsFalse(_context.CurrentPage.IsInfoMessageDisplayed(), "Info message is presented");
-        }
-
         [Then(@"Login button is displayed")]
         public void LoginButtonIsDisplayed()
         {

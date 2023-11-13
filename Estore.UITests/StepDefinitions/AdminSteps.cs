@@ -61,92 +61,32 @@ namespace Estore.UITests.StepDefinitions
             _context.CreateUser.ClickCloseButton();
         }
 
-        [When(@"Admin fills '([^']*)' input field: '([^']*)'")]
-        public void AdminFillsInputField(string fieldName, string value)
+        [When(@"Admin fills '([^']*)' input field '([^']*)'( and move focus)?")]
+        public void AdminFillsInputFieldAndMoveFocus(string fieldName, string value, string moveFocus)
         {
+            var isMoveFocus = moveFocus != string.Empty;
             switch (fieldName)
             {
                 case "First name":
-                    _context.CreateUser.FillFirstNameInputField(value);
+                    _context.CreateUser.FillFirstNameInputField(value, isMoveFocus);
                     break;
                 case "Last name":
-                    _context.CreateUser.FillLastNameInputField(value);
+                    _context.CreateUser.FillLastNameInputField(value, isMoveFocus);
                     break;
                 case "Email":
-                    _context.CreateUser.FillEmailInputField(value);
+                    _context.CreateUser.FillEmailInputField(value, isMoveFocus);
                     break;
                 case "Password":
-                    FillPasswordField(value);
+                    FillPasswordField(value, isMoveFocus);
                     break;
                 case "Repeat password":
                     if (value == "randomValue")
                     {
-                        _context.CreateUser.FillRepeatPasswordInputField(_userGenerator.GenerateValidPassword());
+                        _context.CreateUser.FillRepeatPasswordInputField(_userGenerator.GenerateValidPassword(), isMoveFocus);
                     }
                     else
                     {
-                        _context.CreateUser.FillRepeatPasswordInputField(value);
-                    }
-                    break;
-                default:
-                    Assert.Fail("Unknown field name");
-                    break;
-            }            
-        }
-
-        private void FillPasswordField(string value)
-        {
-            switch (value)
-            {
-                case "short":
-                    _context.CreateUser.FillPasswordInputField(_userGenerator.GenerateInvalidPasswordWith1Letter());
-                    break;
-                case "long":
-                    _context.CreateUser.FillPasswordInputField(_userGenerator.GenerateInvalidPasswordWithMoreThan32Letters());
-                    break;
-                case "withoutLowerCaseLetters":
-                    _context.CreateUser.FillPasswordInputField(_userGenerator.GenerateInvalidPasswordWithoutLowerCaseLetters());
-                    break;
-                case "withoutUpperCaseLetters":
-                    _context.CreateUser.FillPasswordInputField(_userGenerator.GenerateInvalidPasswordWithoutUpperCaseLetters());
-                    break;
-                case "withoutDigits":
-                    _context.CreateUser.FillPasswordInputField(_userGenerator.GenerateInvalidPasswordWithoutDigits());
-                    break;
-                case "randomValue":
-                    _context.CreateUser.FillPasswordInputField(_userGenerator.GenerateValidPassword());
-                    break;
-                default:
-                    _context.CreateUser.FillPasswordInputField(value);
-                    break;
-            }
-        }
-
-        [When(@"Admin fills '([^']*)' input field '([^']*)' and move focus")]
-        public void AdminFillsInputFieldAndMoveFocus(string fieldName, string value)
-        {
-            switch (fieldName)
-            {
-                case "First name":
-                    _context.CreateUser.FillFirstNameInputField(value, true);
-                    break;
-                case "Last name":
-                    _context.CreateUser.FillLastNameInputField(value, true);
-                    break;
-                case "Email":
-                    _context.CreateUser.FillEmailInputField(value, true);
-                    break;
-                case "Password":
-                    FillPasswordFieldAndMoveFocus(value, true);
-                    break;
-                case "Repeat password":
-                    if (value == "randomValue")
-                    {
-                        _context.CreateUser.FillRepeatPasswordInputField(_userGenerator.GenerateValidPassword(), true);
-                    }
-                    else
-                    {
-                        _context.CreateUser.FillRepeatPasswordInputField(value, true);
+                        _context.CreateUser.FillRepeatPasswordInputField(value, isMoveFocus);
                     }
                     break;
                 default:
@@ -155,7 +95,7 @@ namespace Estore.UITests.StepDefinitions
             }
         }
 
-        private void FillPasswordFieldAndMoveFocus(string value, bool isMoveFocus)
+        private void FillPasswordField(string value, bool isMoveFocus)
         {
             switch (value)
             {
@@ -183,51 +123,26 @@ namespace Estore.UITests.StepDefinitions
             }
         }
 
-        [When(@"Admin clears '([^']*)' field")]
-        public void AdminClearsField(string fieldName)
+        [When(@"Admin clears '([^']*)' field( and move focus)?")]
+        public void AdminClearsFieldAndMoveFocus(string fieldName, string moveFocus)
         {
+            var isMoveFocus = moveFocus != string.Empty;
             switch (fieldName)
             {
                 case "First name":
-                    _context.CreateUser.ClearFirstNameField();
+                    _context.CreateUser.ClearFirstNameField(isMoveFocus);
                     break;
                 case "Last name":
-                    _context.CreateUser.ClearLastNameField();
+                    _context.CreateUser.ClearLastNameField(isMoveFocus);
                     break;
                 case "Email":
-                    _context.CreateUser.ClearEmailField();
+                    _context.CreateUser.ClearEmailField(isMoveFocus);
                     break;
                 case "Password":
-                    _context.CreateUser.ClearPasswordField();
+                    _context.CreateUser.ClearPasswordField(isMoveFocus);
                     break;
                 case "Repeat password":
-                    _context.CreateUser.ClearRepeatPasswordField();
-                    break;
-                default:
-                    Assert.Fail("Unknown field name");
-                    break;
-            }
-        }
-
-        [When(@"Admin clears '([^']*)' field and move focus")]
-        public void AdminClearsFieldAndMoveFocus(string fieldName)
-        {
-            switch (fieldName)
-            {
-                case "First name":
-                    _context.CreateUser.ClearFirstNameField(true);
-                    break;
-                case "Last name":
-                    _context.CreateUser.ClearLastNameField(true);
-                    break;
-                case "Email":
-                    _context.CreateUser.ClearEmailField(true);
-                    break;
-                case "Password":
-                    _context.CreateUser.ClearPasswordField(true);
-                    break;
-                case "Repeat password":
-                    _context.CreateUser.ClearRepeatPasswordField(true);
+                    _context.CreateUser.ClearRepeatPasswordField(isMoveFocus);
                     break;
                 default:
                     Assert.Fail("Unknown field name");

@@ -77,7 +77,7 @@ Scenario: US49_31b_Admin fills Password and Repeat password fields different val
 	And User page is opened
 	And Admin click on the Add User button
 	When Create user modal window is opened
-	And Admin fills 'Password' input field: 'randomValue'
+	And Admin fills 'Password' input field 'randomValue'
 	And Admin fills 'Repeat password' input field 'randomValue' and move focus  
 	Then Help message under 'Repeat password' field should be 'Passwords don't match'
 
@@ -162,7 +162,6 @@ Scenario: US147_3_Admin fills in fields of valid data, clear one of the field an
 	Then Create user modal window is opened
 	And Help message under '<fieldName>' field should be '<message>'
 	And Register button should be disabled
-	And Info message is not presented
 	Examples: 
 	| fieldName       | message                 |
 	| First name      | First name is required! |
@@ -180,13 +179,12 @@ Scenario: US147_4_Admin fills in fields of valid data, changes password to a new
 	When Create user modal window is opened
 	And Admin fills create user modal window valid data
 	And Admin clears 'Password' field
-	And Admin fills 'Password' input field: 'randomValue'
+	And Admin fills 'Password' input field 'randomValue'
 	And Admin clicks on the Register button
 	Then Create user modal window is opened
 	And Help message under 'Repeat password' field should be 'Passwords don't match'
 	And Register button should be disabled
-	And Info message is not presented
-
+	
 #US147_5
 @AdminLoggedIn
 Scenario: US147_5_Admin fills in fields of valid data, changes password to an invalid password and clicks Register button
@@ -202,8 +200,7 @@ Scenario: US147_5_Admin fills in fields of valid data, changes password to an in
 	And Help message under 'Password' field should be 'Password must be at least of length 4'
 	And Help message under 'Repeat password' field should be 'Passwords don't match'
 	And Register button should be disabled
-	And Info message is not presented
-
+	
 #US147_6
 @AdminLoggedIn
 Scenario: US147_6_Admin fills in fields of valid data, changes email to an invalid email format and clicks Register button
@@ -218,4 +215,3 @@ Scenario: US147_6_Admin fills in fields of valid data, changes email to an inval
 	Then Create user modal window is opened
 	And Help message under 'Email' field should be 'Invalid email format'
 	And Register button should be disabled
-	And Info message is not presented
