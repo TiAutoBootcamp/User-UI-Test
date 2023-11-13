@@ -173,7 +173,7 @@ namespace UserManagementServiceUITests.Pages
             MoveFocus(isMoveFocus);
         }
 
-        public void MoveFocus(bool isMoveFocus = false)
+        private void MoveFocus(bool isMoveFocus = false)
         {
             if (isMoveFocus)
             {

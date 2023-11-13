@@ -61,7 +61,7 @@ namespace Estore.UITests.StepDefinitions
             _context.CreateUser.ClickCloseButton();
         }
 
-        [When(@"Admin fills '([^']*)' input field '([^']*)'( and move focus)?")]
+        [When(@"Admin fills '(First name|Last name|Email|Password|Repeat password)' input field '([^']*)'( and move focus)?")]
         public void AdminFillsInputFieldAndMoveFocus(string fieldName, string value, string moveFocus)
         {
             var isMoveFocus = moveFocus != string.Empty;
@@ -90,8 +90,7 @@ namespace Estore.UITests.StepDefinitions
                     }
                     break;
                 default:
-                    Assert.Fail("Unknown field name");
-                    break;
+                    throw new ArgumentException("Unknown field name");                    
             }
         }
 
@@ -123,7 +122,7 @@ namespace Estore.UITests.StepDefinitions
             }
         }
 
-        [When(@"Admin clears '([^']*)' field( and move focus)?")]
+        [When(@"Admin clears '(First name|Last name|Email|Password|Repeat password)' field( and move focus)?")]
         public void AdminClearsFieldAndMoveFocus(string fieldName, string moveFocus)
         {
             var isMoveFocus = moveFocus != string.Empty;
@@ -145,8 +144,7 @@ namespace Estore.UITests.StepDefinitions
                     _context.CreateUser.ClearRepeatPasswordField(isMoveFocus);
                     break;
                 default:
-                    Assert.Fail("Unknown field name");
-                    break;
+                    throw new ArgumentException("Unknown field name");
             }
         }
     }
