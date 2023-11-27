@@ -69,14 +69,13 @@ namespace Estore.UITests.StepDefinitions
             }
         }
 
-        //[Given(@"(New )?(I|i)mage is added to the created product: '(.*)'")]
         [Given(@"Image is added to the created product: '(.*)'")]
         [Given(@"New image is added to the created product: '(.*)'")]
         public async Task ImageIsAddedToTheCreatedProduct(string filePath)
         {
             var adminToken = await _tokenManager.GetValidAdminToken();
             await _catalogProvider.AddImage(_context.ProductRequest.Article, filePath, adminToken);
-            _context.CurrentProductImage = $"data:image/jpg;base64,{Convert.ToBase64String(FileExtension.GetByteArray(filePath))}";
+            _context.CurrentProductImage = FileExtension.GetByteArray(filePath);
         }
     }
 }

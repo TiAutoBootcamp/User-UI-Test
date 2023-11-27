@@ -73,7 +73,6 @@ namespace UITests.Context
         public AddProductRequest ProductRequest { get; set; }
         public List<string> ProductArticles { get; internal set; }
         public List<(AddProductRequest, ProductStatus)> ProductRequestsAndStatuses { get; internal set; } 
-
-        public string CurrentProductImage { get; set; }
+        public byte[] CurrentProductImage { get; set; }
     }
 }

@@ -87,14 +87,16 @@ namespace Estore.UITests.StepDefinitions.Assertions
         [Then(@"Image source is the same as the (added|new added|default) image")]
         public void ImageSourceIsSameAsAddedOrDefault(string image)
         {
+            string expectedImageSource;
             if (image.Equals("default"))
             {
-                var expectedImageSource = "https://estore-uat.azurewebsites.net/images/no-image-icon.jpeg";
+                expectedImageSource = "https://estore-uat.azurewebsites.net/images/no-image-icon.jpeg";
                 Assert.AreEqual(expectedImageSource, _context.MainPage.GetImageSource(_context.ProductRequest));
             }
             else if (image.Equals("added") || image.Equals("new added"))
             {
-                Assert.AreEqual(_context.CurrentProductImage, _context.MainPage.GetImageSource(_context.ProductRequest));
+                expectedImageSource = $"data:image/jpg;base64,{Convert.ToBase64String(_context.CurrentProductImage)}";
+                Assert.AreEqual(expectedImageSource, _context.MainPage.GetImageSource(_context.ProductRequest));
             }
             else
             {
