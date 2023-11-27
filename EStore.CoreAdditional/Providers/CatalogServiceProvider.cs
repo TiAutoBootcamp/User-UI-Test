@@ -1,7 +1,6 @@
 ﻿using CoreAdditional.Models;
 using CoreAdditional.Utils;
 using Estore.Clients.Clients;
-using Estore.Core.HTTP.Base;
 using Estore.Models.Enum;
 using Estore.Models.Request.Catalog;
 
@@ -54,7 +53,7 @@ namespace CoreAdditional.Providers
             return productRequest;
         }
 
-        public async Task AddImage(string article = null, string filePath = null, string token = null)
+        public async Task AddImage(string article, string filePath, string token)
         {
             var request = _catalogGenerator.GenerateAddImageRequest(article, filePath);
             await _catalogServiceClient.AddImage(request, token);

@@ -1,7 +1,6 @@
 ﻿using Estore.Models.Request.Catalog;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
-using System.Linq;
 
 namespace UITests.Pages
 {
@@ -91,12 +90,11 @@ namespace UITests.Pages
 
         public bool IsProductDisplayed(AddProductRequest createdProduct)
         {
-            WaitProductsLoading();
-            return _products
-                .Where(product =>
+            return Wait
+                .Until((_) => _products
+                    .Any(product =>
                     _productName.Text.Contains(createdProduct.Name) &&
-                    _productManufactor.Text.Contains(createdProduct.Manufactor))
-                .Count() != 0;
+                    _productManufactor.Text.Contains(createdProduct.Manufactor)));
         }
 
         public string GetImageSource(AddProductRequest createdProduct)

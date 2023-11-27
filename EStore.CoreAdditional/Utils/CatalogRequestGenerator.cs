@@ -15,30 +15,14 @@ namespace CoreAdditional.Utils
             };
         }
 
-        public AddProductRequest GenerateNewProduct()
-        {
-            return new AddProductRequest()
-            {
-                Article = Guid.NewGuid().ToString().ToUpper(),
-                Name = Guid.NewGuid().ToString(),
-                Manufactor = Guid.NewGuid().ToString()
-            };
-        }
-
         public MultipartFormDataContent GenerateAddImageRequest(string article, string filePath)
         {
-            var formData = new MultipartFormDataContent();
-            if (article != null)
+            var fileName = filePath.Split('\\').Last();
+            return new MultipartFormDataContent()
             {
-                formData.Add(new StringContent(article), "article");
-            }
-            if (!string.IsNullOrEmpty(filePath))
-            {
-                var fileName = filePath.Split('\\').Last();
-                formData.Add(new ByteArrayContent(FileExtension.GetByteArray(filePath)), "data", fileName);
-            }
-
-            return formData;
+                { new StringContent(article), "article" },
+                { new ByteArrayContent(FileExtension.GetByteArray(filePath)), "data", fileName }
+            };
         }
     }
 }
