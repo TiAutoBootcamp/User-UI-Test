@@ -26,15 +26,12 @@ namespace UITests.Pages
 
         [FindsBy(How = How.ClassName, Using = "mud-grid-item")]
         private IList<IWebElement > _products;
+                
+        private By _productImage = By.TagName("img");
 
-        [FindsBy(How = How.TagName, Using = "img")]
-        private IWebElement _productImage;
+        private By _productName = By.TagName("b");
 
-        [FindsBy(How = How.TagName, Using = "b")]
-        private IWebElement _productName;
-
-        [FindsBy(How = How.XPath, Using = "//b/ancestor::h4/preceding-sibling::h4")]
-        private IWebElement _productManufactor;
+        private By _productManufactor = By.XPath("//b/ancestor::h4/preceding-sibling::h4");
 
         public MainPage(IWebDriver driver) : base(driver)
         {
@@ -90,20 +87,28 @@ namespace UITests.Pages
 
         public bool IsProductDisplayed(AddProductRequest createdProduct)
         {
-            return Wait
-                .Until((_) => _products
-                    .Any(product =>
-                    _productName.Text.Contains(createdProduct.Name) &&
-                    _productManufactor.Text.Contains(createdProduct.Manufactor)));
+            return Wait.Until(_ =>
+            {
+                try
+                {
+                    return _products.Any(product =>
+                        product.FindElement(_productName).Text.Contains(createdProduct.Name) &&
+                        product.FindElement(_productManufactor).Text.Contains(createdProduct.Manufactor));
+                }
+                catch (StaleElementReferenceException)
+                {
+                    return false;
+                }
+            });
         }
 
         public string GetImageSource(AddProductRequest createdProduct)
         {
             return _products
                 .Where(product =>
-                    _productName.Text.Contains(createdProduct.Name) &&
-                    _productManufactor.Text.Contains(createdProduct.Manufactor))
-                .Select(product => _productImage.GetAttribute("src"))
+                    product.FindElement(_productName).Text.Contains(createdProduct.Name) &&
+                    product.FindElement(_productManufactor).Text.Contains(createdProduct.Manufactor))
+                .Select(product => product.FindElement(_productImage).GetAttribute("src"))
                 .Single();            
         }
     }
