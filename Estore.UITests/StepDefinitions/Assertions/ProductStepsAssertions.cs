@@ -83,5 +83,24 @@ namespace Estore.UITests.StepDefinitions.Assertions
         {
             Assert.AreEqual(errorMessage, _context.MainPage.GetErrorMessage());
         }
+
+        [Then(@"Image source is the same as the (added|new added|default) image")]
+        public void ImageSourceIsSameAsAddedOrDefault(string image)
+        {
+            string expectedImageSource;
+            if (image.Equals("default"))
+            {
+                expectedImageSource = "https://estore-uat.azurewebsites.net/images/no-image-icon.jpeg";
+            }
+            else if (image.Equals("added") || image.Equals("new added"))
+            {
+                expectedImageSource = $"data:image/jpg;base64,{Convert.ToBase64String(_context.CurrentProductImage)}";                
+            }
+            else
+            {
+                throw new ArgumentException("An unknown value is set for the image");
+            }
+            Assert.AreEqual(expectedImageSource, _context.MainPage.GetImageSource(_context.ProductRequest));
+        }
     }
 }

@@ -45,5 +45,18 @@ namespace CoreAdditional.Providers
             }
             return productsRequest;
         }
+
+        public async Task<AddProductRequest> CreateNotActiveProduct(string token)
+        {
+            var productRequest = _catalogGenerator.GenerateNewProduct();
+            await _catalogServiceClient.CreateProduct(productRequest, token);
+            return productRequest;
+        }
+
+        public async Task AddImage(string article, string filePath, string token)
+        {
+            var request = _catalogGenerator.GenerateAddImageRequest(article, filePath);
+            await _catalogServiceClient.AddImage(request, token);
+        }
     }
 }
