@@ -1,5 +1,6 @@
 using Estore.UITests.Pages;
 using Microsoft.Extensions.Configuration;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using UITests.Context;
@@ -22,44 +23,54 @@ namespace Estore.UITests.StepDefinitions
             _configuration = configuration;
         }
 
-        [Given(@"Open users page")]
-        public void OpenUsersPage()
+        [Given(@"Open (Main|Users|Login|Orders) page")]
+        public void OpenPage(string pageName)
         {
-            _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:users"]}");            
-        }
+            switch (pageName)
+            {
+                case "Main":
+                    _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:main"]}");
+                    break;
+                case "Users":
+                    _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:users"]}");
+                    break;
+                case "Login":
+                    _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:login"]}");
+                    break;
+                case "Orders":
+                    _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:orders"]}");
+                    break;
+                default:
+                    Assert.Fail("Unknown page name");
+                    break;
+            }                        
+        }              
 
-        [Given(@"Open main page")]
-        public void OpenMainPage()
+        [StepDefinition(@"(Main|Users|Login|Orders) page is opened")]
+        public void PageIsOpened(string pageName)
         {
-            _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:main"]}");            
+            switch (pageName)
+            {
+                case "Main":
+                    _context.MainPage = new MainPage(_context.Driver);
+                    _context.MainPage.WaitProductsLoading();
+                    break;
+                case "Users":
+                    _context.UserPage = new UsersPage(_context.Driver);
+                    _context.UserPage.WaitPageLoading();
+                    break;
+                case "Login":
+                    _context.LoginPage = new LoginPage(_context.Driver);
+                    break;
+                case "Orders":
+                    _context.OrdersPage = new OrdersPage(_context.Driver);
+                    break;
+                default:
+                    Assert.Fail("Unknown page name");
+                    break;
+            }            
         }
-
-        [Given(@"Open login page")]
-        public void OpenLoginPage()
-        {
-            _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:login"]}");                                    
-        }
-
-        [StepDefinition(@"Login page is opened")]
-        public void LoginPageIsOpen()
-        {
-            _context.LoginPage = new LoginPage(_context.Driver);
-        }
-
-        [StepDefinition(@"Main page is opened")]
-        public void MainPageIsOpen()
-        {
-            _context.MainPage = new MainPage(_context.Driver);
-            _context.MainPage.WaitProductsLoading();
-        }
-
-        [StepDefinition(@"User page is opened")]
-        public void UserPageIsOpen()
-        {
-            _context.UserPage = new UsersPage(_context.Driver);
-            _context.UserPage.WaitPageLoading();            
-        }
-
+        
         [StepDefinition(@"Create user modal window is opened")]
         public void CreateUserModalWindowIsOpen()
         {
@@ -71,18 +82,6 @@ namespace Estore.UITests.StepDefinitions
             {
                 Assert.Fail("Create user modal window is not open");
             }           
-        }
-
-        [StepDefinition(@"Open orders page")]
-        public void OpenOrdersPage()
-        {
-            _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:orders"]}");
-        }
-
-        [StepDefinition(@"Orders page is opened")]
-        public void OrdersPageIsOpen()
-        {
-            _context.OrdersPage = new OrdersPage(_context.Driver);
         }
     }
 }

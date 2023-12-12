@@ -92,7 +92,7 @@ namespace Estore.UITests.Pages
             orderElement.Click();
         }
 
-        public bool IsOrderExpands(Guid orderId)
+        public bool IsOrderExpanded(Guid orderId)
         {
             var orderRow = _orderRows.Where(row => row.FindElement(_orderId).Text.Contains(orderId.ToString())).Single();
             return Wait.Until(driver => orderRow.FindElement(_expandPanel).Displayed);

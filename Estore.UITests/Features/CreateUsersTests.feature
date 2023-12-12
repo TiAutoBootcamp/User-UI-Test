@@ -7,7 +7,7 @@ I would like to create new customer via UI
 @AdminLoggedIn
 Scenario: US49_25a_Admin abserve the layout and elements on the Create user modal window
 	Given Admin click on the Users button
-	And User page is opened
+	And Users page is opened
 	When Admin click on the Add User button
 	Then Create user modal window is opened
 	And Create user modal window contains fields: 
@@ -25,7 +25,7 @@ Scenario: US49_25a_Admin abserve the layout and elements on the Create user moda
 @AdminLoggedIn
 Scenario: US49_25b_Admin closes Create user modal window
 	Given Admin click on the Users button
-	And User page is opened
+	And Users page is opened
 	And Admin click on the Add User button
 	When Create user modal window is opened
 	And Admin click on the Cancel button
@@ -35,7 +35,7 @@ Scenario: US49_25b_Admin closes Create user modal window
 @AdminLoggedIn
 Scenario: US49_26_Admin adds a new customer
 	Given Admin click on the Users button
-	And User page is opened
+	And Users page is opened
 	And Admin click on the Add User button
 	When Create user modal window is opened
 	And Admin fills create user modal window valid data
@@ -52,7 +52,7 @@ Scenario: US49_26_Admin adds a new customer
 @AdminLoggedIn
 Scenario Outline: US49_27_28_29_30_31a_Admin leaves one of the input field empty
 	Given Admin click on the Users button
-	And User page is opened
+	And Users page is opened
 	And Admin click on the Add User button
 	When Create user modal window is opened
 	And Admin fills '<fieldName>' input field '' and move focus 
@@ -74,7 +74,7 @@ Scenario Outline: US49_27_28_29_30_31a_Admin leaves one of the input field empty
 @AdminLoggedIn
 Scenario: US49_31b_Admin fills Password and Repeat password fields different values
 	Given Admin click on the Users button
-	And User page is opened
+	And Users page is opened
 	And Admin click on the Add User button
 	When Create user modal window is opened
 	And Admin fills 'Password' input field 'randomValue'
@@ -85,7 +85,7 @@ Scenario: US49_31b_Admin fills Password and Repeat password fields different val
 @AdminLoggedIn
 Scenario Outline: US49_32_Admin fills Password field with invalid value
 	Given Admin click on the Users button
-	And User page is opened
+	And Users page is opened
 	And Admin click on the Add User button
 	When Create user modal window is opened
 	And Admin fills 'Password' input field '<password>' and move focus
@@ -102,7 +102,7 @@ Scenario Outline: US49_32_Admin fills Password field with invalid value
 @AdminLoggedIn
 Scenario Outline: US49_33_Admin fills Email field with invalid value
 	Given Admin click on the Users button
-	And User page is opened
+	And Users page is opened
 	And Admin click on the Add User button
 	When Create user modal window is opened
 	And Admin fills 'Email' input field '<email>' and move focus 
@@ -122,7 +122,7 @@ Scenario Outline: US49_33_Admin fills Email field with invalid value
 @AdminLoggedIn
 Scenario: US49_33a_Admin create customer with existing email
 	Given Admin click on the Users button
-	And User page is opened
+	And Users page is opened
 	And Admin click on the Add User button
 	When Create user modal window is opened
 	And Admin fills create user modal window with existing email 
@@ -134,7 +134,7 @@ Scenario: US49_33a_Admin create customer with existing email
 @AdminLoggedIn
 Scenario: US147_2_Admin fills in fields of valid data, clear one of the input fields and moves focus
 	Given Admin click on the Users button
-	And User page is opened
+	And Users page is opened
 	And Admin click on the Add User button
 	When Create user modal window is opened
 	And Admin fills create user modal window valid data
@@ -153,7 +153,7 @@ Scenario: US147_2_Admin fills in fields of valid data, clear one of the input fi
 @AdminLoggedIn
 Scenario: US147_3_Admin fills in fields of valid data, clear one of the field and clicks Register button
 	Given Admin click on the Users button
-	And User page is opened
+	And Users page is opened
 	And Admin click on the Add User button
 	When Create user modal window is opened
 	And Admin fills create user modal window valid data
@@ -174,7 +174,7 @@ Scenario: US147_3_Admin fills in fields of valid data, clear one of the field an
 @AdminLoggedIn
 Scenario: US147_4_Admin fills in fields of valid data, changes password to a new valid password and clicks Register button
 	Given Admin click on the Users button
-	And User page is opened
+	And Users page is opened
 	And Admin click on the Add User button
 	When Create user modal window is opened
 	And Admin fills create user modal window valid data
@@ -189,7 +189,7 @@ Scenario: US147_4_Admin fills in fields of valid data, changes password to a new
 @AdminLoggedIn
 Scenario: US147_5_Admin fills in fields of valid data, changes password to an invalid password and clicks Register button
 	Given Admin click on the Users button
-	And User page is opened
+	And Users page is opened
 	And Admin click on the Add User button
 	When Create user modal window is opened
 	And Admin fills create user modal window valid data
@@ -205,7 +205,7 @@ Scenario: US147_5_Admin fills in fields of valid data, changes password to an in
 @AdminLoggedIn
 Scenario: US147_6_Admin fills in fields of valid data, changes email to an invalid email format and clicks Register button
 	Given Admin click on the Users button
-	And User page is opened
+	And Users page is opened
 	And Admin click on the Add User button
 	When Create user modal window is opened
 	And Admin fills create user modal window valid data

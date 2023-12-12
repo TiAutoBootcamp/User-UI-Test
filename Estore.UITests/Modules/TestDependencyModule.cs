@@ -38,6 +38,10 @@ namespace UITests.Modules
                 .SingleInstance()
                 .AsSelf();
 
+            builder.RegisterType<OrdersSteps>()
+                .SingleInstance()
+                .AsSelf();
+
             builder.RegisterType<ProductStepsAssertions>()
                 .SingleInstance()
                 .AsSelf();

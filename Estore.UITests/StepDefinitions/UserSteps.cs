@@ -86,8 +86,10 @@ namespace Estore.UITests.StepDefinitions
             _context.LoginPage.ClickLoginButton();
         }
 
-        [StepDefinition("User moves to Welcome message")]
-        public void UserMovesToWelcomeMessage()
+        [StepDefinition("User moves cursor to Welcome message")]
+        [StepDefinition("Admin moves cursor to Welcome message")]
+        [StepDefinition("Customer moves cursor to Welcome message")]
+        public void UserMovesCursorToWelcomeMessage()
         {
             _context.CurrentPage.MoveToAccountButton();
         }

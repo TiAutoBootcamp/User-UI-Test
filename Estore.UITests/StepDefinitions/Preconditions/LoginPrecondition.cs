@@ -11,11 +11,11 @@ namespace Estore.UITests.StepDefinitions.Preconditions
         public static async Task LogInAsAdmin(NavigationSteps navigationSteps,
             UserSteps userSteps)
         {
-            navigationSteps.OpenLoginPage();
-            navigationSteps.LoginPageIsOpen();
+            navigationSteps.OpenPage("Login");
+            navigationSteps.PageIsOpened("Login");
             await userSteps.UserFillsEmailAndPasswordFieldsWithCredentials("Admin");
             userSteps.UserClicksLoginButton();
-            navigationSteps.MainPageIsOpen();
+            navigationSteps.PageIsOpened("Main");
             userSteps.SetCurrentUserToken();
         }
 
@@ -24,11 +24,11 @@ namespace Estore.UITests.StepDefinitions.Preconditions
         public static async Task LogInAsCustomer(NavigationSteps navigationSteps,
             UserSteps userSteps)
         {
-            navigationSteps.OpenLoginPage();
-            navigationSteps.LoginPageIsOpen();
+            navigationSteps.OpenPage("Login");
+            navigationSteps.PageIsOpened("Login");
             await userSteps.UserFillsEmailAndPasswordFieldsWithCredentials("Customer");
             userSteps.UserClicksLoginButton();
-            navigationSteps.MainPageIsOpen();
+            navigationSteps.PageIsOpened("Main");
             userSteps.SetCurrentUserToken();
         }
     }

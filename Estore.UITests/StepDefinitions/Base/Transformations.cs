@@ -21,8 +21,8 @@ namespace Estore.UITests.StepDefinitions.Base
         {
             var orderInfos = new List<OrderInfo>();
 
-            var groupedItems = table.Rows.GroupBy(row => row["N of order"]);
-
+            var groupedItems = table.Rows.GroupBy(row => row["N of order"]).OrderBy(group => group.Key);
+            
             foreach (var group in groupedItems)
             {
                 var orderInfo = new OrderInfo

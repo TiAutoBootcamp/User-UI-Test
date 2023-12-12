@@ -9,6 +9,7 @@ using Estore.Core.Extensions;
 using System.Net;
 using Estore.CoreAdditional.Models;
 using Estore.Models.Response.Order;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 
 namespace Estore.UITests.StepDefinitions.Assertions
 {
@@ -69,18 +70,23 @@ namespace Estore.UITests.StepDefinitions.Assertions
             }
         }
 
-        [StepDefinition(@"Detailed information for the order number '(.*)' expands")]
-        public async Task DetailedInformationForOrderNumberExpands(int orderNumber)
+        [StepDefinition(@"Detailed information for the order number '(.*)' is (expanded|collapsed)")]
+        public async Task DetailedInformationForOrderNumberExpands(int orderNumber, string option)
         {
             var orderId = _context.CreatedOrders[_context.CreatedOrders.Count - orderNumber].MainInfo.OrderId;
-            Assert.IsTrue(_context.OrdersPage.IsOrderExpands(orderId));
-        }
-
-        [Then(@"Detailed information for the order number '(.*)' collapsed")]
-        public async Task DetailedInformationForOrderNumberCollapsed(int orderNumber)
-        {
-            var orderId = _context.CreatedOrders[_context.CreatedOrders.Count - orderNumber].MainInfo.OrderId;
-            Assert.IsTrue(_context.OrdersPage.IsOrderCollapsed(orderId));
-        }        
+            switch (option)
+            {
+                case "expanded":
+                    Assert.IsTrue(_context.OrdersPage.IsOrderExpanded(orderId));
+                    break;
+                case "collapsed":
+                    Assert.IsTrue(_context.OrdersPage.IsOrderCollapsed(orderId));
+                    break;
+                default:
+                    Assert.Fail("Unknown option");
+                    break;
+            }
+            
+        }   
     }
 }
