@@ -47,10 +47,27 @@ namespace CoreAdditional.Providers
             };
         }
 
+        public async Task<CommonResponse<EmptyModel>> SetUserStatus(int userId, bool status, string token)
+        {
+            return await _userServiceClient.SetUserStatus(userId, status, token);
+        }
+
         public async Task<CommonResponse<EmptyModel>> DeleteExistUser(int userId, string? token = null)
         {
             var commonResponse = await _userServiceClient.DeleteUser(userId, token);
             return commonResponse;
+        }
+
+        public async Task<CommonResponse<string>> Login(string email, string password)
+        {
+            var request = _userGenerator.GenerateLoginRequest(email, password);
+            return await _userServiceClient.Login(request);
+        }
+
+        public async Task<string> GetCustomerToken(string email, string password)
+        {
+            var response = await Login(email, password);
+            return response.Body;
         }
     }
 }

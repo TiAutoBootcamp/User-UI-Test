@@ -34,6 +34,10 @@ namespace UITests.Modules
                 .SingleInstance()
                 .AsSelf();
 
+            builder.RegisterType<CustomerSteps>()
+                .SingleInstance()
+                .AsSelf();
+
             builder.RegisterType<ProductStepsAssertions>()
                 .SingleInstance()
                 .AsSelf();
@@ -46,7 +50,12 @@ namespace UITests.Modules
             builder
                 .RegisterType<CreateUserStepsAssertions>()
                 .SingleInstance()
-                .AsSelf();            
+                .AsSelf();
+
+            builder
+                .RegisterType<OrdersStepsAssertions>()
+                .SingleInstance()
+                .AsSelf();
 
             builder
                 .RegisterType<CommonStepsAssertions>()

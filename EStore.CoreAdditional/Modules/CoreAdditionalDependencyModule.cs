@@ -3,6 +3,8 @@ using CoreAdditional.Providers;
 using CoreAdditional.Utils;
 using Estore.Clients.Clients;
 using Estore.Core.HTTP;
+using Estore.CoreAdditional.Providers;
+using Estore.CoreAdditional.Utils;
 using Microsoft.Extensions.Configuration;
 
 namespace CoreAdditional.Modules
@@ -49,7 +51,27 @@ namespace CoreAdditional.Modules
                 .AsSelf();
 
             builder
+                .RegisterType<WalletServiceProvider>()
+                .SingleInstance()
+                .AsSelf();
+
+            builder
                 .RegisterType<CatalogServiceProvider>()
+                .SingleInstance()
+                .AsSelf();
+
+            builder
+                .RegisterType<WalletServiceProvider>()
+                .SingleInstance()
+                .AsSelf();
+
+            builder
+                .RegisterType<WarehouseServiceProvider>()
+                .SingleInstance()
+                .AsSelf();
+
+            builder
+                .RegisterType<OrderServiceProvider>()
                 .SingleInstance()
                 .AsSelf();
 
@@ -58,8 +80,20 @@ namespace CoreAdditional.Modules
                .AsSelf();
 
             builder
+               .RegisterType<WalletRequestGenerator>()
+               .AsSelf();
+
+            builder
                 .RegisterType<CatalogRequestGenerator>()
                 .AsSelf();
+
+            builder
+               .RegisterType<WarehouseRequestGenerator>()
+               .AsSelf();
+
+            builder
+               .RegisterType<OrderRequestGenerator>()
+               .AsSelf();
 
             builder
                 .RegisterType<TokenManager>()

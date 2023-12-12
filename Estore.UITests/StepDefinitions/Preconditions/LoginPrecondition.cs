@@ -1,4 +1,5 @@
-﻿using TechTalk.SpecFlow;
+﻿using OpenQA.Selenium;
+using TechTalk.SpecFlow;
 
 namespace Estore.UITests.StepDefinitions.Preconditions
 {
@@ -14,7 +15,8 @@ namespace Estore.UITests.StepDefinitions.Preconditions
             navigationSteps.LoginPageIsOpen();
             await userSteps.UserFillsEmailAndPasswordFieldsWithCredentials("Admin");
             userSteps.UserClicksLoginButton();
-            navigationSteps.MainPageIsOpen();            
+            navigationSteps.MainPageIsOpen();
+            userSteps.SetCurrentUserToken();
         }
 
         [Scope(Tag = "CustomerLoggedIn")]
@@ -27,6 +29,7 @@ namespace Estore.UITests.StepDefinitions.Preconditions
             await userSteps.UserFillsEmailAndPasswordFieldsWithCredentials("Customer");
             userSteps.UserClicksLoginButton();
             navigationSteps.MainPageIsOpen();
+            userSteps.SetCurrentUserToken();
         }
     }
 }

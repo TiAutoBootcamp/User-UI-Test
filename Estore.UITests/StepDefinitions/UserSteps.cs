@@ -86,7 +86,7 @@ namespace Estore.UITests.StepDefinitions
             _context.LoginPage.ClickLoginButton();
         }
 
-        [When(@"User moves to Welcome message")]
+        [StepDefinition("User moves to Welcome message")]
         public void UserMovesToWelcomeMessage()
         {
             _context.CurrentPage.MoveToAccountButton();
@@ -146,6 +146,11 @@ namespace Estore.UITests.StepDefinitions
                     Assert.Fail("Unknown option for password field");
                     break;
             }
+        }
+
+        public void SetCurrentUserToken()
+        {
+            _context.CurrentUserToken = _context.CurrentPage.GetTokenFromLocalStorage();
         }
     }
 }

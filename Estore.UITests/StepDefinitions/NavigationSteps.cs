@@ -72,5 +72,17 @@ namespace Estore.UITests.StepDefinitions
                 Assert.Fail("Create user modal window is not open");
             }           
         }
+
+        [StepDefinition(@"Open orders page")]
+        public void OpenOrdersPage()
+        {
+            _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:orders"]}");
+        }
+
+        [StepDefinition(@"Orders page is opened")]
+        public void OrdersPageIsOpen()
+        {
+            _context.OrdersPage = new OrdersPage(_context.Driver);
+        }
     }
 }

@@ -9,6 +9,7 @@ using UITests.Modules;
 using UITests.Context;
 using Estore.Clients.Clients;
 using CoreAdditional.Providers;
+using Estore.CoreAdditional.Models;
 
 namespace Estore.UITests.StepDefinitions.Preconditions
 {
@@ -30,6 +31,7 @@ namespace Estore.UITests.StepDefinitions.Preconditions
             context.ProductArticles = new List<string>();
             context.RegisteredCustomers = new List<int>();
             context.ProductRequestsAndStatuses = new List<(AddProductRequest, ProductStatus)>();
+            context.CreatedOrders = new List<OrderInfo>();
             var chromeOptions = new ChromeOptions();
             //chromeOptions.AddArgument("headless");
             context.Driver = new ChromeDriver(chromeOptions);
