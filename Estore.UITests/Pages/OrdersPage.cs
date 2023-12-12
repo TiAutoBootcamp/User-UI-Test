@@ -85,8 +85,11 @@ namespace Estore.UITests.Pages
 
         public void ClickOnTheOrderLine(Guid orderId)
         {
-            var orderRow = _orderRows.Where(row => row.FindElement(_orderId).Text.Contains(orderId.ToString())).Single();
-            orderRow.Click();
+            var orderElement = _orderRows
+                .Where(row => row.FindElement(_orderId).Text.Contains(orderId.ToString()))
+                .Select(row => row.FindElement(_orderId))
+                .Single();
+            orderElement.Click();
         }
 
         public bool IsOrderExpands(Guid orderId)

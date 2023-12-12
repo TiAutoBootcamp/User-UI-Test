@@ -52,7 +52,7 @@ Scenario: OP146_05_Order page for a customer who has no orders
 
 #OP146_06
 @CustomerLoggedIn
-Scenario: OP146_06_Order page for a customer who has no orders
+Scenario: OP146_06_Orders count matches to orders count created by the customer
 	Given Customer has active status
 	And Customer has enough money '1000000'
 	When Customer creates '2' orders with following items
@@ -69,7 +69,7 @@ Scenario: OP146_06_Order page for a customer who has no orders
 #OP146_07
 #OP146_08
 @CustomerLoggedIn
-Scenario: OP146_07_order IDs, date of their creation, grand total values match to orders created by the customer
+Scenario: OP146_07_08_Main order information and them order match to orders created by the customer
 	Given Customer has active status
 	And Customer has enough money '1000000'
 	When Customer creates '3' orders with following items
