@@ -20,7 +20,7 @@ namespace Estore.UITests.Pages
         [FindsBy(How = How.CssSelector, Using = "p b")]
         private IWebElement _orderNumbersMessage;
 
-        private By _orderId = By.Id("create_time_header");
+        private By _orderId = By.Id("order_id_value");
 
         private By _createTime = By.Id("create_time_value");
 
@@ -30,6 +30,8 @@ namespace Estore.UITests.Pages
         private IList<IWebElement> _expandItemRows;
 
         private By _productImage = By.Id("product_image");
+
+        private By _displayedName = By.Id("name_value");
 
         private By _productPrice = By.Id("price_value");
 
@@ -68,7 +70,7 @@ namespace Estore.UITests.Pages
             foreach (var orderRow in _orderRows)
             {
                 var orderId = Guid.Parse(orderRow.FindElement(_orderId).Text);
-                var createTime = DateTime.ParseExact(orderRow.FindElement(_createTime).Text, "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                var createTime = DateTime.ParseExact(orderRow.FindElement(_createTime).Text, "yy.MM.dd hh:mm", CultureInfo.InvariantCulture);
                 var grandTotalValue = decimal.Parse(orderRow.FindElement(_grandTotalValue).Text.Split(" ").First());
 
                 var orderMainInfo = new OrderMainInfo

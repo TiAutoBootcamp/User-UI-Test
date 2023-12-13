@@ -30,4 +30,3 @@ Scenario: MP163_3_Image source after adding the first image and then the second 
 	When User search product by 'Article'
 	And Created product is displayed
 	Then Image source is the same as the new added image
-

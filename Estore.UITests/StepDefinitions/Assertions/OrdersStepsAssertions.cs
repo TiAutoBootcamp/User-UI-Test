@@ -55,7 +55,7 @@ namespace Estore.UITests.StepDefinitions.Assertions
                     (order, orderMainInfo) => new OrderMainInfo
                     {
                         OrderId = orderMainInfo.OrderId,
-                        CreateTime = DateTime.ParseExact(order.Date.ToString("yyyy-MM-dd HH:mm:ss"), "yyyy-MM-dd HH:mm:ss", null),
+                        CreateTime = DateTime.ParseExact(order.Date.ToString("yy.MM.dd hh:mm"), "yy.MM.dd hh:mm", null),
                         GrandTotal = orderMainInfo.GrandTotal
                     })
                 .ToList();

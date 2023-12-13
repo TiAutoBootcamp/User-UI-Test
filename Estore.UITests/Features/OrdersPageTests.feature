@@ -133,4 +133,47 @@ Scenario: OP146_12_Order details expand for several orders
 	Then Detailed information for the order number '1' is expanded
 	And Detailed information for the order number '3' is expanded
 	And Detailed information for the order number '2' is collapsed
-	
+
+#OP146_17
+@CustomerLoggedIn
+Scenario: OP146_17_Image source for order with product that has an added image
+	Given Customer has active status
+	And Customer has enough money '1000000'
+	When Create orders with following items
+	| N of order | name  | manufactor  | quantity | price |
+	| 1          | Name1 | Manufactor1 | 1        | 1     |
+	And Add image to the created product
+	And Customer moves cursor to Welcome message
+	And Customer clicks on the Orders submenu button
+	And Orders page is opened
+	And Customer clicks on the order number '1'
+	And Detailed information for the order number '1' is expanded
+	Then Product image source matches the added image  
+
+#OP146_18
+@CustomerLoggedIn
+Scenario: OP146_18_Image source for order with product that has the default image
+	Given Customer has active status
+	And Customer has enough money '1000000'
+	When Create orders with following items
+	| N of order | name  | manufactor  | quantity | price |
+	| 1          | Name1 | Manufactor1 | 1        | 1     |
+	And Customer moves cursor to Welcome message
+	And Customer clicks on the Orders submenu button
+	And Orders page is opened
+	And Customer clicks on the order number '1'
+	And Detailed information for the order number '1' is expanded
+	Then Product image source matches the default image  
+
+#OP146_19
+@CustomerLoggedIn
+Scenario: OP146_19_The order creation format date and time is displayed correctly
+	Given Customer has active status
+	And Customer has enough money '1000000'
+	When Create orders with following items
+	| N of order | name  | manufactor  | quantity | price |
+	| 1          | Name1 | Manufactor1 | 1        | 1     |
+	And Customer moves cursor to Welcome message
+	And Customer clicks on the Orders submenu button
+	And Orders page is opened
+	Then Date and time of creating order are displayed in the 'yy.MM.dd hh:mm' format 
