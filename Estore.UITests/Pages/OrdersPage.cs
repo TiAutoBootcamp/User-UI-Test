@@ -16,7 +16,7 @@ namespace Estore.UITests.Pages
         [FindsBy(How = How.XPath, Using = "//div[@class='mud-expand-panel-header']/parent::div")]
         private IList<IWebElement> _orderRows;
 
-        [FindsBy(How = How.XPath, Using = "//p[contains(text(), 'Not orders yet')]")]
+        [FindsBy(How = How.Id, Using = "no_orders_yet_message")]
         private IWebElement _notOrdersMessage;
 
         [FindsBy(How = How.CssSelector, Using = "p b")]

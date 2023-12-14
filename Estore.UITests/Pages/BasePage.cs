@@ -23,7 +23,7 @@ namespace UITests.Pages
         [FindsBy(How = How.ClassName, Using = "nav-item")]
         private IList<IWebElement> _leftNavigationBarItems;
 
-        [FindsBy(How = How.XPath, Using = "//p[contains(text(), 'Sign Out')]")]
+        [FindsBy(How = How.Id, Using = "logout_button")]
         private IWebElement _signOutButton;
 
         [FindsBy(How = How.ClassName, Using = "mud-snackbar-content-message")]
@@ -35,7 +35,7 @@ namespace UITests.Pages
         [FindsBy(How = How.ClassName, Using = "mud-list-item-gutters")]
         private IList<IWebElement> _dropdownListItems;
         
-        [FindsBy(How = How.XPath, Using = "//p[contains(text(), 'Orders')]")]
+        [FindsBy(How = How.Id, Using = "orders_button")]
         private IWebElement _ordersButton;
 
         [FindsBy(How = How.TagName, Using = "body")]
