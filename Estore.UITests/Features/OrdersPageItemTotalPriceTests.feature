@@ -4,7 +4,7 @@ A short summary of the feature
 
 #OP146_14a
 @CustomerLoggedIn
-Scenario: OP146_14a_Item total in the order is correctly calculated
+Scenario: OP146_14a_Items total in the order is correctly calculated
 	Given Customer has active status
 	And Customer has enough money '1000000'
 	When Create orders with following items
@@ -15,11 +15,11 @@ Scenario: OP146_14a_Item total in the order is correctly calculated
 	And Orders page is opened
 	And Customer clicks on the order number '1'
 	And Detailed information for the order number '1' is expanded
-	Then Item total is correctly calculated
+	Then Item total for order number '1' is correctly calculated
 
 #OP146_14b
 @CustomerLoggedIn
-Scenario: OP146_14b_Item total in the order is correctly calculated
+Scenario: OP146_14b_Items total in the order is correctly calculated
 	Given Customer has active status
 	And Customer has enough money '1000000'
 	When Create orders with following items
@@ -30,11 +30,11 @@ Scenario: OP146_14b_Item total in the order is correctly calculated
 	And Orders page is opened
 	And Customer clicks on the order number '1'
 	And Detailed information for the order number '1' is expanded
-	Then Item total is correctly calculated
+	Then Item total for order number '1' is correctly calculated
 
 #OP146_14c
 @CustomerLoggedIn
-Scenario: OP146_14c_Item total in the order is correctly calculated
+Scenario: OP146_14c_Items total in the order is correctly calculated
 	Given Customer has active status
 	And Customer has enough money '1000000'
 	When Create orders with following items
@@ -45,11 +45,11 @@ Scenario: OP146_14c_Item total in the order is correctly calculated
 	And Orders page is opened
 	And Customer clicks on the order number '1'
 	And Detailed information for the order number '1' is expanded
-	Then Item total is correctly calculated
+	Then Item total for order number '1' is correctly calculated
 
 #OP146_14d
 @CustomerLoggedIn
-Scenario: OP146_14d_Item total in the order is correctly calculated
+Scenario: OP146_14d_Items total in the order is correctly calculated
 	Given Customer has active status
 	And Customer has enough money '1000000'
 	When Create orders with following items
@@ -60,4 +60,4 @@ Scenario: OP146_14d_Item total in the order is correctly calculated
 	And Orders page is opened
 	And Customer clicks on the order number '1'
 	And Detailed information for the order number '1' is expanded
-	Then Item total is correctly calculated
+	Then Item total for order number '1' is correctly calculated

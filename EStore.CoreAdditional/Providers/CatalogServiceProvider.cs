@@ -61,10 +61,10 @@ namespace CoreAdditional.Providers
             return productRequest;
         }
 
-        public async Task AddImage(string article, string filePath, string token)
+        public async Task<CommonResponse<EmptyModel>> AddImage(string article, string filePath, string token)
         {
             var request = _catalogGenerator.GenerateAddImageRequest(article, filePath);
-            await _catalogServiceClient.AddImage(request, token);
+            return await _catalogServiceClient.AddImage(request, token);
         }
 
         public async Task<CommonResponse<EmptyModel>> UpdateProductPrice(string article, decimal price, string token)

@@ -142,13 +142,13 @@ Scenario: OP146_17_Image source for order with product that has an added image
 	When Create orders with following items
 	| N of order | name  | manufactor  | quantity | price |
 	| 1          | Name1 | Manufactor1 | 1        | 1     |
-	And Add image to the created product
+	And Add valid image to the created product with 'Name1' and 'Manufactor1' in order '1'
 	And Customer moves cursor to Welcome message
 	And Customer clicks on the Orders submenu button
 	And Orders page is opened
 	And Customer clicks on the order number '1'
 	And Detailed information for the order number '1' is expanded
-	Then Product image source matches the added image  
+	Then Image source for order number '1' with 'Manufactor1 - Name1' is the same as the added image  
 
 #OP146_18
 @CustomerLoggedIn
@@ -163,7 +163,7 @@ Scenario: OP146_18_Image source for order with product that has the default imag
 	And Orders page is opened
 	And Customer clicks on the order number '1'
 	And Detailed information for the order number '1' is expanded
-	Then Product image source matches the default image  
+	Then Image source for order number '1' with 'Manufactor1 - Name1' is the same as the default image 
 
 #OP146_19
 @CustomerLoggedIn
@@ -176,4 +176,4 @@ Scenario: OP146_19_The order creation format date and time is displayed correctl
 	And Customer moves cursor to Welcome message
 	And Customer clicks on the Orders submenu button
 	And Orders page is opened
-	Then Date and time of creating order are displayed in the 'yy.MM.dd hh:mm' format 
+	Then Date and time for order number '1' are displayed in the 'yy.MM.dd hh:mm' format 

@@ -4,7 +4,7 @@ A short summary of the feature
 
 #OP146_13a
 @CustomerLoggedIn
-Scenario: OP146_13a_The detailed order information match the products added when ordering
+Scenario: OP146_13a_The detailed order information matches to detailed information in created order
 	Given Customer has active status
 	And Customer has enough money '1000000'
 	When Create orders with following items
@@ -15,11 +15,11 @@ Scenario: OP146_13a_The detailed order information match the products added when
 	And Orders page is opened
 	And Customer clicks on the order number '1'
 	And Detailed information for the order number '1' is expanded
-	Then Detailed information match the information added when ordering
+	Then Detailed info for the order number '1' matches to detailed info in created order
 
 #OP146_13b
 @CustomerLoggedIn
-Scenario: OP146_13b_The detailed order information match the products added when ordering
+Scenario: OP146_13b_The detailed order information matches to detailed information in created order
 	Given Customer has active status
 	And Customer has enough money '1000000'
 	When Create orders with following items
@@ -30,11 +30,11 @@ Scenario: OP146_13b_The detailed order information match the products added when
 	And Orders page is opened
 	And Customer clicks on the order number '1'
 	And Detailed information for the order number '1' is expanded
-	Then Detailed information match the information added when ordering
+	Then Detailed info for the order number '1' matches to detailed info in created order
 
 #OP146_13c
 @CustomerLoggedIn
-Scenario: OP146_13c_The detailed order information match the products added when ordering
+Scenario: OP146_13c_The detailed order information matches to detailed information in created order
 	Given Customer has active status
 	And Customer has enough money '1000000'
 	When Create orders with following items
@@ -46,11 +46,11 @@ Scenario: OP146_13c_The detailed order information match the products added when
 	And Orders page is opened
 	And Customer clicks on the order number '1'
 	And Detailed information for the order number '1' is expanded
-	Then Detailed information match the information added when ordering
+	Then Detailed info for the order number '1' matches to detailed info in created order
 
 #OP146_13d
 @CustomerLoggedIn
-Scenario: OP146_13d_The detailed order information match the products added when ordering
+Scenario: OP146_13d_The detailed order information matches to detailed information in created order
 	Given Customer has active status
 	And Customer has enough money '1000000'
 	When Create orders with following items
@@ -62,11 +62,11 @@ Scenario: OP146_13d_The detailed order information match the products added when
 	And Orders page is opened
 	And Customer clicks on the order number '1'
 	And Detailed information for the order number '1' is expanded
-	Then Detailed information match the information added when ordering
+	Then Detailed info for the order number '1' matches to detailed info in created order
 
 #OP146_13e
 @CustomerLoggedIn
-Scenario: OP146_13e_The detailed order information match the products added when ordering
+Scenario: OP146_13e_The detailed order information matchesto detailed information in created order
 	Given Customer has active status
 	And Customer has enough money '1000000'
 	When Create orders with following items
@@ -78,4 +78,4 @@ Scenario: OP146_13e_The detailed order information match the products added when
 	And Orders page is opened
 	And Customer clicks on the order number '1'
 	And Detailed information for the order number '1' is expanded
-	Then Detailed information match the information added when ordering
+	Then Detailed info for the order number '1' matches to detailed info in created order

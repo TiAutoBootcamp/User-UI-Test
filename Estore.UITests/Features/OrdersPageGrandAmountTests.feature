@@ -4,7 +4,7 @@ A short summary of the feature
 
 #OP146_15a
 @CustomerLoggedIn
-Scenario: OP146_15a_
+Scenario: OP146_15a_Grand total for the order is correctly calculated
 	Given Customer has active status
 	And Customer has enough money '1000000'
 	When Create orders with following items
@@ -15,11 +15,11 @@ Scenario: OP146_15a_
 	And Orders page is opened
 	And Customer clicks on the order number '1'
 	And Detailed information for the order number '1' is expanded
-	Then 
+	Then Grand total for the order number '1' is correctly calculated
 
 #OP146_15b
 @CustomerLoggedIn
-Scenario: OP146_15b_
+Scenario: OP146_15b_Grand total for the order is correctly calculated
 	Given Customer has active status
 	And Customer has enough money '1000000'
 	When Create orders with following items
@@ -30,11 +30,11 @@ Scenario: OP146_15b_
 	And Orders page is opened
 	And Customer clicks on the order number '1'
 	And Detailed information for the order number '1' is expanded
-	Then 
+	Then Grand total for the order number '1' is correctly calculated
 
 #OP146_15c
 @CustomerLoggedIn
-Scenario: OP146_15c_
+Scenario: OP146_15c_Grand total for the order is correctly calculated
 	Given Customer has active status
 	And Customer has enough money '1000000'
 	When Create orders with following items
@@ -46,11 +46,11 @@ Scenario: OP146_15c_
 	And Orders page is opened
 	And Customer clicks on the order number '1'
 	And Detailed information for the order number '1' is expanded
-	Then 
+	Then Grand total for the order number '1' is correctly calculated
 
 #OP146_15d
 @CustomerLoggedIn
-Scenario: OP146_15d_
+Scenario: OP146_15d_Grand total for the order is correctly calculated
 	Given Customer has active status
 	And Customer has enough money '1000000'
 	When Create orders with following items
@@ -62,11 +62,11 @@ Scenario: OP146_15d_
 	And Orders page is opened
 	And Customer clicks on the order number '1'
 	And Detailed information for the order number '1' is expanded
-	Then 
+	Then Grand total for the order number '1' is correctly calculated
 
 #OP146_15e
 @CustomerLoggedIn
-Scenario: OP146_15e_
+Scenario: OP146_15e_Grand total for the order is correctly calculated
 	Given Customer has active status
 	And Customer has enough money '1000000'
 	When Create orders with following items
@@ -78,4 +78,4 @@ Scenario: OP146_15e_
 	And Orders page is opened
 	And Customer clicks on the order number '1'
 	And Detailed information for the order number '1' is expanded
-	Then 
+	Then Grand total for the order number '1' is correctly calculated

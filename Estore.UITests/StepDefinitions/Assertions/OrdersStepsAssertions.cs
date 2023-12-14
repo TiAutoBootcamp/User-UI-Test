@@ -10,6 +10,7 @@ using System.Net;
 using Estore.CoreAdditional.Models;
 using Estore.Models.Response.Order;
 using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
+using UITests.TestData;
 
 namespace Estore.UITests.StepDefinitions.Assertions
 {
@@ -85,8 +86,120 @@ namespace Estore.UITests.StepDefinitions.Assertions
                 default:
                     Assert.Fail("Unknown option");
                     break;
+            }            
+        }
+
+        [Then(@"Date and time for order number '(.*)' are displayed in the '(.*)' format")]
+        public void DateAndTimeAreDisplayedInFormat(int orderNumber, string format)
+        {
+            var orderId = _context.CreatedOrders[_context.CreatedOrders.Count - orderNumber].MainInfo.OrderId;
+            var createTimeString = _context.OrdersPage.GetCreateTimeStringForOrder(orderId);
+            Assert.IsTrue(DateTime.TryParseExact(createTimeString, format, null, System.Globalization.DateTimeStyles.None, out DateTime result));
+        }
+
+        [Then(@"Detailed info for the order number '(.*)' matches to detailed info in created order")]
+        public void DeteiledOrderInfoMatchesToIfoInCreatedOrder(int orderNumber)
+        {
+            var orderId = _context.CreatedOrders[_context.CreatedOrders.Count - orderNumber].MainInfo.OrderId;
+            var actualOrderDetailedInfos = _context.OrdersPage.GetOrderDetailedInfos(orderId);
+            var expectedOrderDetailedInfos = _context.CreatedOrders
+                .Where(o => o.MainInfo.OrderId == orderId)
+                .Select(o => o.Items)
+                .FirstOrDefault();
+
+            using (new AssertionScope())
+            {
+                actualOrderDetailedInfos
+                    .Should()
+                    .BeEquivalentTo(expectedOrderDetailedInfos,
+                        options => options
+                            .Excluding(info => info.Article)
+                            .Excluding(info => info.Name)
+                            .Excluding(info => info.Manufactor));
             }
-            
-        }   
+        }
+
+        [Then(@"Image source for order number '(.*)' with '(.*)' is the same as the (added|new added|default) image")]
+        public void ImageSourceForOrderWithDisplayedNameIsSameAsAddedOrDefault(int orderNumber, string displayedName, string image)
+        {
+            var orderId = _context.CreatedOrders[_context.CreatedOrders.Count - orderNumber].MainInfo.OrderId;
+            string expectedImageSource;
+            if (image.Equals("default"))
+            {
+                expectedImageSource = TestCasesData.DefaultImageSource;
+            }
+            else if (image.Equals("added") || image.Equals("new added"))
+            {
+                expectedImageSource = $"data:image/jpg;base64,{Convert.ToBase64String(_context.CurrentProductImage)}";
+            }
+            else
+            {
+                throw new ArgumentException("An unknown value is set for the image");
+            }
+            bool allEqual = _context.OrdersPage.GetImageSource(orderId, displayedName)
+                .All(item => item == expectedImageSource);
+            Assert.IsTrue(allEqual);
+        }
+
+        [Then(@"Item[s]? total for order number '(.*)' is correctly calculated")]
+        public void ItemsTotalForOrderNumberIsCorrectlyCalculated(int orderNumber)
+        {
+            var orderId = _context.CreatedOrders[_context.CreatedOrders.Count - orderNumber].MainInfo.OrderId;
+            var detailedOrderInfo = _context.OrdersPage.GetOrderDetailedInfos(orderId);
+            var actualItemsTotalPrice = detailedOrderInfo
+                .Select(i => i.Total);
+            var actualItemsTotalByProductPriceQty = detailedOrderInfo
+                .Select(i => i.Price * i.Quantity);
+            var expectedItemsTotalPrice = _context.CreatedOrders[_context.CreatedOrders.Count - orderNumber]
+                .Items
+                .Select(i => i.Total);
+
+            using (new AssertionScope())
+            {
+                actualItemsTotalPrice
+                    .Should()
+                    .BeEquivalentTo(expectedItemsTotalPrice);
+                actualItemsTotalByProductPriceQty
+                    .Should()
+                    .BeEquivalentTo(expectedItemsTotalPrice);
+            }
+        }
+
+        [Then(@"Grand total for the order number '(.*)' is correctly calculated")]
+        public void GrandTotalForOrderNumberIsCorrectlyCalculated(int orderNumber)
+        {
+            var orderId = _context.CreatedOrders[_context.CreatedOrders.Count - orderNumber].MainInfo.OrderId;
+            var actualSumItems= _context.OrdersPage.GetOrderDetailedInfos(orderId)
+                .Select(i => i.Total)
+                .Sum();
+            var actualGrandTotal = _context.OrdersPage.GetOrderGrandTotal(orderId);
+            var expectedGrandTotal = _context.CreatedOrders[_context.CreatedOrders.Count - orderNumber].MainInfo.GrandTotal;
+            Assert.Multiple(() =>
+            {
+                Assert.AreEqual(expectedGrandTotal, actualGrandTotal);
+                Assert.AreEqual(expectedGrandTotal, actualSumItems);
+            });            
+        }
+
+        [Then(@"Items for order number '(.*)' are sorted by displayed name")]
+        public void ItemsForOrderNumberAreSortedByDisplayedName(int orderNumber)
+        {
+            var orderId = _context.CreatedOrders[_context.CreatedOrders.Count - orderNumber].MainInfo.OrderId;
+            var actualDisplayedNames = _context.OrdersPage.GetOrderDetailedInfos(orderId)
+                .Select(i => i.DisplayedName);
+            var expectedDisplayedNames = _context.CreatedOrders[_context.CreatedOrders.Count - orderNumber]
+                .Items
+                .Select(i => i.DisplayedName)
+                .OrderBy(displayedName => displayedName);
+
+            using (new AssertionScope())
+            {
+                actualDisplayedNames
+                    .Should()
+                    .BeEquivalentTo(expectedDisplayedNames,
+                        options =>
+                        options.WithStrictOrdering());
+            }
+        }
     }
 }

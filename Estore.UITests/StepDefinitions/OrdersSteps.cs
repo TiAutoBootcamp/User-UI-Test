@@ -6,6 +6,8 @@ using System.Net;
 using TechTalk.SpecFlow;
 using UITests.Context;
 using Estore.Core.Extensions;
+using Estore.CoreAdditional.Extensions;
+using UITests.TestData;
 
 namespace Estore.UITests.StepDefinitions
 {
@@ -49,6 +51,7 @@ namespace Estore.UITests.StepDefinitions
                     var product = await _catalogProvider.CreateNotActiveProduct(item.Name, item.Manufactor, token);
                     await _catalogProvider.UpdateProductPrice(product.Article, item.Price, token);
                     await _catalogProvider.SetProductStatus(product.Article, ProductStatus.Active, token).ThrowIfNotTargetStatus(HttpStatusCode.OK);
+                    item.Article = product.Article;
                     productItems.Add(product.Article, item.Quantity);
                 }
                 await _warehouseProvider.AddProductItems(productItems, token).ThrowIfNotTargetStatus(HttpStatusCode.Created);
@@ -57,6 +60,22 @@ namespace Estore.UITests.StepDefinitions
                 order.MainInfo.OrderId = createOrderResponse.Body.OrderId.Value;
             }
             _context.CreatedOrders = orders.Reverse().ToList();
+        }
+
+        [When(@"Add valid image to the created product with '(.*)' and '(.*)' in order '(.*)'")]
+        public async Task AdImageToCreatedProductWithNameAndManufactorInOrder(string name, string manufactor, int orderNumber)
+        {
+            var articles = _context.CreatedOrders[_context.CreatedOrders.Count - orderNumber]
+                .Items
+                .Where(i => i.Name == name && i.Manufactor == manufactor)
+                .Select(i => i.Article);
+            var adminToken = await _tokenManager.GetValidAdminToken();
+            foreach (var article in articles)
+            {
+                await _catalogProvider.AddImage(article, TestCasesData.ValidImageFilePath, adminToken)
+                    .ThrowIfNotTargetStatus(HttpStatusCode.Created);
+            }            
+            _context.CurrentProductImage = FileExtension.GetByteArray(TestCasesData.ValidImageFilePath);
         }
     }
 }
