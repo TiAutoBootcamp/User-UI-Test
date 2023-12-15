@@ -1,6 +1,8 @@
 ﻿Feature: OrdersPageItemTotalPriceTests
 
-A short summary of the feature
+As a Customer
+I would like to make sure that the Total amount for each item
+is calculated correctly on the page
 
 #OP146_14a
 @CustomerLoggedIn

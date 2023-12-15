@@ -1,6 +1,8 @@
 ﻿Feature: OrdersPageGrandAmountTests
 
-A short summary of the feature
+As a Customer
+I want to make sure that the Grand Total amoubt
+is calculated correctly on the page
 
 #OP146_15a
 @CustomerLoggedIn

@@ -1,6 +1,8 @@
 ﻿Feature: OrdersPageDisplayedItemNameSortTests
 
-A short summary of the feature
+As a Customer
+I want to make sure that the items in the order are sorted 
+by name in ascending order
 
 #OP146_16a
 @CustomerLoggedIn

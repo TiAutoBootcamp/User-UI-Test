@@ -1,6 +1,8 @@
 ﻿Feature: OrdersPageDetailedOrderInfoTests
 
-A short summary of the feature
+As a Customer
+I would like to make sure that the order detailed order information
+is diplayed correctly on the Orders page
 
 #OP146_13a
 @CustomerLoggedIn
