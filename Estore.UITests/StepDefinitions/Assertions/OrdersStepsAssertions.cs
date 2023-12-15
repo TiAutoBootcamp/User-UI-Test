@@ -4,12 +4,9 @@ using UITests.Context;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Estore.CoreAdditional.Providers;
-using OpenQA.Selenium;
 using Estore.Core.Extensions;
 using System.Net;
 using Estore.CoreAdditional.Models;
-using Estore.Models.Response.Order;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using UITests.TestData;
 
 namespace Estore.UITests.StepDefinitions.Assertions
@@ -38,8 +35,9 @@ namespace Estore.UITests.StepDefinitions.Assertions
             Assert.Multiple(() =>
             {
                 Assert.AreEqual(count, _context.OrdersPage.GetOrderNumbers(),
-                    $"Order numbers is {_context.OrdersPage.GetOrderNumbers}, {count}");
-                Assert.AreEqual(count, _context.OrdersPage.GetOrderNumbersFromMessage());
+                    $"Order numbers is {_context.OrdersPage.GetOrderNumbers()}, not {count}");
+                Assert.AreEqual(count, _context.OrdersPage.GetOrderNumbersFromMessage(),
+                    $"Order numbers in message is {_context.OrdersPage.GetOrderNumbersFromMessage()}, not {count}");
             });
         }
 
@@ -78,10 +76,12 @@ namespace Estore.UITests.StepDefinitions.Assertions
             switch (option)
             {
                 case "expanded":
-                    Assert.IsTrue(_context.OrdersPage.IsOrderExpanded(orderId));
+                    Assert.IsTrue(_context.OrdersPage.IsOrderExpanded(orderId),
+                        $"Detailed information for the order number '{orderNumber}' is not expanded");
                     break;
                 case "collapsed":
-                    Assert.IsTrue(_context.OrdersPage.IsOrderCollapsed(orderId));
+                    Assert.IsTrue(_context.OrdersPage.IsOrderCollapsed(orderId),
+                        $"Detailed information for the order number '{orderNumber}' is not collapsed");
                     break;
                 default:
                     Assert.Fail("Unknown option");
@@ -94,7 +94,8 @@ namespace Estore.UITests.StepDefinitions.Assertions
         {
             var orderId = _context.CreatedOrders[_context.CreatedOrders.Count - orderNumber].MainInfo.OrderId;
             var createTimeString = _context.OrdersPage.GetCreateTimeStringForOrder(orderId);
-            Assert.IsTrue(DateTime.TryParseExact(createTimeString, format, null, System.Globalization.DateTimeStyles.None, out DateTime result));
+            Assert.IsTrue(DateTime.TryParseExact(createTimeString, format, null, System.Globalization.DateTimeStyles.None, out DateTime result),
+                "Format date and time of created order is not 'yy.MM.dd hh:mm'");
         }
 
         [Then(@"Detailed info for the order number '(.*)' matches to detailed info in created order")]
@@ -138,7 +139,7 @@ namespace Estore.UITests.StepDefinitions.Assertions
             }
             bool allEqual = _context.OrdersPage.GetImageSource(orderId, displayedName)
                 .All(item => item == expectedImageSource);
-            Assert.IsTrue(allEqual);
+            Assert.IsTrue(allEqual,$"Actual image sources doesn't match to expected {expectedImageSource}");
         }
 
         [Then(@"Item[s]? total for order number '(.*)' is correctly calculated")]
@@ -176,8 +177,8 @@ namespace Estore.UITests.StepDefinitions.Assertions
             var expectedGrandTotal = _context.CreatedOrders[_context.CreatedOrders.Count - orderNumber].MainInfo.GrandTotal;
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(expectedGrandTotal, actualGrandTotal);
-                Assert.AreEqual(expectedGrandTotal, actualSumItems);
+                Assert.AreEqual(expectedGrandTotal, actualGrandTotal, $"Grand Total is {actualGrandTotal}, not {expectedGrandTotal}");
+                Assert.AreEqual(expectedGrandTotal, actualSumItems, $"Sum of items is {actualGrandTotal}, not {expectedGrandTotal}");
             });            
         }
 

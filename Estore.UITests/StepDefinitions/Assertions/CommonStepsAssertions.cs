@@ -50,7 +50,7 @@ namespace Estore.UITests.StepDefinitions.Assertions
         public void AvailableButtonsInList(IList<string> buttonNames)
         {
             CollectionAssert.AreEquivalent(buttonNames, _context.CurrentPage.GetButtonsInDropdownList(),
-                "Navigation bar doesn't contain all requaired items");
+                "Submenu doesn't contain all requaired items");
         }
     }
 }
