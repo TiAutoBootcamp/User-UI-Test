@@ -59,13 +59,11 @@ namespace Estore.UITests.StepDefinitions.Assertions
                     (order, orderMainInfo) => new OrderMainInfo
                     {
                         OrderId = orderMainInfo.OrderId,
-                        //CreateTime = order.Date.AddSeconds(-order.Date.Second).AddMilliseconds(-order.Date.Millisecond),
-                        //CreateTime = DateTime.ParseExact(order.Date.ToString("yy.MM.dd hh:mm"), "yy.MM.dd hh:mm", null),
                         CreateTime = new DateTime(
                             order.Date.Year,
                             order.Date.Month,
                             order.Date.Day,
-                            order.Date.Hour > 12 ? order.Date.Hour - 12 : order.Date.Hour,
+                            order.Date.Hour,
                             order.Date.Minute,
                             0),
                         GrandTotal = orderMainInfo.GrandTotal

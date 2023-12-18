@@ -64,7 +64,7 @@ namespace Estore.UITests.Pages
             {
                 var orderId = Guid.Parse(orderRow.FindElement(_orderId).Text);
                 var createTime = DateTime.ParseExact(orderRow.FindElement(_createTime).Text, "yy.MM.dd hh:mm", CultureInfo.InvariantCulture);
-                var grandTotalValue = decimal.Parse(orderRow.FindElement(_grandTotalValue).Text.Split(" ").First());
+                var grandTotalValue = decimal.Parse(orderRow.FindElement(_grandTotalValue).Text.Split(" ").Last());
 
                 var orderMainInfo = new OrderMainInfo
                 {
@@ -87,7 +87,7 @@ namespace Estore.UITests.Pages
         public decimal GetOrderGrandTotal(Guid orderId)
         {
             var orderRow = FindOrderRowByOrderId(orderId);
-            return decimal.Parse(orderRow.FindElement(_grandTotalValue).Text.Split(" ").First());
+            return decimal.Parse(orderRow.FindElement(_grandTotalValue).Text.Split(" ").Last());
         }
 
         public void ClickOnTheOrderLine(Guid orderId)
