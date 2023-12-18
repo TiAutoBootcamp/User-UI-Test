@@ -45,5 +45,12 @@ namespace Estore.UITests.StepDefinitions.Assertions
             Assert.AreEqual(expectedWelcomMessage, _context.CurrentPage.GetWelcomeMessage(),
                 "Welcome message is not correct");
         }
+
+        [Then(@"The following buttons are available in the dropdown list")]
+        public void AvailableButtonsInList(IList<string> buttonNames)
+        {
+            CollectionAssert.AreEquivalent(buttonNames, _context.CurrentPage.GetButtonsInDropdownList(),
+                "Submenu doesn't contain all requaired items");
+        }
     }
 }

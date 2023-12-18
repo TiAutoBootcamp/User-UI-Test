@@ -1,6 +1,7 @@
 ﻿using CoreAdditional.Models;
 using CoreAdditional.Utils;
 using Estore.Clients.Clients;
+using Estore.Core.HTTP.Base;
 using Estore.Models.Enum;
 using Estore.Models.Request.Catalog;
 
@@ -53,10 +54,27 @@ namespace CoreAdditional.Providers
             return productRequest;
         }
 
-        public async Task AddImage(string article, string filePath, string token)
+        public async Task<AddProductRequest> CreateNotActiveProduct(string name, string manufactor, string token)
+        {
+            var productRequest = _catalogGenerator.GenerateNewProduct(name, manufactor);
+            await _catalogServiceClient.CreateProduct(productRequest, token);
+            return productRequest;
+        }
+
+        public async Task<CommonResponse<EmptyModel>> AddImage(string article, string filePath, string token)
         {
             var request = _catalogGenerator.GenerateAddImageRequest(article, filePath);
-            await _catalogServiceClient.AddImage(request, token);
+            return await _catalogServiceClient.AddImage(request, token);
+        }
+
+        public async Task<CommonResponse<EmptyModel>> UpdateProductPrice(string article, decimal price, string token)
+        {
+            return await _catalogServiceClient.UpdateProductPrice(article, price, token);
+        }
+
+        public async Task<CommonResponse<EmptyModel>> SetProductStatus(string article, ProductStatus status, string token)
+        {
+            return await _catalogServiceClient.SetProductStatus(article, status, token);
         }
     }
 }

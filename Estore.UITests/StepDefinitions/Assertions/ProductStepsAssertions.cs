@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using UITests.Context;
+using UITests.TestData;
 
 namespace Estore.UITests.StepDefinitions.Assertions
 {
@@ -90,7 +91,7 @@ namespace Estore.UITests.StepDefinitions.Assertions
             string expectedImageSource;
             if (image.Equals("default"))
             {
-                expectedImageSource = "https://estore-uat.azurewebsites.net/images/no-image-icon.jpeg";
+                expectedImageSource = TestCasesData.DefaultImageSource;
             }
             else if (image.Equals("added") || image.Equals("new added"))
             {

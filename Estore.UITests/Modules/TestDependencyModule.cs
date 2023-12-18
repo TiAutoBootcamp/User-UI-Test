@@ -1,12 +1,11 @@
 ﻿using Autofac;
-using Estore.UITests.StepDefinitions;
-using Estore.UITests.StepDefinitions.Assertions;
-using Estore.UITests.StepDefinitions.Base;
+using System.Reflection;
+using TechTalk.SpecFlow;
 using UITests.Context;
 
 namespace UITests.Modules
 {
-    public class TestDependencyModule : Module
+    public class TestDependencyModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
         {
@@ -15,53 +14,19 @@ namespace UITests.Modules
                 .SingleInstance()
                 .AsSelf();
 
-            builder
-                .RegisterType<NavigationSteps>()
-                .SingleInstance()
-                .AsSelf();
+            var assembly = Assembly.GetExecutingAssembly();
+
+            var featureTypes = assembly
+                .GetTypes()
+                .Where(type => type
+                    .GetCustomAttributes<BindingAttribute>()
+                    .Any())
+                .ToArray();
 
             builder
-                .RegisterType<ProductSteps>()
-                .SingleInstance()
-                .AsSelf();
-
-            builder
-                .RegisterType<UserSteps>()
-                .SingleInstance()
-                .AsSelf();
-
-            builder.RegisterType<AdminSteps>()
-                .SingleInstance()
-                .AsSelf();
-
-            builder.RegisterType<ProductStepsAssertions>()
-                .SingleInstance()
-                .AsSelf();
-
-            builder
-                .RegisterType<LoginStepsAssertions>()
-                .SingleInstance()
-                .AsSelf();
-
-            builder
-                .RegisterType<CreateUserStepsAssertions>()
+                .RegisterTypes(featureTypes)
                 .SingleInstance()
                 .AsSelf();            
-
-            builder
-                .RegisterType<CommonStepsAssertions>()
-                .SingleInstance()
-                .AsSelf(); 
-
-            builder
-                .RegisterType<CommonSteps>()
-                .SingleInstance()
-                .AsSelf();
-
-            builder
-                .RegisterType<Transformations>()
-                .SingleInstance()
-                .AsSelf();
         }
     }
 }

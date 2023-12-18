@@ -65,7 +65,7 @@ namespace Estore.UITests.StepDefinitions
             {
                 case "Customer":
                     _context.CurrentUser = await _userProvider.RegisterCustomer();
-                    _context.RegisteredCustomers.Add(_context.CurrentUser.Id.Value);
+                    _context.CustomersWithoutTransactions.Add(_context.CurrentUser.Id.Value);
                     _context.LoginPage.FillEmailAndPasswordFields(_context.CurrentUser.Credentials.Email,
                         _context.CurrentUser.Credentials.Password);
                     break;
@@ -86,8 +86,9 @@ namespace Estore.UITests.StepDefinitions
             _context.LoginPage.ClickLoginButton();
         }
 
-        [When(@"User moves to Welcome message")]
-        public void UserMovesToWelcomeMessage()
+        [StepDefinition("Admin moves cursor to Welcome message")]
+        [StepDefinition("Customer moves cursor to Welcome message")]
+        public void UserMovesCursorToWelcomeMessage()
         {
             _context.CurrentPage.MoveToAccountButton();
         }
@@ -146,6 +147,11 @@ namespace Estore.UITests.StepDefinitions
                     Assert.Fail("Unknown option for password field");
                     break;
             }
+        }
+
+        public void SetCurrentUserToken()
+        {
+            _context.CurrentUserToken = _context.CurrentPage.GetTokenFromLocalStorage();
         }
     }
 }

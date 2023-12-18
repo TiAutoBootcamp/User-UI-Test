@@ -23,14 +23,20 @@ namespace UITests.Pages
         [FindsBy(How = How.ClassName, Using = "nav-item")]
         private IList<IWebElement> _leftNavigationBarItems;
 
-        [FindsBy(How = How.XPath, Using = "//p[contains(text(), 'Sign Out')]")]
+        [FindsBy(How = How.Id, Using = "logout_button")]
         private IWebElement _signOutButton;
 
         [FindsBy(How = How.ClassName, Using = "mud-snackbar-content-message")]
         private IWebElement _infoMessageWindow;
 
         [FindsBy(How = How.CssSelector, Using = "[href='users']")]
-        private IWebElement _usersNavigationButton;        
+        private IWebElement _usersNavigationButton;
+
+        [FindsBy(How = How.ClassName, Using = "mud-list-item-gutters")]
+        private IList<IWebElement> _dropdownListItems;
+        
+        [FindsBy(How = How.Id, Using = "orders_button")]
+        private IWebElement _ordersButton;
 
         [FindsBy(How = How.TagName, Using = "body")]
         protected IWebElement Body { get; set; }
@@ -106,6 +112,23 @@ namespace UITests.Pages
         {
             Wait.Until ((_) => _infoMessageWindow.Displayed);
             return _infoMessageWindow.Text;
-        }        
+        } 
+        
+        public void ClickOrdersButton()
+        {
+            _ordersButton.Click();
+        }
+
+        public IList<string> GetButtonsInDropdownList()
+        {
+            return _dropdownListItems.Select(el => el.Text).ToList();
+        }
+
+        public string GetTokenFromLocalStorage()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            string customerToken = (string)js.ExecuteScript("return localStorage.getItem('jwt-access-token');");
+            return customerToken.Substring(1, customerToken.Length - 2);
+        }
     }
 }

@@ -47,6 +47,11 @@ namespace CoreAdditional.Providers
             };
         }
 
+        public async Task<CommonResponse<EmptyModel>> SetUserStatus(int userId, bool status, string token)
+        {
+            return await _userServiceClient.SetUserStatus(userId, status, token);
+        }
+
         public async Task<CommonResponse<EmptyModel>> DeleteExistUser(int userId, string? token = null)
         {
             var commonResponse = await _userServiceClient.DeleteUser(userId, token);
