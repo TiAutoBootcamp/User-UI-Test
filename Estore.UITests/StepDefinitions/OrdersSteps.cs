@@ -15,24 +15,18 @@ namespace Estore.UITests.StepDefinitions
     public class OrdersSteps
     {
         private readonly DataContext _context;
-        private readonly UserServiceProvider _userProvider;
-        private readonly WalletServiceProvider _walletProvider;
         private readonly CatalogServiceProvider _catalogProvider;
         private readonly WarehouseServiceProvider _warehouseProvider;
         private readonly OrderServiceProvider _orderProvider;
         private readonly TokenManager _tokenManager;
 
         public OrdersSteps(DataContext context,
-            UserServiceProvider userProvider,
-            WalletServiceProvider walletProvider,
             CatalogServiceProvider catalogProvider,
             WarehouseServiceProvider warehouseProvider,
             OrderServiceProvider orderProvider,
             TokenManager tokenManager)
         {
             _context = context;
-            _userProvider = userProvider;
-            _walletProvider = walletProvider;
             _catalogProvider = catalogProvider;
             _warehouseProvider = warehouseProvider;
             _orderProvider = orderProvider;

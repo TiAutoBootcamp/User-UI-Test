@@ -65,7 +65,7 @@ namespace Estore.UITests.StepDefinitions
             {
                 case "Customer":
                     _context.CurrentUser = await _userProvider.RegisterCustomer();
-                    _context.RegisteredCustomers.Add(_context.CurrentUser.Id.Value);
+                    _context.CustomersWithoutTransactions.Add(_context.CurrentUser.Id.Value);
                     _context.LoginPage.FillEmailAndPasswordFields(_context.CurrentUser.Credentials.Email,
                         _context.CurrentUser.Credentials.Password);
                     break;
@@ -86,7 +86,6 @@ namespace Estore.UITests.StepDefinitions
             _context.LoginPage.ClickLoginButton();
         }
 
-        [StepDefinition("User moves cursor to Welcome message")]
         [StepDefinition("Admin moves cursor to Welcome message")]
         [StepDefinition("Customer moves cursor to Welcome message")]
         public void UserMovesCursorToWelcomeMessage()

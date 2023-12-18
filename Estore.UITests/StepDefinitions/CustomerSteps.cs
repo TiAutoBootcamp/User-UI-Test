@@ -46,7 +46,7 @@ namespace Estore.UITests.StepDefinitions
             var token = await _tokenManager.GetValidAdminToken();
             await _walletProvider.BalanceCharge(_context.CurrentUser.Id.Value, amount, token)
                 .ThrowIfNotTargetStatus(HttpStatusCode.OK);
-            _context.RegisteredCustomers.Remove(_context.CurrentUser.Id.Value);
+            _context.CustomersWithoutTransactions.Remove(_context.CurrentUser.Id.Value);
         }
         
         [When(@"Customer clicks on the order number '(.*)'")]

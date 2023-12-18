@@ -1,7 +1,6 @@
 ﻿using Estore.Clients.Clients;
 using Estore.Core.HTTP.Base;
 using Estore.CoreAdditional.Utils;
-using Estore.Models.Request.Warehouse;
 
 namespace Estore.CoreAdditional.Providers
 {
@@ -24,6 +23,5 @@ namespace Estore.CoreAdditional.Providers
             
             return response;
         }
-
     }
 }

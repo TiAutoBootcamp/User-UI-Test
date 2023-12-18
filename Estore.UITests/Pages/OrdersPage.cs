@@ -1,10 +1,6 @@
-﻿using Bogus.DataSets;
-using Estore.CoreAdditional.Models;
-using Estore.Models.Response.Order;
+﻿using Estore.CoreAdditional.Models;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
-using SeleniumExtras.WaitHelpers;
 using System.Globalization;
 using UITests.Pages;
 
@@ -45,6 +41,11 @@ namespace Estore.UITests.Pages
             return Wait.Until((_) => _notOrdersMessage.Displayed);
         }
 
+        public string GetNotOrdersMessage()
+        {
+            return _notOrdersMessage.Text;
+        }
+
         public int GetOrderNumbers()
         {
             return _orderRows.Count;
@@ -79,50 +80,37 @@ namespace Estore.UITests.Pages
 
         public string GetCreateTimeStringForOrder(Guid orderId)
         {
-            var orderRow = _orderRows
-                .Where(row => row
-                        .FindElement(_orderId).Text
-                        .Contains(orderId
-                        .ToString()))
-                .Single();
+            var orderRow = FindOrderRowByOrderId(orderId);
             return orderRow.FindElement(_createTime).Text;
         }
 
         public decimal GetOrderGrandTotal(Guid orderId)
         {
-            var orderRow = _orderRows
-                .Where(row => row
-                        .FindElement(_orderId).Text
-                        .Contains(orderId
-                        .ToString()))
-                .Single();
+            var orderRow = FindOrderRowByOrderId(orderId);
             return decimal.Parse(orderRow.FindElement(_grandTotalValue).Text.Split(" ").First());
         }
 
         public void ClickOnTheOrderLine(Guid orderId)
-        {
-            var orderElement = _orderRows
-                .Where(row => row.FindElement(_orderId).Text.Contains(orderId.ToString()))
-                .Select(row => row.FindElement(_orderId))
-                .Single();
+        {            
+            var orderElement = FindOrderRowByOrderId(orderId).FindElement(_orderId);
             orderElement.Click();
         }
 
         public bool IsOrderExpanded(Guid orderId)
         {
-            var orderRow = _orderRows.Where(row => row.FindElement(_orderId).Text.Contains(orderId.ToString())).Single();
+            var orderRow = FindOrderRowByOrderId(orderId);
             return Wait.Until(driver => orderRow.FindElement(_expandPanel).Displayed);
         }
 
         public bool IsOrderCollapsed(Guid orderId)
         {
-            var orderRow = _orderRows.Where(row => row.FindElement(_orderId).Text.Contains(orderId.ToString())).Single();
+            var orderRow = FindOrderRowByOrderId(orderId);
             return Wait.Until(driver => !orderRow.FindElement(_collapsedPanel).Displayed);
         }
 
         public List<OrderItemInfo> GetOrderDetailedInfos(Guid orderId)
         {
-            var orderRow = _orderRows.Where(row => row.FindElement(_orderId).Text.Contains(orderId.ToString())).Single();
+            var orderRow = FindOrderRowByOrderId(orderId);
             var orderItems = orderRow.FindElements(_orderItemRows);
             var orderItemsInfo = new List<OrderItemInfo>();
             foreach (var itemRow in orderItems)
@@ -147,10 +135,7 @@ namespace Estore.UITests.Pages
 
         public List<string> GetImageSource(Guid orderId, string displayedName)
         {
-            var orderRow = _orderRows
-                .Where(row => row
-                    .FindElement(_orderId).Text.Contains(orderId.ToString()))
-                .Single();
+            var orderRow = FindOrderRowByOrderId(orderId);
 
             return orderRow
                 .FindElements(_orderItemRows)
@@ -160,6 +145,15 @@ namespace Estore.UITests.Pages
                     .FindElement(_productImage)
                     .GetAttribute("src"))
                 .ToList();                                 
+        }
+
+        private IWebElement FindOrderRowByOrderId(Guid orderId)
+        {
+            return _orderRows
+                .Where(row => row
+                    .FindElement(_orderId)
+                    .Text.Contains(orderId.ToString()))
+                .Single();
         }
     }
 }

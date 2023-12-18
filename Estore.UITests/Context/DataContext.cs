@@ -84,7 +84,7 @@ namespace UITests.Context
         public BasePage CurrentPage { get; private set; }
         public UserModel CurrentUser { get; set; }
         public string CurrentUserToken { get; set; }
-        public IList<int> RegisteredCustomers { get; set; }
+        public IList<int> CustomersWithoutTransactions { get; set; }
         public AddProductRequest ProductRequest { get; set; }
         public List<string> ProductArticles { get; internal set; }
         public List<(AddProductRequest, ProductStatus)> ProductRequestsAndStatuses { get; internal set; } 

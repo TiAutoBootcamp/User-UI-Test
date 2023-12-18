@@ -65,7 +65,7 @@ namespace Estore.UITests.StepDefinitions.Assertions
             _context.UserPage.SearchUser(_context.CurrentUser);
             _context.UserPage.WaitPageLoading();
             var searchedUser = _context.UserPage.GetSearchedUsers().FirstOrDefault();
-            _context.RegisteredCustomers.Add(searchedUser.Id.Value);
+            _context.CustomersWithoutTransactions.Add(searchedUser.Id.Value);
             Assert.Multiple(() =>
             {
                 Assert.AreEqual(_context.CurrentUser.MainInfo.FirstName, searchedUser.MainInfo.FirstName, "User doesn't appear");

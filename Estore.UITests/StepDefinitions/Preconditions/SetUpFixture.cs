@@ -29,7 +29,7 @@ namespace Estore.UITests.StepDefinitions.Preconditions
         public static async Task OneTimeSetUp(DataContext context)
         {
             context.ProductArticles = new List<string>();
-            context.RegisteredCustomers = new List<int>();
+            context.CustomersWithoutTransactions = new List<int>();
             context.ProductRequestsAndStatuses = new List<(AddProductRequest, ProductStatus)>();
             context.CreatedOrders = new List<OrderInfo>();
             var chromeOptions = new ChromeOptions();
@@ -66,9 +66,9 @@ namespace Estore.UITests.StepDefinitions.Preconditions
                     await catalogClient.DeleteProduct(element.Item1.Article, adminToken);
                 }
             }
-            if (context.RegisteredCustomers != null)
+            if (context.CustomersWithoutTransactions != null)
             {
-                foreach (var userId in context.RegisteredCustomers)
+                foreach (var userId in context.CustomersWithoutTransactions)
                 {
                     await userProvider.DeleteExistUser(userId, adminToken);
                 }

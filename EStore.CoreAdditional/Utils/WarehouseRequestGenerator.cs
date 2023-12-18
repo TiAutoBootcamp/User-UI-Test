@@ -6,21 +6,15 @@ namespace Estore.CoreAdditional.Utils
     {
         public List<AddWarehouseItemInfoRequest> GenerateProductItemsList(Dictionary<string, int> items)
         {
-            var productItemsList = new List<AddWarehouseItemInfoRequest>();
-            foreach (var item in items)
-            {
-                for (int i = 0; i < item.Value; i++)
+            return items
+                .SelectMany(item => Enumerable.Range(0, item.Value)
+                .Select(_ => new AddWarehouseItemInfoRequest
                 {
-                    productItemsList.Add(
-                       new AddWarehouseItemInfoRequest
-                       {
-                           SerialNumber = Guid.NewGuid().ToString(),
-                           ModelArticle = item.Key,
-                           CreateTime = DateTime.Now
-                       });
-                }
-            }
-            return productItemsList;
+                    SerialNumber = Guid.NewGuid().ToString(),
+                    ModelArticle = item.Key,
+                    CreateTime = DateTime.UtcNow
+                }))
+                .ToList();
         }
     }
 }

@@ -77,22 +77,26 @@ namespace CoreAdditional.Modules
 
             builder
                .RegisterType<UserRequestGenerator>()
+               .SingleInstance()
                .AsSelf();
 
             builder
                .RegisterType<WalletRequestGenerator>()
+               .SingleInstance()
                .AsSelf();
 
-            builder
-                .RegisterType<CatalogRequestGenerator>()
+            builder.RegisterType<CatalogRequestGenerator>()
+                .SingleInstance()
                 .AsSelf();
 
             builder
                .RegisterType<WarehouseRequestGenerator>()
+               .SingleInstance()
                .AsSelf();
 
             builder
                .RegisterType<OrderRequestGenerator>()
+               .SingleInstance()
                .AsSelf();
 
             builder

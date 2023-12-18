@@ -1,6 +1,5 @@
 using Estore.UITests.Pages;
 using Microsoft.Extensions.Configuration;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using UITests.Context;
@@ -26,24 +25,7 @@ namespace Estore.UITests.StepDefinitions
         [Given(@"Open (Main|Users|Login|Orders) page")]
         public void OpenPage(string pageName)
         {
-            switch (pageName)
-            {
-                case "Main":
-                    _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:main"]}");
-                    break;
-                case "Users":
-                    _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:users"]}");
-                    break;
-                case "Login":
-                    _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:login"]}");
-                    break;
-                case "Orders":
-                    _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration["Pages:orders"]}");
-                    break;
-                default:
-                    Assert.Fail("Unknown page name");
-                    break;
-            }                        
+            _context.Driver.Navigate().GoToUrl($"{_baseUrl}{_configuration[$"Pages:{pageName.ToLower()}"]}");                                        
         }              
 
         [StepDefinition(@"(Main|Users|Login|Orders) page is opened")]
@@ -53,11 +35,9 @@ namespace Estore.UITests.StepDefinitions
             {
                 case "Main":
                     _context.MainPage = new MainPage(_context.Driver);
-                    _context.MainPage.WaitProductsLoading();
                     break;
                 case "Users":
-                    _context.UserPage = new UsersPage(_context.Driver);
-                    _context.UserPage.WaitPageLoading();
+                    _context.UserPage = new UsersPage(_context.Driver);                    
                     break;
                 case "Login":
                     _context.LoginPage = new LoginPage(_context.Driver);
@@ -68,7 +48,8 @@ namespace Estore.UITests.StepDefinitions
                 default:
                     Assert.Fail("Unknown page name");
                     break;
-            }            
+            }
+            _context.CurrentPage.WaitPageLoading();
         }
         
         [StepDefinition(@"Create user modal window is opened")]

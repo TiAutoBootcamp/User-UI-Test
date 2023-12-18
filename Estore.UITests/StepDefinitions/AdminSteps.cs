@@ -1,6 +1,5 @@
 ﻿using CoreAdditional.Providers;
 using CoreAdditional.Utils;
-using NUnit.Framework;
 using TechTalk.SpecFlow;
 using UITests.Context;
 

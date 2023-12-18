@@ -23,13 +23,18 @@ namespace Estore.UITests.StepDefinitions.Assertions
             _orderProvider = orderProvider;
         }
 
-        [Then(@"Message '(.*)' is presented")]
-        public void MessageIsPresented(string message)
+        [Then(@"Message '(.*)' is presented on the Orders page")]
+        public void NotOrdersMessageIsPresented(string message)
         {
-            Assert.IsTrue(_context.OrdersPage.IsMessageNotOrdersYetDisplayed(), "Messages are not equal");
+            Assert.Multiple(() =>
+            {
+                Assert.IsTrue(_context.OrdersPage.IsMessageNotOrdersYetDisplayed(), "Message is not presented");
+                Assert.AreEqual(message, _context.OrdersPage.GetNotOrdersMessage(), $"Message is not equal {message}");
+            });
         }
 
-        [Then(@"'(.*)' order[s]? are|is displayed on the page")]
+        [Then(@"'(.*)' orders are displayed on the page")]
+        [Then(@"'(.*)' order is displayed on the page")]
         public void OrdersDisplayedOnThePage(int count)
         {
             Assert.Multiple(() =>
@@ -54,7 +59,15 @@ namespace Estore.UITests.StepDefinitions.Assertions
                     (order, orderMainInfo) => new OrderMainInfo
                     {
                         OrderId = orderMainInfo.OrderId,
-                        CreateTime = DateTime.ParseExact(order.Date.ToString("yy.MM.dd hh:mm"), "yy.MM.dd hh:mm", null),
+                        //CreateTime = order.Date.AddSeconds(-order.Date.Second).AddMilliseconds(-order.Date.Millisecond),
+                        //CreateTime = DateTime.ParseExact(order.Date.ToString("yy.MM.dd hh:mm"), "yy.MM.dd hh:mm", null),
+                        CreateTime = new DateTime(
+                            order.Date.Year,
+                            order.Date.Month,
+                            order.Date.Day,
+                            order.Date.Hour > 12 ? order.Date.Hour - 12 : order.Date.Hour,
+                            order.Date.Minute,
+                            0),
                         GrandTotal = orderMainInfo.GrandTotal
                     })
                 .ToList();
@@ -70,7 +83,7 @@ namespace Estore.UITests.StepDefinitions.Assertions
         }
 
         [StepDefinition(@"Detailed information for the order number '(.*)' is (expanded|collapsed)")]
-        public async Task DetailedInformationForOrderNumberExpands(int orderNumber, string option)
+        public void DetailedInformationForOrderNumberExpands(int orderNumber, string option)
         {
             var orderId = _context.CreatedOrders[_context.CreatedOrders.Count - orderNumber].MainInfo.OrderId;
             switch (option)
@@ -95,11 +108,11 @@ namespace Estore.UITests.StepDefinitions.Assertions
             var orderId = _context.CreatedOrders[_context.CreatedOrders.Count - orderNumber].MainInfo.OrderId;
             var createTimeString = _context.OrdersPage.GetCreateTimeStringForOrder(orderId);
             Assert.IsTrue(DateTime.TryParseExact(createTimeString, format, null, System.Globalization.DateTimeStyles.None, out DateTime result),
-                "Format date and time of created order is not 'yy.MM.dd hh:mm'");
+                $"Format date and time of created order is not '{format}'");
         }
 
         [Then(@"Detailed info for the order number '(.*)' matches to detailed info in created order")]
-        public void DeteiledOrderInfoMatchesToIfoInCreatedOrder(int orderNumber)
+        public void DetailedOrderInfoMatchesToIfoInCreatedOrder(int orderNumber)
         {
             var orderId = _context.CreatedOrders[_context.CreatedOrders.Count - orderNumber].MainInfo.OrderId;
             var actualOrderDetailedInfos = _context.OrdersPage.GetOrderDetailedInfos(orderId);

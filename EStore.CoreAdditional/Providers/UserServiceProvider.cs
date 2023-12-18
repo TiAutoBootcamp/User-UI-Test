@@ -57,17 +57,5 @@ namespace CoreAdditional.Providers
             var commonResponse = await _userServiceClient.DeleteUser(userId, token);
             return commonResponse;
         }
-
-        public async Task<CommonResponse<string>> Login(string email, string password)
-        {
-            var request = _userGenerator.GenerateLoginRequest(email, password);
-            return await _userServiceClient.Login(request);
-        }
-
-        public async Task<string> GetCustomerToken(string email, string password)
-        {
-            var response = await Login(email, password);
-            return response.Body;
-        }
     }
 }

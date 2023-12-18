@@ -48,7 +48,7 @@ Scenario: OP146_05_Order page for a customer who has no orders
 	Given Customer moves cursor to Welcome message
 	And Customer clicks on the Orders submenu button
 	When Orders page is opened
-	Then Message 'No orders yet' is presented
+	Then Message 'No orders yet' is presented on the Orders page
 
 #OP146_06
 @CustomerLoggedIn
@@ -60,10 +60,12 @@ Scenario: OP146_06_Orders count matches to orders count created by the customer
 	| 1          | Name1 | Manufactor1 | 1        | 1     |
 	| 1          | Name2 | Manufactor2 | 2        | 2     |
 	| 2          | Name3 | Manufactor3 | 3        | 3     |
+	| 3          | Name4 | Manufactor4 | 4        | 4     |
+	| 4          | Name5 | Manufactor5 | 5        | 5     |
 	And Customer moves cursor to Welcome message
 	And Customer clicks on the Orders submenu button
 	And Orders page is opened
-	Then '2' orders are displayed on the page
+	Then '4' orders are displayed on the page
 
 
 #OP146_07

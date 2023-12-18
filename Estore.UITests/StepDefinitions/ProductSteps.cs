@@ -5,7 +5,6 @@ using TechTalk.SpecFlow;
 using Estore.Models.Enum;
 using UITests.Context;
 using Estore.CoreAdditional.Extensions;
-using System.Text;
 
 namespace Estore.UITests.StepDefinitions
 {
