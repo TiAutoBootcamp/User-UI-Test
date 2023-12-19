@@ -45,7 +45,7 @@ namespace UserManagementServiceUITests.Pages
         [FindsBy(How = How.XPath, Using = "(//label[contains(.,'Password')])[2]/parent::div/following-sibling::div")]
         private IWebElement _repetPasswordHelpMessage;
 
-        [FindsBy(How = How.ClassName, Using = "mud-button-root")]
+        [FindsBy(How = How.CssSelector, Using = "button.mud-button-root")]
         private IWebElement _registerButton;
 
         [FindsBy(How = How.ClassName, Using = "bm-close")]

@@ -13,7 +13,7 @@ namespace Estore.UITests.Pages
         [FindsBy(How = How.CssSelector, Using = "input[type = 'password']")]
         private IWebElement _passwordInputField;
 
-        [FindsBy(How = How.CssSelector, Using = "[type='button']")]
+        [FindsBy(How = How.CssSelector, Using = "button[type='button']")]
         private IWebElement _loginButton;
 
         [FindsBy(How = How.XPath, Using = "//input[@type='email']/parent::div/parent::div/following-sibling::div/p")]
