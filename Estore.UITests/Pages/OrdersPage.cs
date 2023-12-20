@@ -63,7 +63,7 @@ namespace Estore.UITests.Pages
             foreach (var orderRow in _orderRows)
             {
                 var orderId = Guid.Parse(orderRow.FindElement(_orderId).Text);
-                var createTime = DateTime.ParseExact(orderRow.FindElement(_createTime).Text, "yy.MM.dd hh:mm", CultureInfo.InvariantCulture);
+                var createTime = DateTime.ParseExact(orderRow.FindElement(_createTime).Text, "yy.MM.dd HH:mm", CultureInfo.InvariantCulture);
                 var grandTotalValue = decimal.Parse(orderRow.FindElement(_grandTotalValue).Text.Split(" ").Last());
 
                 var orderMainInfo = new OrderMainInfo

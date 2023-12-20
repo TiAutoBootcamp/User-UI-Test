@@ -178,4 +178,4 @@ Scenario: OP146_19_The order creation format date and time is displayed correctl
 	And Customer moves cursor to Welcome message
 	And Customer clicks on the Orders submenu button
 	And Orders page is opened
-	Then Date and time for order number '1' are displayed in the 'yy.MM.dd hh:mm' format 
+	Then Date and time for order number '1' are displayed in the 'yy.MM.dd HH:mm' format 
